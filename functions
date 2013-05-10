@@ -1,0 +1,36 @@
+#!/bin/sh
+
+function mkcd() {
+    mkdir -p $1
+    cd $1
+}
+
+function backup() {
+    for i in $@; do
+        cp $i{,~}
+    done
+}
+
+function ping() {
+    c="-c5"
+    for i in $@; do
+        case $i in
+            -c*) c=""
+                ;;
+        esac
+    done
+    /usr/bin/ping $c $@
+}
+
+function toggleTouchpad() {
+    device=xinput --list | awk '/GlidePoint/ { sub(/id=/,""); print $6}'
+    case $1 in
+        enable|on|"1") xinput enable $device
+            ;;
+        disable|off|"0") xinput disable $device
+            ;;
+        *) echo "on OR off" >&2
+            ;;
+    esac
+}
+

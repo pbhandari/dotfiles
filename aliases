@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# just plain laziness
+export mathlab="bhanda35@mathlab.utsc.utoronto.ca"
+export greywolf="c3bhanda@greywolf.cdf.utoronto.ca"
+export redwolf="c3bhanda@redwolf.cdf.utoronto.ca"
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    [ -r ~/.dircolors ] \
+                && eval "$(dircolors -b ~/.dircolors)"\
+                || eval "$(dircolors -b)"
+    alias ls="ls -h --color=auto"
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+[ -r $HOME/.lynx.lss ] &&  alias lynx="lynx -lss=/home/prajjwal/.lynx.lss"
+
+export LESS_TERMCAP_so='[1;44m'
+
+startx='exec startx'
+
+# ls tweaks direcory contents
+alias lsa='ls -lah'
+alias l='ls -lA1'
+alias ll='ls -l'
+alias la='ls -lA'
+alias sl=ls # often screw this up
+
+# Push and pop directories on directory stack
+alias pu='pushd'
+alias po='popd'
+
+# Super user
+alias _='sudo'
+
+alias afind='ack-grep -il'
+
+######################## RANDOM ########################
+# Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh
+
+alias fancysay="fortune -a | fmt -80 -s | $(shuf -n 1 -e cowsay cowthink)\
+                -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e \
+                $(cowsay -l | tail -n +2)) -n"
+
+ic="IITS-I406-30137.utsc.utoronto.ca"
+bv="iits-b473-20079.utsc-labs.utoronto.ca"

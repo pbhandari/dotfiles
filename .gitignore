@@ -1,0 +1,9 @@
+vim/backups
+vim/tmp
+vim/bundle
+.viminfo
+*.o
+*.hi
+xmonad.errors
+xmonad-i386-linux
+
