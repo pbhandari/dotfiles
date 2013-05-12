@@ -112,8 +112,8 @@ function source() {
 }
 
 function stats() {
-    ! [ -z $1 ] && NUM=$1 || NUM=10
-    IGNORE="./|clear|tmux" # keep something in here
+    [ "$1" ] && local NUM=$1 || local NUM=10
+    local IGNORE="./|clear|tmux" # keep something in here
     fc -l 1 | awk '{CMD[$2]++;}END { for (a in CMD)print CMD[a] " " a;}'\
             | grep -v $IGNORE | column -c3 -t | sort -nr | nl | head -n $NUM
 }
@@ -136,5 +136,7 @@ export PROMPT
 
 export RPROMPT="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 # }}}
+
+export MAILCHECK=0
 
 # vim:foldenable:ft=zsh

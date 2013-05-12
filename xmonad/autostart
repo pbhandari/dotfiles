@@ -1,23 +1,20 @@
 #!/bin/sh
 
-[ "$XMONAD_AUTOSTART_DONE" ] && exit
-
-export XMONAD_AUTOSTART_DONE=1
-
+killall conky &
 conky -c '/home/pbhandari/.conky/clock/conkyrc' &
 conky -c '/home/pbhandari/.conky/sys/conkyrc' &
 conky -c '/home/pbhandari/.conky/mpd/conkyrc' &
 
 nitrogen --restore &
 
-xbindkeys &
+[ `pgrep xbindkeys` ] || xbindkeys &
 
 urxvt -name Urxvt-soc -e tmux new -As social &
 
-clipit & sleep 2s
+[ `pgrep clipit` ] || clipit & sleep 2s
 
-stalonetray & sleep 2s
+[ `pgrep batti` ] || batti & sleep 2s
 
-batti & sleep 2s
+[ `pgrep stalonetray` ] || stalonetray & sleep 2s
 
 pidign &
