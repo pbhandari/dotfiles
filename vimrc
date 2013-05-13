@@ -133,7 +133,7 @@ let g:syntastic_check_on_open=1
 let g:syntastic_error_symbol='x'
 
 "============== vim-powerline
-if $DISPLAY != ""
+if $TERM != "linux"
     let g:Powerline_symbols = 'fancy'
 endif
 

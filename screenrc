@@ -1,0 +1,57 @@
+bindkey -k F1 prev
+bindkey -k F2 next
+
+# Window list at the bottom.
+hardstatus alwayslastline
+hardstatus string "%-w%{=BW}%50>%n %t%{-}%+w%<"
+
+# From Stephen Shirley
+# Don't block command output if the terminal stops responding
+# (like if the ssh connection times out for example).
+nonblock on
+
+# Allow editors etc. to restore display on exit
+# rather than leaving existing text in place
+altscreen on
+
+# Enable 256-color mode when screen is started with TERM=xterm-256color
+# Taken from: http://frexx.de/xterm-256-notes/
+#
+# Note that TERM != "xterm-256color" within a screen window. Rather it is
+# "screen" or "screen-bce"
+#
+# terminfo and termcap for nice 256 color terminal
+# allow bold colors - necessary for some reason
+attrcolor b ".I"
+# tell screen how to set colors. AB = background, AF=foreground
+termcapinfo xterm-256color
+#
+
+# Disable the stupid startup message
+startup_message off
+
+# Log new screen windows in utmp.
+deflogin on
+
+# Never, ever turn this off.
+autodetach on
+
+# Just in case it isn't clear...
+shell bash
+
+# Keep dead windows around until I tell them to exit.
+zombie cr
+# And show the command for the windows when they're resurrected.
+verbose on
+
+# Enable large scrollback
+defscrollback 5000
+
+# Run everything in UTF-8.
+defutf8 on
+
+# If a window goes unresponsive, don't block the whole session waiting for it.
+defnonblock on
+
+# enable host specific config
+source ${HOME}/.screenrc-${HOST}

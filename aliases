@@ -19,7 +19,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-[ -r $HOME/.lynx.lss ] &&  alias lynx="lynx -lss=/home/prajjwal/.lynx.lss"
+[ -r $HOME/.lynx.lss ] &&  alias lynx="lynx -lss=$HOME/.lynx.lss"
 
 export LESS_TERMCAP_so='[1;44m'
 
