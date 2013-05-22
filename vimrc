@@ -1,8 +1,19 @@
 " vim:foldenable
 
+" Basic Things {{{
+
 set nocompatible                " Revert all settings back to vim default
+
 " Infect all the things
 execute pathogen#infect('bundle/{}')
+
+runtime macros/matchit.vim      " Better open/close matching
+
+syntax on                       " Turn on Syntax hilighting
+filetype on                     " Turn on filetype checking
+filetype plugin on
+filetype indent on
+" }}}
 
 "  General Config {{{
 set bg=dark                     " Makes items more readable
@@ -40,26 +51,26 @@ set history=1000                " Store lots of :cmdline history
 set nrformats-=octal            " Look up :h nrformat
 set encoding=utf-8
 
-set modeline                   " Enable modelines in vim
+set modeline                    " Enable modelines in vim
 
-set autochdir
+set autochdir                   " Automatically cd into `dir %`
 
 let g:clipbrdDefaultReg = '+'   " Default Clipboard Registry = +
-let mapleader = ','
+let mapleader = ','             " Map Leader is comma
 
-runtime macros/matchit.vim      " Better open/close matching
+" set list these characters
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+set showbreak=↪                 " show when the line is wrapped
+set linebreak                   " line wrap on words not characters
 
-syntax on                       " Turn on Syntax hilighting
-filetype on                     " Turn on filetype checking
-filetype plugin on
-filetype indent on
+set synmaxcol=800               " don't highlight massive lines
 " }}}
 
 " Backups and Undos {{{
 set backup                      " Enable backups
 " and move them to ~/.vim/tmp
-set backupdir=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim/tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupdir=~/.vim/tmp//,~/.tmp,~/tmp//,/var/tmp//,/tmp//
+set directory=~/.vim/tmp//,~/.tmp,~/tmp//,/var/tmp//,/tmp//
 
 if has("persistent_undo")
     " Keep undo history across sessions, by storing in file.
@@ -115,7 +126,7 @@ set wrapscan                    " Wrap search upon reaching the end of document
 
 " }}}
 
-" Plugin {{{
+" Plugins {{{
 
 " ================== NERDTree
 nnoremap <leader><leader>e :NERDTreeToggle<CR>
@@ -130,16 +141,21 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 
 " ================= syntastic
 let g:syntastic_check_on_open=1
-let g:syntastic_error_symbol='x'
+let g:syntastic_error_symbol='✗'
+let g:syntastic_style_error_symbol='★'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_style_warning_symbol='>'
+let g:syntastic_mode_map={  'mode': 'active',
+                         \  'passive_filetypes': ['c']}
 
 "============== vim-powerline
 if $TERM != "linux"
     let g:Powerline_symbols = 'fancy'
 endif
 
-let g:Powerline_symbols_override = { 'LINE' : 'L' }
+"let g:Powerline_symbols_override = { 'LINE' : 'L' }
 let g:Powerline_stl_path_style='short'
-let g:Powerline_colorsheme = 'solarized16'
+"let g:Powerline_colorsheme = 'solarized16'
 
 " Don't show current mode down the bottom
 set noshowmode
@@ -158,16 +174,6 @@ let g:solarized_termtrans=1
 
 let g:solarized_contrast="high"
 " Now Fix solarized annoyances
-
-highlight Normal        guifg=#bed7d9
-
-highlight CursorLine    ctermbg=black guibg=#073642
-highlight CursorLineNr  ctermbg=black ctermfg=2
-highlight CursorLineNr  gui=none guibg=#073642 guifg=#859900
-
-highlight TabLine       ctermfg=darkblue ctermbg=None
-highlight TabLineSel    ctermfg=darkblue ctermbg=None
-highlight TabLineFill   ctermbg=None
 
 " ================== Sideways
 nnoremap <silent> <leader><leader>h :SidewaysLeft<CR>

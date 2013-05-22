@@ -1,20 +1,21 @@
 #!/bin/sh
 
-killall conky &
+killall conky && sleep 1s
+conky -c /home/pbhandari/.conky/cli/conkyrc |\
+    dzen2 -fn Monaco:size=8.5 -ta r -x 700 -w 575 -bg '#111' -fg '#999' &
 conky -c '/home/pbhandari/.conky/clock/conkyrc' &
 conky -c '/home/pbhandari/.conky/sys/conkyrc' &
 conky -c '/home/pbhandari/.conky/mpd/conkyrc' &
 
 nitrogen --restore &
 
-[ `pgrep xbindkeys` ] || xbindkeys &
+pgrep xbindkeys || xbindkeys &
 
-urxvt -name Urxvt-soc -e tmux new -As social &
+pgrep clipit || clipit & sleep 2s
 
-[ `pgrep clipit` ] || clipit & sleep 2s
+pgrep pnmixer || pnmixer & sleep 2s
 
-[ `pgrep batti` ] || batti & sleep 2s
+pgrep stalonetray || stalonetray & sleep 2s
 
-[ `pgrep stalonetray` ] || stalonetray & sleep 2s
+pgrep pidgin || /usr/bin/pidign &
 
-pidign &

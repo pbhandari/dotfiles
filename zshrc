@@ -134,7 +134,7 @@ PROMPT+="%{$fg[red]%}%n%{$reset_color%}@%{$fg[green]%}%m %{$reset_color%}%2~ "
 PROMPT+="%{$fg[magenta]%}%(?..%{$fg[red]%})%B»%b%{$reset_color%} "
 export PROMPT
 
-export RPROMPT="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
+export RPROMPT="%(?..%{$fg[red]%}%B%? ↵%b%{$reset_color%})"
 # }}}
 
 export MAILCHECK=0

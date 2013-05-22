@@ -43,8 +43,10 @@ import qualified XMonad.StackSet as W
 import System.IO
 import System.Exit
 
+-- Main
 main = do
-    xmproc <- spawnPipe "/usr/bin/xmobar /home/pbhandari/.xmobarrc"
+    -- status <- spawnPipe "/usr/bin/xmobar /home/pbhandari/.xmobarrc"
+    dzenBar <- spawnPipe bar
     spawn "sh /home/pbhandari/.xmonad/autostart"
     xmonad $ defaultConfig
         { manageHook            = manageDocks <+> myManageHook
@@ -53,17 +55,30 @@ main = do
         , keys                  = myKeys
         , workspaces            = myWorkspaces
         , focusFollowsMouse     = False
-        , terminal              = "urxvt"
+        , terminal              = myTerminal
         -- more changes
-        , logHook               = myLogHook xmproc
-        }
+        , logHook               = myLogHook dzenBar
+        } where
+            bar = concatMap (++ " ") [ "/usr/bin/dzen2"
+                                     , "-fn Monaco:size=8.5"
+                                     , "-ta l", "-w 700"
+                                     , "-bg '#111'", "-fg '#999'"
+                                     ]
 
+
+-- my Terminal
+myTerminal :: String
+myTerminal = "termite"
+
+-- modMask
+myModMask :: KeyMask
+myModMask = mod4Mask
 
 --Layouts
 myLayout =      Tall nmaster delta ratio
             ||| Mirror (Tall nmaster delta ratio)
             ||| Full
-            ||| tabbed shrinkText myTabConfig
+            ||| simpleTabbed
             {-||| Accordion-}
             {-||| renamed [Replace "Full|Accordion"]
              - combineTwoP (TwoPane 0.03 0.5) (Full) (Accordion)
@@ -74,69 +89,84 @@ myLayout =      Tall nmaster delta ratio
      ratio   = 1/2      -- proportion of screen occupied by master pane
      delta   = 3/100    -- when resizing panes, increment by this % of screen
 
-     myTabConfig = defaultTheme {
-                        inactiveBorderColor = "#FF0000"
-                        , activeTextColor = "#FFFF00"
-     }
-
 
 --LogHook
-myLogHook str = dynamicLogWithPP xmobarPP
-            { ppOutput = hPutStrLn str
-            , ppTitle  = xmobarColor "gray" "" . shorten 50
-            , ppSep = " <fc=#0033FF>|</fc> "
+myLogHook :: Handle -> X ()
+myLogHook str = dynamicLogWithPP $ myDzenPP { ppOutput = hPutStrLn str}
 
+
+myDzenPP :: PP
+myDzenPP = defaultPP {
+              ppTitle           = dzenColor "gray" "" . shorten 50
+            , ppCurrent         = dzenColor "lightyellow" ""
+            , ppVisible         = dzenColor "gray" ""
+            , ppHidden          = dzenColor "lightblue" ""
+            , ppHiddenNoWindows = dzenColor "#777777"  ""
+            , ppUrgent          = dzenColor "red" "yellow"
+            , ppWsSep           = " "
+            , ppSep             = " | "
             , ppLayout = (\x -> case x of
-                    "Tall"                  -> "[:]"
+                    "Tall"                  -> putIcon "tall"
+                    "Mirror Tall"           -> putIcon "mirror_tall"
+                    "Full"                  -> putIcon "full"
+                    "Accordion"             -> putIcon "accordian"
+                    "Tabbed Simplest"       -> putIcon "tabbed"
+                    "Mirror GridRatio 0.5"  -> putIcon "grid"
+                    _                       -> shorten 10 x )
+            } where
+                putIcon::String -> String
+                putIcon x = "^i(/home/pbhandari/.xmonad/dzen2/layout_"
+                            ++ x ++ ".xbm)"
+
+myXmobarPP :: PP
+myXmobarPP = xmobarPP {
+              ppTitle           = xmobarColor "gray" "" . shorten 50
+            , ppCurrent         = xmobarColor "lightyellow" ""
+            , ppVisible         = xmobarColor "gray" ""
+            , ppHidden          = xmobarColor "lightblue" ""
+            , ppHiddenNoWindows = xmobarColor "#777777"  ""
+            , ppUrgent          = xmobarColor "red" "yellow"
+            , ppWsSep           = " "
+            , ppSep             = " | "
+            , ppLayout = (\x -> case x of
+                    "Tall"                  -> "[|]"
                     "Mirror Tall"           -> "[-]"
-                    "Full"                  -> "[•]"
-                    "Accordion"             -> "[≡]"
-                    "Tabbed Simplest"       -> "[¯]"
+                    "Full"                  -> "[-]"
+                    "Accordion"             -> "[=]"
+                    "Tabbed Simplest"       -> "[T]"
                     "Mirror GridRatio 0.5"  -> "[+]"
-                    unknown                 -> shorten 10 unknown
-                    )
+                    _                       -> shorten 10 x )
+
             }
 
 
---Workspaces
-wOne    = "main"
-wTwo    = "net"
-wThree  = "code"
-wFour   = "misc"
-wFive   = "video"
-wSix    = "term"
-wSeven  = "7"
-wEight  = "8"
-wNine   = "9"
-wZero   = "null"
-
 myWorkspaces :: [WorkspaceId]
-myWorkspaces = [ wOne, wTwo, wThree, wFour, wFive, wSix, wSeven, wEight, wNine
-               , wZero]
+myWorkspaces = ["main", "net", "code", "misc", "video", "term"
+               , "7", "8", "9", "null", "-"]
 
 -- hooks
 -- automaticly switching app to workspace
 myManageHook :: ManageHook
 myManageHook = composeAll . concat $ [ []
-    , [isDialog --> doFloat]
-
-    , [isFullscreen --> doFullFloat]
-
+    , [isDialog --> doFloat]            -- float all dialogs
+    , [isFullscreen --> doFullFloat]    -- float all fullscreen windows
+        -- float other specific windows
     , [className =? x --> doFloat       | x <- myCFloats]
     , [title =?     x --> doFloat       | x <- myTFloats]
     , [resource =?  x --> doFloat       | x <- myRFloats]
-
+        -- Ignore these windows
     , [resource =?  x --> doIgnore      | x <- myIgnores]
-
-    , [canShift x --> doShift wOne    | x <- my1Shifts]
-    , [canShift x --> doShift wTwo    | x <- my2Shifts]
-    , [canShift x --> doShift wThree  | x <- my3Shifts]
-    , [canShift x --> doShift wFour   | x <- my4Shifts]
-    , [canShift x --> doShift wFive   | x <- my5Shifts]
-    , [canShift x --> doShift wSix    | x <- my6Shifts]
-    , [canShift x --> doShift wSeven  | x <- my7Shifts]
-    , [canShift x --> doShift wEight  | x <- my8Shifts]
-    , [canShift x --> doShift wNine   | x <- my9Shifts]
+        -- Shift windows to specific workspaces
+    , [canShift x --> doShift (myWorkspaces!! 0)    | x <- my1Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 1)    | x <- my2Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 2)    | x <- my3Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 3)    | x <- my4Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 4)    | x <- my5Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 5)    | x <- my6Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 6)    | x <- my7Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 7)    | x <- my8Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 8)    | x <- my9Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 9)    | x <- my0Shifts]
     ] where
         {-doShiftAndGo = doF . liftM2 (.) W.greedyView W.shift-}
         canShift x = className =? x <||> title =? x <||> resource =? x
@@ -156,13 +186,15 @@ myManageHook = composeAll . concat $ [ []
         my7Shifts = []
         my8Shifts = []
         my9Shifts = []
+        my0Shifts = []
 
 
 -- key bindings
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
-    -- killing programs
       ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+    , (( modMask .|. controlMask, xK_Return)
+        , spawn $ (XMonad.terminal conf) ++ " -e 'tmux new -As xmonad'")
 
     -- opening program launcher / search engine
     , ((modMask, xK_p), spawn "dmenu_run")
@@ -213,7 +245,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
     {-, ((0 , 0x1008ff17 ), spawn "mpc next")-}
 
     --Launching programs
-    , (( modMask, xK_w), kill) -- to kill applications
+    , (( modMask .|. shiftMask, xK_c), kill) -- to kill applications
 
     -- volume control
     , ((modMask .|. controlMask, xK_q), spawn "amixer sset Master toggle")
@@ -235,14 +267,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
     -- mod-shift-[1..9] %! Move client to workspace N
     ++
     [((m .|. modMask, k), windows $ f i)
-    | (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0])
+    | (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0] ++ [xK_grave])
     , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
 
     -- mod-[w,e] %! switch to twinview screen 1/2
     -- mod-shift-[w,e] %! move window to screen 1/2
-    {-++-}
-    {-[((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))-}
-    {-| (key, sc) <- zip [xK_e, xK_w, xK_r] [0..]-}
-    {-, (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]-}
+    ++
+    [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
+    | (key, sc) <- zip [xK_e, xK_w, xK_r] [0..]
+    , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 
