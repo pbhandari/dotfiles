@@ -13,18 +13,17 @@ syntax on                       " Turn on Syntax hilighting
 filetype on                     " Turn on filetype checking
 filetype plugin on
 filetype indent on
+
+set bg=dark                    " Makes items more readable
+
 " }}}
 
 "  General Config {{{
-set bg=dark                     " Makes items more readable
 set number                      " Line numbers are good
+
 set ruler                       " Always show where you are in file
 
-set guioptions-=T               " Disble Toolbar
-set guifont=Monaco\ 8.5
-
 set backspace=indent,eol,start  " Allow backspace in insert mode
-set listchars=tab:>-,eol:$      " Catch trailing whitespaces
 
 set showcmd                     " Show incomplete cmds down the bottom
 set laststatus=2                " Always show the statusbar
@@ -49,7 +48,6 @@ set viminfo='100,f1             " Save up to 100 marks, enable capital marks
 
 set history=1000                " Store lots of :cmdline history
 set nrformats-=octal            " Look up :h nrformat
-set encoding=utf-8
 
 set modeline                    " Enable modelines in vim
 
@@ -59,11 +57,14 @@ let g:clipbrdDefaultReg = '+'   " Default Clipboard Registry = +
 let mapleader = ','             " Map Leader is comma
 
 " set list these characters
-set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
-set showbreak=↪                 " show when the line is wrapped
+set listchars=tab:▸\ ,eol:¬
+set listchars+=extends:❯,precedes:❮
+set showbreak=↪\                " show when the line is wrapped
 set linebreak                   " line wrap on words not characters
 
 set synmaxcol=800               " don't highlight massive lines
+set tags+=tags;                 " use tag files
+
 " }}}
 
 " Backups and Undos {{{
@@ -126,7 +127,27 @@ set wrapscan                    " Wrap search upon reaching the end of document
 
 " }}}
 
+" Highlight {{{
+
+" Highlights trailing spaces with a red underline
+highlight TrailSpace cterm=underline ctermfg=red gui=underline guifg=red
+let TrailSpace = matchadd('TrailSpace' , '\s\+$')
+autocmd ColorScheme * highlight TrailSpace cterm=underline ctermfg=red
+autocmd ColorScheme * highlight TrailSpace gui=underline guifg=red
+
+" Highlights lines over 80 chars,
+highlight OverLine cterm=italic gui=italic ctermfg=red guifg=red
+let OverLine = matchadd('OverLine', '\%>80v.\+')
+autocmd ColorScheme * highlight OverLine cterm=italic ctermfg=red
+autocmd ColorScheme * highlight OverLine gui=italic guifg=red
+" }}}
+
 " Plugins {{{
+" ================== Colours
+colorscheme molokai
+
+" ================== Buffergator
+let g:buffergator_suppress_keymaps=1
 
 " ================== NERDTree
 nnoremap <leader><leader>e :NERDTreeToggle<CR>
@@ -146,16 +167,17 @@ let g:syntastic_style_error_symbol='★'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_style_warning_symbol='>'
 let g:syntastic_mode_map={  'mode': 'active',
-                         \  'passive_filetypes': ['c']}
+                            \'passive_filetypes': []
+                            \}
 
 "============== vim-powerline
-if $TERM != "linux"
+if $TERM != 'linux' || has('gui_running')
     let g:Powerline_symbols = 'fancy'
 endif
 
 "let g:Powerline_symbols_override = { 'LINE' : 'L' }
 let g:Powerline_stl_path_style='short'
-"let g:Powerline_colorsheme = 'solarized16'
+let g:Powerline_colorsheme = 'solarized16'
 
 " Don't show current mode down the bottom
 set noshowmode
@@ -164,15 +186,14 @@ set noshowmode
 let g:snips_author="Prajjwal Bhandari"
 
 " ================= solarized
-colorscheme solarized           " Better colouring
+"colorscheme solarized           " Better colouring
 
-if !has('gui_running')
-    let g:solarized_termcolors=&t_Co
-endif
+"if !has('gui_running')
+    "let g:solarized_termcolors=&t_Co
+"endif
 
-let g:solarized_termtrans=1
-
-let g:solarized_contrast="high"
+"let g:solarized_termtrans=1
+"let g:solarized_contrast="high"
 " Now Fix solarized annoyances
 
 " ================== Sideways
@@ -203,20 +224,13 @@ autocmd Filetype tex setlocal makeprg=pdflatex\ % spell textwidth=78
 " ================== Markdown
 autocmd Filetype markdown setlocal spell textwidth=78
 
-" }}}
+autocmd FileType markdown let b:noStripWhitespace=1
 
-" Highlight {{{
-" Highlights lines over 80 chars,
-highlight OverLine cterm=italic gui=italic ctermfg=red guifg=red
-let OverLine = matchadd('OverLine', '\%>80v.\+')
-autocmd ColorScheme * highlight OverLine cterm=italic ctermfg=red
-autocmd ColorScheme * highlight OverLine gui=italic guifg=red
+autocmd Filetype markdown call matchdelete(TrailSpace)
+autocmd Filetype markdown let TrailSpace = matchadd('TrailSpace' , '\s\s\zs\s\+$')
 
-" Highlights trailing spaces with an ugly red background
-highlight TrailSpace ctermbg=red guibg=red
-let TrailSpace = matchadd('TrailSpace' , '\s\+$')
-autocmd ColorScheme * highlight TrailSpace ctermbg=red guibg=red
-
+"  ================ CHANGELOG
+autocmd BufRead,BufNewFile CHANGELOG set filetype=changelog
 " }}}
 
 " Remaps {{{
@@ -276,8 +290,6 @@ autocmd InsertLeave * let &updatetime=updaterestore
 
 "remove whitespace before writing to any file
 autocmd BufWrite,FileWritePre * call RemoveWhiteSpace()
-autocmd FileType markdown let b:noStripWhitespace=1
-autocmd FileType markdown call matchdelete(TrailSpace)
 
 " Removes superfluous white space from the end of a line
 function! RemoveWhiteSpace()
@@ -292,5 +304,6 @@ endfunction
 
 " OVERRIDES {{{
 autocmd BufEnter * set cmdheight=1
+
 " }}}
 
