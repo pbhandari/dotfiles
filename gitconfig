@@ -1,0 +1,28 @@
+[user]
+    name = Prajjwal Bhandari
+    email = pbhandari@pbhandari.ca
+[github]
+    user = pbhandari
+[alias]
+    up = pull origin
+    st = status -s
+    di = diff
+    co = checkout
+    ci = commit
+    br = branch
+    sta = stash
+    assume   = update-index --assume-unchanged
+    unassume = update-index --no-assume-unchanged
+    assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+[credential]
+    helper = cache --timeout=3600
+[core]
+    editor = vim
+    autocrlf = input
+	filemode = false
+[merge]
+    tool = meld
+[push]
+    default = matching
+[color]
+	ui = true

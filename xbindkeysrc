@@ -1,0 +1,70 @@
+###########################
+# xbindkeys configuration #
+###########################
+
+# To specify a key, you can use 'xbindkeys --key' or
+# 'xbindkeys --multikey' and put one of the two lines in this file.
+#
+# The format of a command line is:
+# "command to start"
+# associated key
+#
+# A list of keys is in /usr/include/X11/keysym.h and in
+# /usr/include/X11/keysymdef.h
+# The XK_ is not needed.
+#
+# List of modifier:
+# Release, Control, Shift, Mod1 (Alt), Mod2 (NumLock),
+# Mod3 (CapsLock), Mod4, Mod5 (Scroll).
+#
+# Mod4 is the Windows meta key
+
+# app launcher
+"gmrun"
+Mod4 + Shift + p
+
+# web browser
+"firefox"
+Mod4 + Shift + f
+
+# file manager
+"pcmanfm"
+Mod4 + Shift + e
+
+# screenshot
+"scrot %Y%m%d-%H.%M.%S.png -t 280x175 -e 'mv $f $m ~/Pictures/shots'"
+Print
+
+# screenshot (delayed 5s)
+"scrot %Y%m%d-%H.%M.%S.png -t 280x175 -d 5 -e 'mv $f $m ~/Pictures/shots'"
+Shift + Print
+
+# volume up
+"amixer sset Master 5%+"
+ XF86AudioRaiseVolume
+
+# volume down
+"amixer sset Master 5%-"
+ XF86AudioLowerVolume
+
+# volume mute
+"amixer sset Master toggle"
+ XF86AudioMute
+
+"mpc toggle"
+ XF86AudioPlay
+
+"mpc prev"
+ XF86AudioPrev
+
+"mpc next"
+ XF86AudioNext
+
+# kill a client window
+"xkill"
+Control + Shift + Mod1 + k
+
+# lock screen
+"slock"
+Control + Mod1 + l
+
