@@ -7,8 +7,6 @@ conky -c '/home/pbhandari/.conky/clock/conkyrc' &
 conky -c '/home/pbhandari/.conky/sys/conkyrc' &
 conky -c '/home/pbhandari/.conky/mpd/conkyrc' &
 
-nitrogen --restore &
-
 pgrep xbindkeys || xbindkeys &
 
 pgrep clipit || clipit & sleep 2s

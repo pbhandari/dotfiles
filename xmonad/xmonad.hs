@@ -48,7 +48,7 @@ main = do
     -- status <- spawnPipe "/usr/bin/xmobar /home/pbhandari/.xmobarrc"
     dzenBar <- spawnPipe bar
     spawn "sh /home/pbhandari/.xmonad/autostart"
-    xmonad $ defaultConfig
+    xmonad $ withUrgencyHook NoUrgencyHook defaultConfig
         { manageHook            = manageDocks <+> myManageHook
         , layoutHook            = smartBorders $ avoidStruts $ myLayout
         , modMask               = mod4Mask
@@ -98,12 +98,12 @@ myLogHook str = dynamicLogWithPP $ myDzenPP { ppOutput = hPutStrLn str}
 myDzenPP :: PP
 myDzenPP = defaultPP {
               ppTitle           = dzenColor "gray" "" . shorten 50
-            , ppCurrent         = dzenColor "lightyellow" ""
-            , ppVisible         = dzenColor "gray" ""
-            , ppHidden          = dzenColor "lightblue" ""
-            , ppHiddenNoWindows = dzenColor "#777777"  ""
-            , ppUrgent          = dzenColor "red" "yellow"
-            , ppWsSep           = " "
+            , ppCurrent         = dzenColor "white" "" . pad
+            , ppVisible         = dzenColor "gray" "" . pad
+            , ppHidden          = dzenColor "lightblue" "" . pad
+            , ppHiddenNoWindows = dzenColor "#777777"  "". pad
+            , ppUrgent          = dzenColor "red" "" . pad
+            , ppWsSep           = ""
             , ppSep             = " | "
             , ppLayout = (\x -> case x of
                     "Tall"                  -> putIcon "tall"
@@ -116,7 +116,7 @@ myDzenPP = defaultPP {
             } where
                 putIcon::String -> String
                 putIcon x = "^i(/home/pbhandari/.xmonad/dzen2/layout_"
-                            ++ x ++ ".xbm)"
+                                ++ x ++ ".xbm)"
 
 myXmobarPP :: PP
 myXmobarPP = xmobarPP {
@@ -125,7 +125,7 @@ myXmobarPP = xmobarPP {
             , ppVisible         = xmobarColor "gray" ""
             , ppHidden          = xmobarColor "lightblue" ""
             , ppHiddenNoWindows = xmobarColor "#777777"  ""
-            , ppUrgent          = xmobarColor "red" "yellow"
+            , ppUrgent          = xmobarColor "red" ""
             , ppWsSep           = " "
             , ppSep             = " | "
             , ppLayout = (\x -> case x of
@@ -141,8 +141,7 @@ myXmobarPP = xmobarPP {
 
 
 myWorkspaces :: [WorkspaceId]
-myWorkspaces = ["main", "net", "code", "misc", "video", "term"
-               , "7", "8", "9", "null", "-"]
+myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-"]
 
 -- hooks
 -- automaticly switching app to workspace
@@ -157,16 +156,16 @@ myManageHook = composeAll . concat $ [ []
         -- Ignore these windows
     , [resource =?  x --> doIgnore      | x <- myIgnores]
         -- Shift windows to specific workspaces
-    , [canShift x --> doShift (myWorkspaces!! 0)    | x <- my1Shifts]
-    , [canShift x --> doShift (myWorkspaces!! 1)    | x <- my2Shifts]
-    , [canShift x --> doShift (myWorkspaces!! 2)    | x <- my3Shifts]
-    , [canShift x --> doShift (myWorkspaces!! 3)    | x <- my4Shifts]
-    , [canShift x --> doShift (myWorkspaces!! 4)    | x <- my5Shifts]
-    , [canShift x --> doShift (myWorkspaces!! 5)    | x <- my6Shifts]
-    , [canShift x --> doShift (myWorkspaces!! 6)    | x <- my7Shifts]
-    , [canShift x --> doShift (myWorkspaces!! 7)    | x <- my8Shifts]
-    , [canShift x --> doShift (myWorkspaces!! 8)    | x <- my9Shifts]
-    , [canShift x --> doShift (myWorkspaces!! 9)    | x <- my0Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 0) | x <- my0Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 1) | x <- my1Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 2) | x <- my2Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 3) | x <- my3Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 4) | x <- my4Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 5) | x <- my5Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 6) | x <- my6Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 7) | x <- my7Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 8) | x <- my8Shifts]
+    , [canShift x --> doShift (myWorkspaces!! 9) | x <- my9Shifts]
     ] where
         {-doShiftAndGo = doF . liftM2 (.) W.greedyView W.shift-}
         canShift x = className =? x <||> title =? x <||> resource =? x
@@ -177,24 +176,24 @@ myManageHook = composeAll . concat $ [ []
 
         myIgnores = []
 
-        my1Shifts = []
-        my2Shifts = ["Pidgin", "Skype", "Thunderbird", "Urxvt-soc"]
-        my3Shifts = []
-        my4Shifts = ["Calibre-gui"]
-        my5Shifts = ["MPlayer"]
+        my0Shifts = []
+        my1Shifts = ["Pidgin", "Skype", "Thunderbird", "Urxvt-soc"]
+        my2Shifts = []
+        my3Shifts = ["Calibre-gui"]
+        my4Shifts = ["MPlayer"]
+        my5Shifts = []
         my6Shifts = []
         my7Shifts = []
         my8Shifts = []
         my9Shifts = []
-        my0Shifts = []
 
 
 -- key bindings
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
       ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
-    , (( modMask .|. controlMask, xK_Return)
-        , spawn $ (XMonad.terminal conf) ++ " -e 'tmux new -As xmonad'")
+    , (( modMask .|. controlMask, xK_Return),
+                spawn $ (XMonad.terminal conf) ++ " -e 'tmux new -As xmonad'")
 
     -- opening program launcher / search engine
     , ((modMask, xK_p), spawn "dmenu_run")
