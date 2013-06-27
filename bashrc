@@ -77,14 +77,44 @@ function source() {
 
 # prompt {{{
 __prompt_command() {
-    ERRNO=$?
-    [ $ERRNO -eq 0 ] || local PS1_END_COL="\[\033[01;31m\]["$ERRNO"]"
+    # set the error code
+    local PS1_ERRNO=$?
+    if [ ${PS1_ERRNO} -eq 0 ]; then
+        local PS1_ERRNO=""
+        local LINE_COLOR='\[\033[00m\]'
+        local PS1_TAIL='\[\033[01;35m\]'
+    else
+        local LINE_COLOR='\[\033[01;31m\]'
+        local PS1_TAIL='\[\033[01;31m\]'
+    fi
+    local PS1_TAIL+='\$ \[\033[00m\]'
 
-    PS1="\[\033[1m\]\s "
-    PS1+="\[\033[00;31m\]\u\[\033[00m\]@\[\033[0;32m\]\h "
-    PS1+="\[\033[00m\]$(__truncPwd) "
+    # initialise all the required variables
+    local PS1_USER=$(whoami)
+    local PS1_HOST=$(echo -n $HOSTNAME | cut -d'.' -f1)
+    [ "$SSH_CLIENT" ] && local PS1_HOST+='\[\033[00m\](ssh)'
+    #TODO: truncate directory if required
+    local PS1_CWD=$(pwd | sed "s:^$HOME:~:")
 
-    PS1+="\[\033[01;35m\]${PS1_END_COL}»\[\033[00m\] "
+    # print the username and hostname
+    local PS1_TOP=${LINE_COLOR}'┌─ \[\033[00;32m\]'${PS1_USER}
+    local PS1_TOP+=${LINE_COLOR}' at \[\033[00;34m\]'${PS1_HOST}
+
+    # print the working directory
+    local PS1_TOP+=' \[\033[00m\]['${PS1_CWD}'] '
+
+    # fill the line until the end
+    local PS1_TOP_LEN=$((${#USER}+${#HOST} + ${#PS1_CWD} + ${#PS1_ERRNO} + 13))
+    local PS1_FILL_SIZE=$((${COLUMNS} - ${PS1_TOP_LEN} - 12))
+    [ ${PS1_FILL_SIZE} -gt 0 ] || PS1_FILL_SIZE=1
+    local PS1_TOP+=${LINE_COLOR}
+    while ((PS1_FILL_SIZE)); do
+        local PS1_TOP+='─'; ((PS1_FILL_SIZE=PS1_FILL_SIZE - 1))
+    done
+    local PS1_TOP+='┤'${PS1_ERRNO}
+
+
+    PS1="${PS1_TOP}\n${LINE_COLOR}└─ (bash)${PS1_TAIL}"
 }
 
 PROMPT_COMMAND=__prompt_command

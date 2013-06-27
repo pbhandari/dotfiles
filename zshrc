@@ -129,12 +129,67 @@ function cnky() {
 # prompt {{{
 prompt off
 
-[ -n "$SSH_CLIENT" ] && PROMPT="%Bssh%b " || PROMPT=""
-PROMPT+="%{$fg[red]%}%n%{$reset_color%}@%{$fg[green]%}%m %{$reset_color%}%2~ "
-PROMPT+="%{$fg[magenta]%}%(?..%{$fg[red]%})%B»%b%{$reset_color%} "
-export PROMPT
+precmd() {
+    # set the error code
+    PS1_ERRNO=$?
 
-export RPROMPT="%(?..%{$fg[red]%}%B%? ↵%b%{$reset_color%})"
+    if git rev-parse --git-dir > /dev/null 2>&1; then
+        PS1_GIT="⭠ "
+        [ "$(git status --porcelain 2>/dev/null)" ] \
+            && PS1_GIT_COLOR="%{$fg[red]%}" \
+            || PS1_GIT_COLOR="%{$fg[green]%}"
+        PS1_TAIL=${PS1_GIT_COLOR}"($(git rev-parse --abbrev-ref HEAD 2>/dev/null)) "
+    fi
+
+    if [ ${PS1_ERRNO} -eq 0 ]; then
+        PS1_ERRNO=""
+        LINE_COLOR="%{$reset_color%}"
+        PS1_TAIL+="%{$fg[magenta]%}"
+    else
+        LINE_COLOR="%{$fg[red]%}"
+        PS1_TAIL+="%{$fg[red]%}"
+    fi
+    PS1_TAIL+="%B%#%b %{$reset_color%}"
+
+    # initialise all the required variables
+    [ "$SSH_CLIENT" ] && PS1_HAS_SSH="(ssh)"
+    PS1_CWD=$(pwd | sed "s:^$HOME:~:")
+
+    # print the username and hostname
+    PS1_TOP=${LINE_COLOR}"┌─┤ %{$fg[green]%}"${USER}
+    PS1_TOP+=${LINE_COLOR}"@%{$fg[blue]%}"${HOST}
+    PS1_TOP+="%{$reset_color%}"${PS1_HAS_SSH}${LINE_COLOR}" ├"
+
+    # fill the line until the end
+    PS1_FILL_SIZE=$((${COLUMNS} - ${#USER} - ${#HOST} - \
+                    ${#PS1_HAS_SSH} - ${#PS1_CWD} - ${#PS1_GIT} - 14))
+    if [ ${PS1_FILL_SIZE} -lt 0 ]; then
+        PS1_TOP=${LINE_COLOR}"┌─"
+        PS1_FILL_SIZE=$(($COLUMNS - ${#PS1_CWD} - 9))
+
+        if [ ${#PS1_CWD} -gt $(($COLUMNS - 11)) ]; then
+            PS1_CWD=...`echo ${PS1_CWD} | cut -c$((${#PS1_CWD} - $COLUMNS  + 13))- `
+            PS1_FILL_SIZE=0
+        fi
+    fi
+    while ((PS1_FILL_SIZE)); do
+        PS1_TOP+='─'; ((PS1_FILL_SIZE=PS1_FILL_SIZE - 1))
+    done
+
+    # print the working directory
+    PS1_TOP+=${LINE_COLOR}"┤ ${PS1_GIT_COLOR}${PS1_GIT}"
+    PS1_TOP+="%{$reset_color%}${PS1_CWD} ${LINE_COLOR}├"
+
+    PS1_TOP+=${LINE_COLOR}'─┐'
+
+    PS1="${PS1_TOP}"$'\n'"%{${LINE_COLOR}%}└─ ${PS1_TAIL}%{$reset_color%}"
+    RPROMPT="%{${LINE_COLOR}%}%{%B%}${PS1_ERRNO}%{%b%}"
+    RPROMPT+="%{${LINE_COLOR}%} ─┘%{$reset_color%}"
+
+    unset PS1_ERRNO PS1_FILL_SIZE PS1_TOP LINE_COLOR PS1_TAIL\
+          PS1_CWD PS1_GIT PS1_GIT_COLOR
+}
+
 # }}}
 
 export MAILCHECK=0
