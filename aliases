@@ -1,14 +1,14 @@
 #!/bin/sh
 
-# just plain laziness
-export mathlab="bhanda35@mathlab.utsc.utoronto.ca"
-export greywolf="c3bhanda@greywolf.cdf.utoronto.ca"
-export redwolf="c3bhanda@redwolf.cdf.utoronto.ca"
+
+# ic and bv computers
+ic="IITS-I406-30137.utsc.utoronto.ca"
+bv="iits-b473-20079.utsc-labs.utoronto.ca"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     [ -r ~/.dircolors ] \
-                && eval "$(dircolors -b ~/.dircolors)"\
+                && eval "$(dircolors -b ~/.dir_colors)"\
                 || eval "$(dircolors -b)"
     alias ls="ls -h --color=auto"
     alias dir='dir --color=auto'
@@ -17,13 +17,10 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
+    alias diff='colordiff -iEZbwBt'
 fi
 
 [ -r $HOME/.lynx.lss ] &&  alias lynx="lynx -lss=$HOME/.lynx.lss"
-
-export LESS_TERMCAP_so='[1;44m'
-
-startx='exec startx'
 
 # ls tweaks direcory contents
 alias lsa='ls -lah'
@@ -44,9 +41,9 @@ alias afind='ack-grep -il'
 ######################## RANDOM ########################
 # Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh
 
-alias fancysay="fortune -a | fmt -80 -s | $(shuf -n 1 -e cowsay cowthink)\
-                -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e \
-                $(cowsay -l | tail -n +2)) -n"
+#alias fancysay="fortune -a | fmt -80 -s | $(shuf -n 1 -e cowsay cowthink)\
+                #-$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e \
+                #$(cowsay -l | tail -n +2)) -n"
 
-ic="IITS-I406-30137.utsc.utoronto.ca"
-bv="iits-b473-20079.utsc-labs.utoronto.ca"
+alias ping='ping -c5'
+

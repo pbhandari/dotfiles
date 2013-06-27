@@ -11,17 +11,6 @@ function backup() {
     done
 }
 
-function ping() {
-    c="-c5"
-    for i in $@; do
-        case $i in
-            -c*) c=""
-                ;;
-        esac
-    done
-    /usr/bin/ping $c $@
-}
-
 function toggleTouchpad() {
     device=xinput --list | awk '/GlidePoint/ { sub(/id=/,""); print $6}'
     case $1 in
@@ -32,5 +21,16 @@ function toggleTouchpad() {
         *) echo "on OR off" >&2
             ;;
     esac
+}
+
+
+function termite_color() {
+    __TERMITE_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/termite"
+    [ $1 ] && __TERMITE_COL="$1"
+
+    if [ -r "${__TERMITE_DIR}/${__TERMITE_COL}" ]; then
+        cat "${__TERMITE_DIR}/base" "${__TERMITE_DIR}/${__TERMITE_COL}"\
+            > "${__TERMITE_DIR}/config"
+    fi
 }
 

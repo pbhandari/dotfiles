@@ -4,8 +4,8 @@ export GREP_COLOR='31'
 
 # enable syntax highlighting in less
 export PAGER="less"
-export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
-export LESS=' -R '
+export LESSOPEN="| /usr/bin/lesspipe.sh %s"
+export LESS=' -R -m -i'
 
 # export PATHs
 export PATH="$PATH:$HOME/.local/bin:$HOME/.local/share/os161/bin"
