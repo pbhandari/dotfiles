@@ -3,26 +3,46 @@
     email = pbhandari@pbhandari.ca
 [github]
     user = pbhandari
-[alias]
-    up = pull origin
-    st = status -s
-    di = diff
-    co = checkout
-    ci = commit
-    br = branch
-    sta = stash
-    assume   = update-index --assume-unchanged
-    unassume = update-index --no-assume-unchanged
-    assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+[apply]
+    ignorewhitespace = change
+    whitespace = error
 [credential]
     helper = cache --timeout=3600
 [core]
     editor = vim
     autocrlf = input
-	filemode = false
+    filemode = false
+    whitespace = trailing-space,space-before-tab
 [merge]
-    tool = meld
+    log = true
+	tool = gvimdiff
 [push]
     default = matching
 [color]
 	ui = true
+[color "branch"]
+    current = green bold
+    local = blue
+    remote = yellow
+[column]
+    ui = auto
+[diff]
+    renames = true
+    algorithm = patience
+[format]
+    pretty = oneline
+[grep]
+    lineNumber = true
+    patternType = perl
+[alias]
+    l   = log --pretty=oneline --graph --abbrev-commit -n20
+    up  = pull origin
+    st  = status -s
+    di  = diff
+    co  = checkout
+    ci  = commit
+    br  = branch
+    sta = stash
+    assume   = update-index --assume-unchanged
+    unassume = update-index --no-assume-unchanged
+    assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
