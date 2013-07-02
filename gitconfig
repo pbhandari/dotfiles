@@ -35,7 +35,7 @@
     lineNumber = true
     patternType = perl
 [alias]
-    l   = log --pretty=oneline --graph --abbrev-commit -n20
+    l   = "!git --no-pager log --pretty=oneline --graph --abbrev-commit -n20"
     up  = pull origin
     st  = status -s
     di  = diff
