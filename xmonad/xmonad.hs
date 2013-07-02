@@ -7,6 +7,8 @@ import XMonad.Actions.WindowGo
 import XMonad.Actions.GridSelect
 import XMonad.Actions.FloatKeys
 import XMonad.Actions.Submap
+import XMonad.Actions.CopyWindow
+import XMonad.Actions.TagWindows
 import qualified XMonad.Actions.Submap as SM
 
 -- utils
@@ -50,12 +52,13 @@ main = do
     spawn "sh /home/pbhandari/.xmonad/autostart"
     xmonad $ withUrgencyHook NoUrgencyHook defaultConfig
         { manageHook            = manageDocks <+> myManageHook
-        , layoutHook            = smartBorders $ avoidStruts $ myLayout
+        , layoutHook            = avoidStruts $ myLayout
         , modMask               = mod4Mask
         , keys                  = myKeys
         , workspaces            = myWorkspaces
         , focusFollowsMouse     = False
         , terminal              = myTerminal
+        , focusedBorderColor    = "#2277cc"
         -- more changes
         , logHook               = myLogHook dzenBar
         } where
@@ -266,14 +269,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
     -- mod-shift-[1..9] %! Move client to workspace N
     ++
     [((m .|. modMask, k), windows $ f i)
-    | (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0] ++ [xK_grave])
-    , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+    | (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0] ++ [xK_minus])
+    , (f, m) <- [(W.view, 0), (W.shift, shiftMask), (copy, controlMask)]]
 
     -- mod-[w,e] %! switch to twinview screen 1/2
     -- mod-shift-[w,e] %! move window to screen 1/2
     ++
     [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-    | (key, sc) <- zip [xK_e, xK_w, xK_r] [0..]
-    , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+        | (key, sc) <- zip [xK_e, xK_w, xK_r] [0..]
+        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 

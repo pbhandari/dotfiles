@@ -169,7 +169,7 @@ let g:syntastic_style_warning_symbol='>'
 let g:syntastic_mode_map={  'mode': 'active',
                             \'passive_filetypes': []
                             \}
-
+"
 "============== vim-powerline
 if $TERM != 'linux' || has('gui_running')
     let g:Powerline_symbols = 'fancy'
