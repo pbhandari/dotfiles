@@ -78,43 +78,57 @@ function source() {
 # prompt {{{
 __prompt_command() {
     # set the error code
-    local PS1_ERRNO=$?
+    local PS1_ERRNO=" "$?
+
+    if git rev-parse --git-dir > /dev/null 2>&1 ; then
+        local PS1_GIT='⭠ '
+        [ -n "`git status --porcelain 2>/dev/null`" ]\
+            && local PS1_GIT_COLOR='\[\033[00;31m\]'\
+            || local PS1_GIT_COLOR='\[\033[00;32m\]'
+        PS1_TAIL=${PS1_GIT_COLOR}"(`git rev-parse --abbrev-ref HEAD 2>/dev/null`) "
+    fi
+
     if [ ${PS1_ERRNO} -eq 0 ]; then
         local PS1_ERRNO=""
         local LINE_COLOR='\[\033[00m\]'
-        local PS1_TAIL='\[\033[01;35m\]'
+        local PS1_TAIL+='\[\033[01;35m\]'
     else
         local LINE_COLOR='\[\033[01;31m\]'
-        local PS1_TAIL='\[\033[01;31m\]'
+        local PS1_TAIL+='\[\033[01;31m\]'
     fi
     local PS1_TAIL+='\$ \[\033[00m\]'
 
     # initialise all the required variables
-    local PS1_USER=$(whoami)
     local PS1_HOST=$(echo -n $HOSTNAME | cut -d'.' -f1)
-    [ "$SSH_CLIENT" ] && local PS1_HOST+='\[\033[00m\](ssh)'
+    [ "$SSH_CLIENT" ] && local PS1_HAS_SSH='(ssh)'
+
     #TODO: truncate directory if required
     local PS1_CWD=$(pwd | sed "s:^$HOME:~:")
 
     # print the username and hostname
-    local PS1_TOP=${LINE_COLOR}'┌─ \[\033[00;32m\]'${PS1_USER}
-    local PS1_TOP+=${LINE_COLOR}' at \[\033[00;34m\]'${PS1_HOST}
-
-    # print the working directory
-    local PS1_TOP+=' \[\033[00m\]['${PS1_CWD}'] '
+    local PS1_TOP=${LINE_COLOR}'┌─┤ \[\033[00;32m\]'${USER}
+    local PS1_TOP+=${LINE_COLOR}'@\[\033[00;34m\]'${PS1_HOST}
+    local PS1_TOP+='\[\033[0;1m\]'${PS1_HAS_SSH}${LINE_COLOR}' ├'
 
     # fill the line until the end
-    local PS1_TOP_LEN=$((${#USER}+${#HOST} + ${#PS1_CWD} + ${#PS1_ERRNO} + 13))
-    local PS1_FILL_SIZE=$((${COLUMNS} - ${PS1_TOP_LEN} - 12))
+    local PS1_TOP_LEN=$((${#USER}+${#PS1_HOST} + ${#PS1_CWD} + \
+                        ${#PS1_HAS_SSH} + ${#PS1_ERRNO} + ${#PS1_GIT} + 14))
+    local PS1_FILL_SIZE=$((${COLUMNS} - ${PS1_TOP_LEN}))
     [ ${PS1_FILL_SIZE} -gt 0 ] || PS1_FILL_SIZE=1
     local PS1_TOP+=${LINE_COLOR}
     while ((PS1_FILL_SIZE)); do
-        local PS1_TOP+='─'; ((PS1_FILL_SIZE=PS1_FILL_SIZE - 1))
+        local PS1_TOP+='─'
+        ((PS1_FILL_SIZE=PS1_FILL_SIZE - 1))
     done
-    local PS1_TOP+='┤'${PS1_ERRNO}
 
+    # print the working directory
+    local PS1_TOP+='┤ '${PS1_GIT_COLOR}${PS1_GIT}
+    local PS1_TOP+='\[\033[00m\]'${PS1_CWD}' '${LINE_COLOR}'├──'${PS1_ERRNO}
+    local PS1_TOP+='\[\033[00m\]'
 
-    PS1="${PS1_TOP}\n${LINE_COLOR}└─ (bash)${PS1_TAIL}"
+    PS1="${PS1_TOP}\n${LINE_COLOR}└─ ${PS1_TAIL}"
+    history -a
+    history -n
 }
 
 PROMPT_COMMAND=__prompt_command
