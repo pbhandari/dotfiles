@@ -79,13 +79,16 @@ function source() {
 __prompt_command() {
     # set the error code
     local PS1_ERRNO=" "$?
+    local PS1_TAIL=""
 
     if git rev-parse --git-dir > /dev/null 2>&1 ; then
         local PS1_GIT='⭠ '
         [ -n "`git status --porcelain 2>/dev/null`" ]\
             && local PS1_GIT_COLOR='\[\033[00;31m\]'\
             || local PS1_GIT_COLOR='\[\033[00;32m\]'
-        PS1_TAIL=${PS1_GIT_COLOR}"(`git rev-parse --abbrev-ref HEAD 2>/dev/null`) "
+
+        PS1_TAIL=${PS1_GIT_COLOR}
+        PS1_TAIL+="($(git rev-parse --abbrev-ref HEAD)) "
     fi
 
     if [ ${PS1_ERRNO} -eq 0 ]; then

@@ -1,8 +1,7 @@
 #!/bin/sh
 
 function mkcd() {
-    mkdir -p $1
-    cd $1
+    mkdir -p $1 && cd $1
 }
 
 function backup() {
@@ -25,12 +24,12 @@ function toggleTouchpad() {
 
 
 function termite_color() {
-    __TERMITE_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/termite"
-    [ $1 ] && __TERMITE_COL="$1"
+    FUNC_TERMITE_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/termite"
+    [ $1 ] && FUNC_TERMITE_COL="$1"
 
-    if [ -r "${__TERMITE_DIR}/${__TERMITE_COL}" ]; then
-        cat "${__TERMITE_DIR}/base" "${__TERMITE_DIR}/${__TERMITE_COL}"\
-            > "${__TERMITE_DIR}/config"
+    if [ -r "${FUNC_TERMITE_DIR}/${FUNC_TERMITE_COL}" ]; then
+        cat "${FUNC_TERMITE_DIR}/base" "${FUNC_TERMITE_DIR}/${FUNC_TERMITE_COL}"\
+            > "${FUNC_TERMITE_DIR}/config"
     fi
 }
 

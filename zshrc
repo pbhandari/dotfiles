@@ -37,9 +37,13 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\C-x\C-e' edit-command-line
 
-## smart urls
+# smart urls
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
+
+# setup defaults for alias -s
+autoload -U zsh-mime-setup
+zsh-mime-setup
 # }}}
 
 # keybindings {{{
@@ -104,11 +108,11 @@ zle -N expand-or-complete-with-dots
 bindkey "^I" expand-or-complete-with-dots
 
 function history() {
-    [ $# -eq 0 ] && builtin history 1 || builtin history $@
+    [ $# -eq 0 ] && builtin history "${@:-1}"
 }
 
 function source() {
-    [ $# -eq 0 ] && builtin source ${HOME}/.zshrc || builtin source $@
+    [ $# -eq 0 ] && builtin source ${@:-${HOME}/.zshrc}
 }
 
 function stats() {
@@ -188,6 +192,7 @@ precmd() {
 
     unset PS1_ERRNO PS1_FILL_SIZE PS1_TOP LINE_COLOR PS1_TAIL\
           PS1_CWD PS1_GIT PS1_GIT_COLOR
+    acpi
 }
 
 # }}}
