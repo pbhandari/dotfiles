@@ -13,3 +13,4 @@ export PATH
 
 export CDPATH="$CDPATH:~/Semester/"
 
+# vim:ft=sh:

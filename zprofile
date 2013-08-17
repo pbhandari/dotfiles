@@ -5,4 +5,3 @@
 [ -r $HOME/.profile ] && . $HOME/.profile
 
 export HISTFILE=$HOME/.zsh_history
-

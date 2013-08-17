@@ -56,4 +56,3 @@ if [ "$TERM" = "linux" ]; then
 
     clear #for background artifacting
 fi
-
