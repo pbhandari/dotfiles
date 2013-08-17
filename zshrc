@@ -1,30 +1,35 @@
-# Path to your oh-my-zsh configuration.
-[ -r $HOME/.oh-my-zsh/oh-my-zsh.sh ] && . $HOME/.oh-my-zsh/oh-my-zsh.sh
 
 # zsh setopts {{{
-setopt AUTO_CD
-setopt CDABLE_VARS
+setopt    correct
+setopt    auto_menu         # show completion menu on succesive tab press
+setopt    complete_in_word
+setopt    always_to_end
+unsetopt  menu_complete   # do not autoselect the first completion entry
+unsetopt  flow_control
 
-setopt AUTO_NAME_DIRS
-setopt AUTO_PUSHD
-setopt PUSHD_IGNORE_DUPS
+setopt    auto_cd
+setopt    cdable_vars
 
-setopt APPEND_HISTORY
-setopt EXTENDED_HISTORY
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_IGNORE_DUPS # IGNORE DUPLICATION COMMAND HISTORY LIST
-setopt HIST_IGNORE_SPACE
-setopt HIST_VERIFY
-setopt HIST_FIND_NO_DUPS
-setopt HIST_REDUCE_BLANKS
-setopt INC_APPEND_HISTORY
-setopt SHARE_HISTORY # SHARE COMMAND HISTORY DATA
+setopt    auto_name_dirs
+setopt    auto_pushd
+setopt    pushd_ignore_dups
 
-setopt INTERACTIVE_COMMENTS
+setopt    append_history
+setopt    extended_history
+setopt    hist_expire_dups_first
+setopt    hist_ignore_dups # ignore duplication command history list
+setopt    hist_ignore_space
+setopt    hist_verify
+setopt    hist_find_no_dups
+setopt    hist_reduce_blanks
+setopt    inc_append_history
+setopt    share_history # share command history data
 
-setopt LONG_LIST_JOBS
-setopt NO_HUP
-setopt NO_MAIL_WARNING
+setopt    interactive_comments
+
+setopt    long_list_jobs
+setopt    no_hup
+setopt    no_mail_warning
 # }}}
 
 # autoloads {{{
@@ -46,49 +51,45 @@ autoload -U zsh-mime-setup
 zsh-mime-setup
 # }}}
 
-# keybindings {{{
-bindkey -v
-bindkey '\ew' kill-region
-bindkey -s '\el' "ls\n"
-bindkey '^r' history-incremental-search-backward
-bindkey "^[[5~" up-line-or-history
-bindkey "^[[6~" down-line-or-history
+# Completion {{{
 
-# make search up and down work, so partially type and hit up/down to find
-bindkey '^[[A' up-line-or-search
-bindkey '^[[B' down-line-or-search
+WORDCHARS=''
 
-bindkey "^[[H" beginning-of-line
-bindkey "^[[F"  end-of-line
+zmodload -i zsh/complist
 
-bindkey "^[[1~" beginning-of-line
-bindkey "^[[4~" end-of-line
+zstyle ':completion:*' \
+        matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
-# gnome-terminal
-bindkey "^[OF" end-of-line
-bindkey "^[OH" beginning-of-line
-# urxvt
-bindkey "\e[8~" end-of-line
-bindkey "\e[7~" beginning-of-line
+zstyle ':completion:*' list-colors ''
 
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
+zstyle ':completion:*:*:*:*:*' menu select
 
-bindkey '^[[Z' reverse-menu-complete
+zstyle ':completion:*:*:kill:*:processes' \
+        list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
-# Make the delete key (or Fn + Delete on the Mac) work instead of outputting a ~
-bindkey '^?' backward-delete-char
-bindkey "^[[3~" delete-char
-bindkey "^[3;5~" delete-char
-bindkey "\e[3~" delete-char
+zstyle ':completion:*:*:*:*:processes' \
+        command "ps -u$USER -o pid,user,comm -w -w"
 
-# file rename magick
-bindkey "^[m" copy-prev-shell-word
+# disable named-directories autocompletion
+zstyle ':completion:*:cd:*' \
+        tag-order local-directories directory-stack path-directories
+
+# Use caching to speed things up
+zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion::complete:*' cache-path ${HOME}/.cache/zsh
+
+# Don't complete uninteresting users
+zstyle ':completion:*:*:*:users' ignored-patterns \
+        avahi bin daemon dbus ftp git http mail mpd mysql nobody ntp \
+        polkitd postfix postgres root rtkit transmission usbmux uuidd
+
+# ... unless we really want to.
+zstyle '*' single-ignored show
 # }}}
 
 # extra files {{{
 # aliases and functions global for all shells
-for file in ".aliases" ".functions" ; do
+for file in ".aliases" ".functions" ".zlerc" ; do
     [ -r "$HOME/$file" ] && . "$HOME/$file"
 done
 
@@ -108,11 +109,11 @@ zle -N expand-or-complete-with-dots
 bindkey "^I" expand-or-complete-with-dots
 
 function history() {
-    [ $# -eq 0 ] && builtin history "${@:-1}"
+    builtin history "${@:-1}"
 }
 
 function source() {
-    [ $# -eq 0 ] && builtin source ${@:-${HOME}/.zshrc}
+    builtin source "${@:-${HOME}/.zshrc}"
 }
 
 function stats() {
@@ -137,13 +138,11 @@ precmd() {
     # set the error code
     PS1_ERRNO=$?
 
-    if git rev-parse --git-dir > /dev/null 2>&1; then
-        PS1_GIT="⭠ "
+    PS1_GIT="$(parse_git_branch)"
+    if [ "$PS1_GIT" ]; then
         [ "$(git status --porcelain 2>/dev/null)" ] \
             && PS1_GIT_COLOR="%{$fg[red]%}" \
             || PS1_GIT_COLOR="%{$fg[green]%}"
-        PS1_TAIL=${PS1_GIT_COLOR}
-        PS1_TAIL+="($(git rev-parse --abbrev-ref HEAD 2>/dev/null)) "
     fi
 
     if [ ${PS1_ERRNO} -eq 0 ]; then
@@ -166,7 +165,7 @@ precmd() {
 
     # fill the line until the end
     PS1_FILL_SIZE=$((${COLUMNS} - ${#USER} - ${#HOST} - ${#PS1_CWD}\
-                    ${SSH_CLIENT:+" - 5"} - ${#PS1_GIT} - 14))
+                    ${SSH_CLIENT:+" - 5"} ${PS1_GIT:+" - 2"} - 14))
 
     if [[ ${PS1_FILL_SIZE} -lt 0 ]]; then
         PS1_TOP=${LINE_COLOR}"┌─"
@@ -182,17 +181,18 @@ precmd() {
     done
 
     # print the working directory
-    PS1_TOP+=${LINE_COLOR}"┤ ${PS1_GIT_COLOR}${PS1_GIT}"
+    PS1_TOP+=${LINE_COLOR}"┤ "${PS1_GIT:+"${PS1_GIT_COLOR}⭠ "}
     PS1_TOP+="%{$reset_color%}${PS1_CWD} ${LINE_COLOR}├─┐"
 
 
-    PS1="${PS1_TOP}"$'\n'"%{${LINE_COLOR}%}└─ ${PS1_TAIL}%{$reset_color%}"
-    RPROMPT="%{${LINE_COLOR}%}%{%B%}${PS1_ERRNO}%{%b%}"
-    RPROMPT+="%{${LINE_COLOR}%} ─┘%{$reset_color%}"
+    PS1="${PS1_TOP}"$'\n'"%{${LINE_COLOR}%}└─ "
+    PS1+="${PS1_GIT_COLOR}${PS1_GIT}${PS1_TAIL}%{$reset_color%}"
+
+    RPS1="%{${LINE_COLOR}%}%{%B%}${PS1_ERRNO}%{%b%}"
+    RPS1+="%{${LINE_COLOR}%} ─┘%{$reset_color%}"
 
     unset PS1_ERRNO PS1_FILL_SIZE PS1_TOP LINE_COLOR PS1_TAIL\
           PS1_CWD PS1_GIT PS1_GIT_COLOR
-    acpi
 }
 
 # }}}

@@ -1,0 +1,41 @@
+# vim:ft=zsh
+
+bindkey -v
+bindkey     "^[w"       kill-region
+bindkey     "^r"        history-incremental-search-backward
+
+# make search up and down work, so partially type and hit up/down to find
+bindkey     "^[[5~"     history-beginning-search-backward
+bindkey     "^[[6~"     history-beginning-search-forward
+bindkey     "^[[A"      history-beginning-search-backward
+bindkey     "^[[B"      history-beginning-search-forward
+bindkey     "^[OA"      history-beginning-search-backward   # urxvt
+bindkey     "^[OB"      history-beginning-search-forward    # urxvt
+
+bindkey     "^[[H"      beginning-of-line
+bindkey     "^[[F"      end-of-line
+bindkey     "^[[1~"     beginning-of-line
+bindkey     "^[[4~"     end-of-line
+bindkey     "^[OH"      beginning-of-line       # gnome-terminal
+bindkey     "^[OF"      end-of-line             # gnome-terminal
+bindkey     "^[[7~"     beginning-of-line       # urxvt
+bindkey     "^[[8~"     end-of-lie              # urxvt
+
+bindkey     "^[[1;5C"   forward-word
+bindkey     "^[[1;5D"   backward-word
+
+bindkey     "^[[Z"      reverse-menu-complete
+
+# Make the delete key (or Fn + Delete on the Mac) work instead of outputting a ~
+bindkey     "^?"        backward-delete-char
+bindkey     "^[[3~"     delete-char
+bindkey     "^[3;5~"    delete-char
+
+# file rename magick
+bindkey     "^[m"       copy-prev-shell-word
+
+# ls on <M-l>
+bindkey -s  "^[l"       "ls\n"
+bindkey -s  "qq"        "\e"
+
+bindkey -M  menuselect  '^o' accept-and-infer-next-history
