@@ -1,4 +1,4 @@
-" vim:foldenable
+" .vimrc
 
 " Basic Things {{{
 
@@ -142,10 +142,12 @@ autocmd ColorScheme * highlight OverLine cterm=italic ctermfg=red
 autocmd ColorScheme * highlight OverLine gui=italic guifg=red
 " }}}
 
-" Plugins {{{
-" ================== Colours
-colorscheme molokai
+" Colorscheme {{{
 
+colorscheme molokai
+"}}}
+
+" Plugins {{{
 " ================== Buffergator
 let g:buffergator_suppress_keymaps=1
 
@@ -166,6 +168,7 @@ let g:syntastic_error_symbol='✗'
 let g:syntastic_style_error_symbol='★'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_style_warning_symbol='>'
+let g:syntastic_c_checkers=['make']
 let g:syntastic_mode_map={  'mode': 'active',
                             \'passive_filetypes': []
                             \}
@@ -304,6 +307,6 @@ endfunction
 
 " OVERRIDES {{{
 autocmd BufEnter * set cmdheight=1
-
 " }}}
 
+" vim:foldenable

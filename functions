@@ -1,5 +1,13 @@
 #!/bin/sh
 
+parse_git_branch(){
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1] /';
+}
+
+parse_svn_rev(){
+    svn info 2> /dev/null | grep "Revision" | sed 's/Revision: \(.*\)/[r\1] /';
+}
+
 function mkcd() {
     mkdir -p $1 && cd $1
 }
@@ -22,7 +30,6 @@ function toggleTouchpad() {
     esac
 }
 
-
 function termite_color() {
     FUNC_TERMITE_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/termite"
     [ $1 ] && FUNC_TERMITE_COL="$1"
@@ -32,4 +39,3 @@ function termite_color() {
             > "${FUNC_TERMITE_DIR}/config"
     fi
 }
-

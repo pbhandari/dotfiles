@@ -17,32 +17,46 @@
     log = true
 	tool = gvimdiff
 [push]
-    default = matching
+	default = upstream
 [color]
 	ui = true
 [color "branch"]
     current = green bold
     local = blue
     remote = yellow
+[color "decorate"]
+    branch = blue bold
+    remoteBranch = green
+    tag = green bold
 [column]
     ui = auto
 [diff]
     renames = true
     algorithm = patience
-[format]
-    pretty = oneline
+[pretty]
+    sparselog = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd)%Creset
+    prajj = tformat:\
+Commit: %Cred%h%Creset%C(yellow)%d%Creset (%H)%n\
+Author: %aN %C(blue bold)<%ae>%Creset%n\
+Date  : %C(green)%ad%Creset%n\
+%n%s%n%n%-b\
+%n
+[pager]
+    l = false
 [grep]
     lineNumber = true
     patternType = perl
 [alias]
-    l   = "!git --no-pager log --pretty=oneline --graph --abbrev-commit -n20"
-    up  = pull origin
-    st  = status -s
-    di  = diff
-    co  = checkout
-    ci  = commit
-    br  = branch
-    sta = stash
+    l        = log -n20 --pretty=sparselog --date=relative
+    up       = pull origin
+    s        = status -s
+    st       = status
+    di       = diff
+    co       = checkout
+    ci       = commit
+    br       = branch
+    sta      = stash
     assume   = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
     assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+	ds       = diff --staged

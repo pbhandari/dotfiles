@@ -17,7 +17,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
-    alias diff='colordiff -iEZbwBt'
+    alias diff='colordiff -EZbwBt'
 fi
 
 [ -r $HOME/.lynx.lss ] &&  alias lynx="lynx -lss=$HOME/.lynx.lss"
@@ -46,4 +46,4 @@ alias afind='ack-grep -il'
                 #$(cowsay -l | tail -n +2)) -n"
 
 alias ping='ping -c5'
-
+alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress "
