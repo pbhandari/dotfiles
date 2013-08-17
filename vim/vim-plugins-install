@@ -1,8 +1,11 @@
 #!/bin/bash
 
-mkdir -p ~/.vim/autoload ~/.vim/bundle; curl -Sso ~/.vim/autoload/pathogen.vim     https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
-cd ~/.vim/bundle/
+mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/backups # TODO: change backups to undodir
+curl -Sso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+echo "The rest of this script doesn't exactly work. Exiting"
+exit
 
+cd ~/.vim/bundle/
 git clone git@github.com/tpope/vim-sensible.git
 git clone git@github.com/tpope/vim-classpath.git
 git clone git@github.com/tpope/vim-scriptease.git
