@@ -138,13 +138,6 @@ precmd() {
     # set the error code
     PS1_ERRNO=$?
 
-    PS1_GIT="$(parse_git_branch)"
-    if [ "$PS1_GIT" ]; then
-        [ "$(git status --porcelain 2>/dev/null)" ] \
-            && PS1_GIT_COLOR="%{$fg[red]%}" \
-            || PS1_GIT_COLOR="%{$fg[green]%}"
-    fi
-
     if [ ${PS1_ERRNO} -eq 0 ]; then
         PS1_ERRNO=""
         LINE_COLOR="%{$reset_color%}"
@@ -154,6 +147,11 @@ precmd() {
         PS1_TAIL+="%{$fg[red]%}"
     fi
     PS1_TAIL+="%B%#%b %{$reset_color%}"
+
+    PS1_GIT="$(parse_git_branch 2>/dev/null)"
+    [ "$(git status --porcelain 2>/dev/null)" ] \
+        && PS1_GIT_COLOR="%{$fg[red]%}" \
+        || PS1_GIT_COLOR="%{$fg[green]%}"
 
     # initialise all the required variables
     PS1_CWD=${PWD/$HOME/\~}
@@ -186,7 +184,7 @@ precmd() {
 
 
     PS1="${PS1_TOP}"$'\n'"%{${LINE_COLOR}%}└─ "
-    PS1+="${PS1_GIT_COLOR}${PS1_GIT}${PS1_TAIL}%{$reset_color%}"
+    PS1+="${PS1_GIT_COLOR}${PS1_GIT:+"($PS1_GIT) "}${PS1_TAIL}%{$reset_color%}"
 
     RPS1="%{${LINE_COLOR}%}%{%B%}${PS1_ERRNO}%{%b%}"
     RPS1+="%{${LINE_COLOR}%} ─┘%{$reset_color%}"

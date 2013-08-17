@@ -1,11 +1,11 @@
 #!/bin/sh
 
 parse_git_branch(){
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1] /';
+    git rev-parse --abbrev-ref HEAD;
 }
 
 parse_svn_rev(){
-    svn info 2> /dev/null | grep "Revision" | sed 's/Revision: \(.*\)/[r\1] /';
+    svn info | sed -n 's/Revision: //p';
 }
 
 function mkcd() {
@@ -19,7 +19,7 @@ function backup() {
 }
 
 function toggleTouchpad() {
-    device=xinput --list | awk '/GlidePoint/ { sub(/id=/,""); print $6}'
+    device="$(xinput --list | sed -n '/GlidePoint/s/.*id=\([0-9]\+\).*/\1/p')"
     case $1 in
         enable|on|"1") xinput enable $device
             ;;
