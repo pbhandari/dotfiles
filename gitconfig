@@ -1,51 +1,63 @@
 [user]
-    name = Prajjwal Bhandari
+    name  = Prajjwal Bhandari
     email = pbhandari@pbhandari.ca
 [github]
-    user = pbhandari
+    user  = pbhandari
+
 [apply]
     ignorewhitespace = change
-    whitespace = error
+    whitespace       = error
+
 [credential]
-    helper = cache --timeout=3600
+    helper       = cache --timeout=3600
+
 [core]
-    editor = vim
-    autocrlf = input
-    filemode = false
-    whitespace = trailing-space,space-before-tab
+    editor       = vim
+    autocrlf     = input
+    filemode     = false
+    whitespace   = trailing-space,space-before-tab
+
 [merge]
-    log = true
-	tool = gvimdiff
+    log          = true
+    tool         = gvimdiff
+
 [push]
-	default = upstream
+    default      = upstream
+
 [color]
-	ui = true
+	ui           = true
 [color "branch"]
-    current = green bold
-    local = blue
-    remote = yellow
+    current      = green bold
+    local        = blue
+    remote       = yellow
 [color "decorate"]
-    branch = blue bold
+    branch       = blue bold
     remoteBranch = green
-    tag = green bold
+    tag          = green bold
+
 [column]
-    ui = auto
+    ui        = auto
+
 [diff]
-    renames = true
+    renames   = true
     algorithm = patience
+
 [pretty]
     sparselog = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd)%Creset
-    prajj = tformat:\
+    prajj     = tformat:\
 Commit: %Cred%h%Creset%C(yellow)%d%Creset (%H)%n\
 Author: %aN %C(blue bold)<%ae>%Creset%n\
 Date  : %C(green)%ad%Creset%n\
 %n%s%n%n%-b\
 %n
+
 [pager]
     l = false
+
 [grep]
-    lineNumber = true
+    lineNumber  = true
     patternType = perl
+
 [alias]
     l        = log -n20 --pretty=sparselog --date=relative
     up       = pull origin
