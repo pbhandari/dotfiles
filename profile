@@ -10,7 +10,9 @@ export LESS=' -R -m -i'
 # export PATHs
 export PATH="$PATH:$HOME/.local/bin:$HOME/.local/share/os161/bin"
 export CDPATH="$CDPATH:$HOME/Semester"
-export PYTHONPATH="/usr/lib/python3.3/site-packages"
+#export PYTHONPATH="/usr/lib/python3.3/site-packages"
+
+eval $( keychain --eval id_rsa 79376B22 )
 
 # export maildir
 export MAIL="$HOME/.mail"
@@ -32,25 +34,26 @@ export SAVEHIST=200000
 
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
-# solarized colours in linux terminal
 if [ "$TERM" = "linux" ]; then
-    echo -en "\e]P0073642"
-    echo -en "\e]P1DC322F"
-    echo -en "\e]P2719E07"
-    echo -en "\e]P3B58900"
-    echo -en "\e]P4268BD2"
-    echo -en "\e]P5D33682"
-    echo -en "\e]P62AA198"
-    echo -en "\e]P7FDF6E3"
 
-    echo -en "\e]P8002B36"
-    echo -en "\e]P9CB4B16"
-    echo -en "\e]PA657B83"
-    echo -en "\e]PB839496"
-    echo -en "\e]PC93A1A1"
-    echo -en "\e]PD6C71C4"
-    echo -en "\e]PEEEE8D5"
-    echo -en "\e]PFFDF6E3"
+    echo -en "\e]P01B1D1E"
+    echo -en "\e]P1F92672"
+    echo -en "\e]P282B414"
+    echo -en "\e]P3FD9714"
+    echo -en "\e]P456C2D6"
+    echo -en "\e]P5CC54FE"
+    echo -en "\e]P6465447"
+    echo -en "\e]P7CCCCC6"
+
+    echo -en "\e]P8505354"
+    echo -en "\e]P9FF5995"
+    echo -en "\e]PAB6E354"
+    echo -en "\e]PBFEEDC6"
+    echo -en "\e]PC8CEDFF"
+    echo -en "\e]PD8C54FE"
+    echo -en "\e]PE899CA1"
+    echo -en "\e]PFF8F8F2"
+
     clear #for background artifacting
 fi
 
