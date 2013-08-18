@@ -69,13 +69,11 @@ set tags+=tags;                 " use tag files
 
 " Backups and Undos {{{
 set backup                      " Enable backups
-" and move them to ~/.vim/tmp
-set backupdir=~/.vim/tmp//,~/.tmp,~/tmp//,/var/tmp//,/tmp//
-set directory=~/.vim/tmp//,~/.tmp,~/tmp//,/var/tmp//,/tmp//
+set backupdir=~/.vim/tmp,/var/tmp,/tmp
+set directory=~/.vim/tmp,/var/tmp,/tmp
 
 if has("persistent_undo")
     " Keep undo history across sessions, by storing in file.
-    " Only works all the time.
     set undodir=~/.vim/backups
     set undofile
 endif
