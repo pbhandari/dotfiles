@@ -61,7 +61,7 @@ Date  : %C(green)%ad%Creset%n\
 [alias]
     l        = log -n20 --pretty=sparselog --date=relative
     up       = pull origin
-    s        = status -s
+    s        = status -sb
     st       = status
     di       = diff
     co       = checkout
