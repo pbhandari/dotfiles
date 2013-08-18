@@ -100,14 +100,6 @@ done
 # }}}
 
 # functions {{{
-function expand-or-complete-with-dots() {
-    echo -n "\e[31m......\e[0m"
-    zle expand-or-complete
-    zle redisplay
-}
-zle -N expand-or-complete-with-dots
-bindkey "^I" expand-or-complete-with-dots
-
 function history() {
     builtin history "${@:-1}"
 }

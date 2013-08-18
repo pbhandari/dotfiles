@@ -1,41 +1,57 @@
 # vim:ft=zsh
 
+typeset -A key
+
+key[Home]="${terminfo[khome]}"
+key[End]=${terminfo[kend]}
+key[Insert]=${terminfo[kich1]}
+key[Delete]=${terminfo[kdch1]}
+key[Up]=${terminfo[kcuu1]}
+key[Down]=${terminfo[kcud1]}
+key[Left]=${terminfo[kcub1]}
+key[Right]=${terminfo[kcuf1]}
+key[PageUp]=${terminfo[kpp]}
+key[PageDown]=${terminfo[knp]}
+key[Enter]=${terminfo[kent]}
+
+autoload up-line-or-beginning-search
+autoload down-line-or-beginning-search
+
+expand-or-complete-with-dots() {
+    echo -n "\e[31m......\e[0m"
+    zle expand-or-complete
+    zle redisplay
+}
+
+zle     -N  up-line-or-beginning-search
+zle     -N  down-line-or-beginning-search
+zle     -N  expand-or-complete-with-dots
+
 bindkey -v
 bindkey     "^[w"       kill-region
 bindkey     "^r"        history-incremental-search-backward
 
-# make search up and down work, so partially type and hit up/down to find
-bindkey     "^[[5~"     history-beginning-search-backward
-bindkey     "^[[6~"     history-beginning-search-forward
-bindkey     "^[[A"      history-beginning-search-backward
-bindkey     "^[[B"      history-beginning-search-forward
-bindkey     "^[OA"      history-beginning-search-backward   # urxvt
-bindkey     "^[OB"      history-beginning-search-forward    # urxvt
+# setup key accordingly
+bindkey "${key[Home]}"   beginning-of-line
+bindkey "${key[End]}"    end-of-line
 
-bindkey     "^[[H"      beginning-of-line
-bindkey     "^[[F"      end-of-line
-bindkey     "^[[1~"     beginning-of-line
-bindkey     "^[[4~"     end-of-line
-bindkey     "^[OH"      beginning-of-line       # gnome-terminal
-bindkey     "^[OF"      end-of-line             # gnome-terminal
-bindkey     "^[[7~"     beginning-of-line       # urxvt
-bindkey     "^[[8~"     end-of-lie              # urxvt
+bindkey "${key[Insert]}" overwrite-mode
+bindkey "${key[Delete]}" delete-char
 
-bindkey     "^[[1;5C"   forward-word
-bindkey     "^[[1;5D"   backward-word
+bindkey "${key[Up]}"     up-line-or-beginning-search
+bindkey "${key[Down]}"   down-line-or-beginning-search
 
-bindkey     "^[[Z"      reverse-menu-complete
+bindkey "${key[Left]}"   backward-char
+bindkey "${key[Right]}"  forward-char
 
-# Make the delete key (or Fn + Delete on the Mac) work instead of outputting a ~
-bindkey     "^?"        backward-delete-char
-bindkey     "^[[3~"     delete-char
-bindkey     "^[3;5~"    delete-char
+bindkey "^${key[Left]}"  forward-word
+bindkey "^${key[Right]}" backward-word
 
-# file rename magick
-bindkey     "^[m"       copy-prev-shell-word
+bindkey "^[[Z"           reverse-menu-complete
+bindkey "^[m"            copy-prev-shell-word
+bindkey "^I"             expand-or-complete-with-dots
 
-# ls on <M-l>
-bindkey -s  "^[l"       "ls\n"
-bindkey -s  "qq"        "\e"
+bindkey -s  "^[l"        "ls\n"  # ls on <M-l>
+bindkey -s  "qq"         "\e"    # qq = escape
 
-bindkey -M  menuselect  '^o' accept-and-infer-next-history
+bindkey -M  menuselect   '^o' accept-and-infer-next-history
