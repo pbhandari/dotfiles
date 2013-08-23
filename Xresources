@@ -23,14 +23,14 @@ Xft*lcdfilter:              lcddefault
 ! URxvt settings
 !-------------------------------------------------------------------------------
 URxvt*utf8:                 1
-! URxvt*depth:                256
+
 URxvt*geometry:             90x30
 URxvt*transparent:          false
-! URxvt*fading:               0
+
 URxvt.urgentOnBell:         true
-! URxvt.visualBell:           true
+
 URxvt*loginShell:           false
-URxvt*saveLines:            1000
+URxvt*saveLines:            8192
 URxvt*internalBorder:       0
 URxvt*lineSpace:            0
 
@@ -44,12 +44,14 @@ URxvt*boldItalicFont:       xft:Monaco for Powerline:bold:italic:size=8.5
 ! Fix font space
 ! URxvt*letterSpace: -1
 
+URxvt*termName:             urxvt-256color
+
 ! Scrollbar
 URxvt*scrollStyle:          rxvt
 URxvt*scrollBar:            false
 
 ! Perl extensions
-URxvt*perl-ext-common:      default,clipboard,url-select,keyboard-select,matcher
+URxvt*perl-ext-common:      default,clipboard,url-select,keyboard-select,matcher,vtwheel
 
 URxvt*matcher.button:       1
 URxvt*urlLauncher:          firefox
@@ -100,40 +102,40 @@ URxvt*color15:              S_color15
 !-------------------------------------------------------------------------------
 ! Xterm settings
 !-------------------------------------------------------------------------------
-*xterm*faceName: Monaco for Powerline
-*xterm*faceSize: 8.5
-*xterm*saveLines: 10000
-*xterm*scrollBar: false
-*xterm*jumpScroll: true
-!xterm*cursorColor: red
-! xterm*colorBD: darkblue
-*xterm*colorBDMode: true
-*xterm*highlightColor: darkgray
-*xterm*activeIcon: false
-! xterm*awaitInput: true
-*xterm*scrollTtyOutput: false
-*xterm*scrollKey: true
-*xterm*termName: xterm-256color
+*xterm*faceName:            Monaco for Powerline
+*xterm*faceSize:            8.5
+*xterm*saveLines:           10000
+*xterm*scrollBar:           false
+*xterm*jumpScroll:          true
+! xterm*cursorColor:          red
+! xterm*colorBD:              darkblue
+*xterm*colorBDMode:         true
+*xterm*highlightColor:      darkgray
+*xterm*activeIcon:          false
+! xterm*awaitInput:           true
+*xterm*scrollTtyOutput:     false
+*xterm*scrollKey:           true
+*xterm*termName:            xterm-256color
 
-*xterm*background: S_colorbg
-*xterm*foreground: S_colorfg
-*xterm*cursorColor: S_colorcursor
-*xterm*color0:  S_color00
-*xterm*color1:  S_color01
-*xterm*color2:  S_color02
-*xterm*color3:  S_color03
-*xterm*color4:  S_color04
-*xterm*color5:  S_color05
-*xterm*color6:  S_color06
-*xterm*color7:  S_color07
-*xterm*color8:  S_color08
-*xterm*color9:  S_color09
-*xterm*color10: S_color10
-*xterm*color11: S_color11
-*xterm*color12: S_color12
-*xterm*color13: S_color13
-*xterm*color14: S_color14
-*xterm*color15: S_color15
+*xterm*background:          S_colorbg
+*xterm*foreground:          S_colorfg
+*xterm*cursorColor:         S_colorcursor
+*xterm*color0:              S_color00
+*xterm*color1:              S_color01
+*xterm*color2:              S_color02
+*xterm*color3:              S_color03
+*xterm*color4:              S_color04
+*xterm*color5:              S_color05
+*xterm*color6:              S_color06
+*xterm*color7:              S_color07
+*xterm*color8:              S_color08
+*xterm*color9:              S_color09
+*xterm*color10:             S_color10
+*xterm*color11:             S_color11
+*xterm*color12:             S_color12
+*xterm*color13:             S_color13
+*xterm*color14:             S_color14
+*xterm*color15:             S_color15
 
 !-------------------------------------------------------------------------------
 ! xscreensaver
@@ -149,24 +151,24 @@ URxvt*color15:              S_color15
 !xscreensaver.passwd.passwdfont:         -*-dina-bold-r-*-*-12-*-*-*-*-*-*-*
 
 !general dialog box (affects main hostname, username, password text)
-xscreensaver.Dialog.foreground:         #ffffff
-xscreensaver.Dialog.background:         #111111
-xscreensaver.Dialog.topShadowColor:     #111111
-xscreensaver.Dialog.bottomShadowColor:  #111111
-xscreensaver.Dialog.Button.foreground:  #666666
-xscreensaver.Dialog.Button.background:  #ffffff
+xscreensaver.Dialog.foreground:                 #ffffff
+xscreensaver.Dialog.background:                 #111111
+xscreensaver.Dialog.topShadowColor:             #111111
+xscreensaver.Dialog.bottomShadowColor:          #111111
+xscreensaver.Dialog.Button.foreground:          #666666
+xscreensaver.Dialog.Button.background:          #ffffff
 
 !username/password input box and date text colour
-xscreensaver.Dialog.text.foreground:    #666666
-xscreensaver.Dialog.text.background:    #ffffff
-xscreensaver.Dialog.internalBorderWidth:24
-xscreensaver.Dialog.borderWidth:        20
-xscreensaver.Dialog.shadowThickness:    2
+xscreensaver.Dialog.text.foreground:            #666666
+xscreensaver.Dialog.text.background:            #ffffff
+xscreensaver.Dialog.internalBorderWidth:        24
+xscreensaver.Dialog.borderWidth:                20
+xscreensaver.Dialog.shadowThickness:            2
 
 !timeout bar (background is actually determined by Dialog.text.background)
-xscreensaver.passwd.thermometer.foreground:  #ff0000
-xscreensaver.passwd.thermometer.background:  #000000
-xscreensaver.passwd.thermometer.width:       8
+xscreensaver.passwd.thermometer.foreground:     #ff0000
+xscreensaver.passwd.thermometer.background:     #000000
+xscreensaver.passwd.thermometer.width:          8
 
 !datestamp format--see the strftime(3) manual page for details
-xscreensaver.dateFormat:    %I:%M%P %a %b %d, %Y
+xscreensaver.dateFormat:                        %I:%M%P %a %b %d, %Y

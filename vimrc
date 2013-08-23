@@ -54,7 +54,7 @@ set modeline                    " Enable modelines in vim
 set autochdir                   " Automatically cd into `dir %`
 
 let g:clipbrdDefaultReg = '+'   " Default Clipboard Registry = +
-let mapleader = ','             " Map Leader is comma
+let mapleader           = ','   " Map Leader is comma
 
 " set list these characters
 set listchars=tab:▸\ ,eol:¬
@@ -151,51 +151,36 @@ let g:buffergator_suppress_keymaps=1
 
 " ================== NERDTree
 nnoremap <leader><leader>e :NERDTreeToggle<CR>
-let NERDTreeShowBookmarks=1
-let NERDTreeChDirMode=0
-let NERDTreeQuitOnOpen=1
-let NERDTreeMouseMode=2
-let NERDTreeShowHidden=1
-let NERDTreeIgnore=['\.pyc','\~$','\.swo$','\.git','\.hg','\.svn','\.bzr']
-let NERDTreeKeepTreeInNewTab=1
-let g:nerdtree_tabs_open_on_gui_startup=0
+let NERDTreeShowBookmarks               = 1
+let NERDTreeChDirMode                   = 0
+let NERDTreeQuitOnOpen                  = 1
+let NERDTreeMouseMode                   = 2
+let NERDTreeShowHidden                  = 1
+let NERDTreeIgnore                      = ['\.pyc','\~$','\.swo$','\.git','\.hg','\.svn','\.bzr']
+let NERDTreeKeepTreeInNewTab            = 1
+let g:nerdtree_tabs_open_on_gui_startup = 0
 
 " ================= syntastic
-let g:syntastic_check_on_open=1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_style_error_symbol='★'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_style_warning_symbol='>'
-let g:syntastic_c_checkers=['make']
-let g:syntastic_mode_map={  'mode': 'active',
-                            \'passive_filetypes': []
-                            \}
-"
+let g:syntastic_check_on_open        = 1
+let g:syntastic_error_symbol         = '✗'
+let g:syntastic_style_error_symbol   = '★'
+let g:syntastic_warning_symbol       = '⚠'
+let g:syntastic_style_warning_symbol = '>'
+
 "============== vim-powerline
 if $TERM != 'linux' || has('gui_running')
     let g:Powerline_symbols = 'fancy'
 endif
 
 "let g:Powerline_symbols_override = { 'LINE' : 'L' }
-let g:Powerline_stl_path_style='short'
-let g:Powerline_colorsheme = 'solarized16'
+let g:Powerline_stl_path_style = 'short'
+let g:Powerline_colorsheme     = 'solarized16'
 
 " Don't show current mode down the bottom
 set noshowmode
 
 " ================== snipmate
 let g:snips_author="Prajjwal Bhandari"
-
-" ================= solarized
-"colorscheme solarized           " Better colouring
-
-"if !has('gui_running')
-    "let g:solarized_termcolors=&t_Co
-"endif
-
-"let g:solarized_termtrans=1
-"let g:solarized_contrast="high"
-" Now Fix solarized annoyances
 
 " ================== Sideways
 nnoremap <silent> <leader><leader>h :SidewaysLeft<CR>
@@ -208,16 +193,16 @@ nnoremap <silent> <leader><leader>u :UndotreeToggle<CR>
 nnoremap <silent> <leader><leader>t :TagbarToggle<CR>
 
 " ================== HaskellMode
-let g:haddock_indexfiledir="~/.vim/bundle/haskellmode-vim"
-let g:haddock_browser="/usr/bin/firefox"
+let g:haddock_indexfiledir = "~/.vim/bundle/haskellmode-vim"
+let g:haddock_browser      = "/usr/bin/firefox"
 " }}}
 
 " Filetypes {{{
 
 " ================== Haskell
-autocmd Filetype haskell setlocal makeprg=ghc\ %
-autocmd BufEnter *.hs compiler ghc
 let g:ghc = "/usr/bin/ghc"
+autocmd BufEnter *.hs compiler ghc
+autocmd! Filetype haskell set makeprg=ghc\ %
 
 " ================== Latex
 autocmd Filetype tex setlocal makeprg=pdflatex\ % spell textwidth=78
