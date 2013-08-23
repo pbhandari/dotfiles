@@ -8,7 +8,7 @@ export LESSOPEN="| /usr/bin/lesspipe.sh %s"
 export LESS=' -R -m -i'
 
 # export PATHs
-export PATH="$PATH:$HOME/.local/bin:$HOME/.local/share/os161/bin"
+export PATH="$HOME/.local/bin:$PATH:$HOME/.local/share/os161/bin:$HOME/.cabal/bin"
 export CDPATH="$CDPATH:$HOME/Semester"
 #export PYTHONPATH="/usr/lib/python3.3/site-packages"
 
@@ -17,7 +17,8 @@ eval $( keychain --eval id_rsa 79376B22 )
 # export maildir
 export MAIL="$HOME/.mail"
 export MAILCHECK=0
-export EDITOR=vim
+
+export EDITOR="vim:vi:nano"
 export VISUAL=$EDITOR
 export BROWSER="firefox"
 
