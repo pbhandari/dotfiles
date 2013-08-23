@@ -1,6 +1,5 @@
 vim/backups
 vim/tmp
-vim/bundle
 .viminfo
 *.o
 *.hi
