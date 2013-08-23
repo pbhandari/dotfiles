@@ -44,9 +44,6 @@ bindkey "${key[Down]}"   down-line-or-beginning-search
 bindkey "${key[Left]}"   backward-char
 bindkey "${key[Right]}"  forward-char
 
-bindkey "^${key[Left]}"  forward-word
-bindkey "^${key[Right]}" backward-word
-
 bindkey "^[[Z"           reverse-menu-complete
 bindkey "^[m"            copy-prev-shell-word
 bindkey "^I"             expand-or-complete-with-dots
