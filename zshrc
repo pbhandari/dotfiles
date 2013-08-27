@@ -130,6 +130,7 @@ function cnky() {
 # prompt {{{
 prompt off
 
+# PS1 {{{
 precmd() {
     # set the error code
     PS1_ERRNO=$?
@@ -176,7 +177,8 @@ precmd() {
 
     # print the working directory
     PS1_TOP+=${LINE_COLOR}"┤ "${PS1_GIT:+"${PS1_GIT_COLOR}⭠ "}
-    PS1_TOP+="%{$reset_color%}${PS1_CWD} ${LINE_COLOR}├─┐"
+    [[ -w $PWD ]] && PS1_TOP+="%{$reset_color%}" || PS1_TOP+="%{$fg[red]%}"
+    PS1_TOP+="${PS1_CWD}%{$reset_color%} ${LINE_COLOR}├─┐"
 
 
     PS1="${PS1_TOP}"$'\n'"%{${LINE_COLOR}%}└─ "
@@ -188,6 +190,15 @@ precmd() {
     unset PS1_ERRNO PS1_FILL_SIZE PS1_TOP LINE_COLOR PS1_TAIL\
           PS1_CWD PS1_GIT PS1_GIT_COLOR
 }
+# }}}
+
+# secondary prompt, printed when the shell needs more information to complete a
+# command.
+PS2='%_> '
+# selection prompt used within a select loop.
+PS3='?# '
+# the execution trace prompt (setopt xtrace). default: '+%N:%i>'
+PS4='+%N:%i:%_> '
 
 # }}}
 
