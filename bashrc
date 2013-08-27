@@ -64,12 +64,12 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] \
 # }}}
 
 # functions {{{
-function __truncPwd() {
-pwd | sed "s:^$HOME:~:" | awk -F/ '{print (NF<=3)?$0:$(NF - 1)"/"$NF}'
+__truncPwd() {
+    pwd | sed "s:^$HOME:~:" | awk -F/ '{print (NF<=3)?$0:$(NF - 1)"/"$NF}'
 }
 
-function source() {
-[ $# -eq 0 ] && builtin source $HOME/.bashrc || builtin source $@
+source() {
+    builtin source ${@:-"${HOME}/.bashrc"}
 }
 
 # }}}

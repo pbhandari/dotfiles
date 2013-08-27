@@ -101,18 +101,22 @@ done
 
 # functions {{{
 function history() {
-    builtin history "${@:-1}"
+    builtin history ${@:-1}
 }
 
 function source() {
-    builtin source "${@:-${HOME}/.zshrc}"
+    builtin source ${@:-"${HOME}/.zshrc"}
 }
 
 function stats() {
-    [ "$1" ] && local NUM=$1 || local NUM=10
-    local IGNORE="./|clear|tmux" # keep something in here
-    fc -l 1 | awk '{CMD[$2]++;}END { for (a in CMD)print CMD[a] " " a;}'\
-            | grep -v $IGNORE | column -c3 -t | sort -nr | nl | head -n $NUM
+    local ignored=".\/|clear|tmux" # keep something in here
+    fc -nl 1 \
+        | awk '$1!~/'"$ignored"'/ {
+                    CMD[$1]++;
+                } END {
+                    for (a in CMD)  print CMD[a] " " a;
+                }'\
+            | sort -nr | head -n ${1:-10} | column -c3 -t | nl
 }
 
 function cnky() {
