@@ -12,9 +12,8 @@ esac
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
+shopt -s histappend # append to the history file, don't overwrite it
+shopt -s histverify # !X expands out first
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTFILE="$HOME/.bash_history"
