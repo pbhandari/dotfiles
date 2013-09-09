@@ -9,7 +9,7 @@ export LESS=' -R -m -i'
 
 # export PATHs
 export PATH="$HOME/.local/bin:$PATH:$HOME/.local/share/os161/bin:$HOME/.cabal/bin"
-export CDPATH="$CDPATH:$HOME/Semester"
+export CDPATH="$CDPATH:$HOME/sem"
 #export PYTHONPATH="/usr/lib/python3.3/site-packages"
 
 eval $( keychain --eval id_rsa 79376B22 )
