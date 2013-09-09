@@ -1,24 +1,28 @@
 #!/bin/sh
 
 parse_git_branch(){
-    git rev-parse --abbrev-ref HEAD;
+    git rev-parse --abbrev-ref HEAD
+}
+
+parse_git_upstream() {
+    git rev-list --count `git for-each-ref --format='%(upstream:short)'`..HEAD
 }
 
 parse_svn_rev(){
     svn info | sed -n 's/Revision: //p';
 }
 
-function mkcd() {
+mkcd() {
     mkdir -p $1 && cd $1
 }
 
-function backup() {
+backup() {
     for i in $@; do
-        cp $i{,~}
+        cp -- "$i{,~}"
     done
 }
 
-function toggleTouchpad() {
+toggleTouchpad() {
     device="$(xinput --list | sed -n '/GlidePoint/s/.*id=\([0-9]\+\).*/\1/p')"
     case $1 in
         enable|on|"1") xinput enable $device
