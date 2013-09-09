@@ -192,6 +192,9 @@ nnoremap <silent> <leader><leader>u :UndotreeToggle<CR>
 " ================== Tagbar
 nnoremap <silent> <leader><leader>t :TagbarToggle<CR>
 
+" ================== Ultisnips
+let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
+
 " ================== HaskellMode
 let g:haddock_indexfiledir = "~/.vim/bundle/haskellmode-vim"
 let g:haddock_browser      = "/usr/bin/firefox"
