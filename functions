@@ -34,12 +34,19 @@ toggleTouchpad() {
     esac
 }
 
-function termite_color() {
-    FUNC_TERMITE_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/termite"
-    [ $1 ] && FUNC_TERMITE_COL="$1"
+termite_change_color() {
+    termite_dir="${XDG_CONFIG_HOME:-$HOME/.config}/termite"
+    termite_col="$1"
 
-    if [ -r "${FUNC_TERMITE_DIR}/${FUNC_TERMITE_COL}" ]; then
-        cat "${FUNC_TERMITE_DIR}/base" "${FUNC_TERMITE_DIR}/${FUNC_TERMITE_COL}"\
-            > "${FUNC_TERMITE_DIR}/config"
+    [ $# -gt 1 ] && echo "Usage: ${0##*/} COLOR" && return
+
+    if [ $# -eq 1 ] && [ ! -r "${termite_dir}/${termite_col}" ]; then
+        echo "${termite_dir}/${termite_col} cannot be read."
+        echo "Usage: ${0##*/} COLOR"
+        return
     fi
+
+    cat "${termite_dir}/base" > "${termite_dir}/config"
+    [ -f "${termite_dir}/${termite_col}" ] && \
+        cat "${termite_dir}/${termite_col}" >> "${termite_dir}/config"
 }
