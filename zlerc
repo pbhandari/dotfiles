@@ -49,6 +49,5 @@ bindkey "^[m"            copy-prev-shell-word
 bindkey "^I"             expand-or-complete-with-dots
 
 bindkey -s  "^[l"        "ls\n"  # ls on <M-l>
-bindkey -s  "qq"         "\e"    # qq = escape
 
 bindkey -M  menuselect   '^o' accept-and-infer-next-history
