@@ -42,15 +42,6 @@
     renames          = true
     algorithm        = patience
 
-[pretty]
-    sparselog        = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd)%Creset
-    prajj            = tformat:\
-Commit: %Cred%h%Creset%C(yellow)%d%Creset (%H)%n\
-Author: %aN %C(blue bold)<%ae>%Creset%n\
-Date  : %C(green)%ad%Creset%n\
-%n%s%n%n%-b\
-%n
-
 [pager]
     l                = false
 
@@ -72,3 +63,17 @@ Date  : %C(green)%ad%Creset%n\
     unassume         = update-index --no-assume-unchanged
     assumed          = "!git ls-files -v | grep ^h | cut -c 3-"
 	ds               = diff --staged
+
+[pretty]
+    sparselog        = format:\
+%C(auto)%h%C(reset) -%C(auto)%d %C(reset)%s %C(cyan)(%cd)%C(reset)
+    full-log         = tformat:\
+Commit: %Cred%h%Creset%C(yellow)%d%Creset (%H)%n\
+Author: %aN %C(blue bold)<%ae>%Creset%n\
+Date  : %C(green)%ad%Creset%n\
+%n\
+%s\
+%n\
+%n\
+%-b\
+%n
