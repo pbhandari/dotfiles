@@ -61,7 +61,7 @@
     sta              = stash
     assume           = update-index --assume-unchanged
     unassume         = update-index --no-assume-unchanged
-    assumed          = "!git ls-files -v | grep ^h | cut -c 3-"
+    assumed          = "!git ls-files -v | awk '/^h/ {print $2;}'"
 	ds               = diff --staged
 
 [pretty]
