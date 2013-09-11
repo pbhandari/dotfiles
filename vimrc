@@ -280,6 +280,8 @@ autocmd InsertLeave * let &updatetime=updaterestore
 "remove whitespace before writing to any file
 autocmd BufWrite,FileWritePre * call RemoveWhiteSpace()
 
+autocmd BufEnter *golf* call matchdelete(OverLine)
+
 " Removes superfluous white space from the end of a line
 function! RemoveWhiteSpace()
     if exists('b:noStripWhitespace')
