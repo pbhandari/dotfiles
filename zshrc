@@ -130,67 +130,70 @@ function cnky() {
 # prompt {{{
 prompt off
 
-# PS1 {{{
 precmd() {
+
+# PS1 {{{
     # set the error code
-    PS1_ERRNO=$?
+    ps1_errno=$?
 
-    if [ ${PS1_ERRNO} -eq 0 ]; then
-        PS1_ERRNO=""
-        LINE_COLOR="%{$reset_color%}"
-        PS1_TAIL+="%{$fg[magenta]%}"
+    if [ ${ps1_errno} -eq 0 ]; then
+        ps1_errno=""
+        line_color="%{$reset_color%}"
+        ps1_tail+="%{$fg[magenta]%}"
     else
-        LINE_COLOR="%{$fg[red]%}"
-        PS1_TAIL+="%{$fg[red]%}"
+        line_color="%{$fg[red]%}"
+        ps1_tail+="%{$fg[red]%}"
     fi
-    PS1_TAIL+="%B%#%b %{$reset_color%}"
+    ps1_tail+="%B%#%b %{$reset_color%}"
 
-    PS1_GIT="$(parse_git_branch 2>/dev/null)"
+    ps1_git="$(parse_git_branch 2>/dev/null)"
     [ "$(git status --porcelain 2>/dev/null)" ] \
-        && PS1_GIT_COLOR="%{$fg[red]%}" \
-        || PS1_GIT_COLOR="%{$fg[green]%}"
+        && ps1_git_color="%{$fg[red]%}" \
+        || ps1_git_color="%{$fg[green]%}"
 
     # initialise all the required variables
-    PS1_CWD=${PWD/$HOME/\~}
+    ps1_cwd=${PWD/$HOME/\~}
+    ps1_cwd_size=$((${#ps1_cwd}${ps1_git:+" + 2"} + 0))
 
     # print the username and hostname
-    PS1_TOP=${LINE_COLOR}"┌─┤ %{$fg[green]%}"${USER}
-    PS1_TOP+=${LINE_COLOR}"@%{$fg[blue]%}"${HOST}
-    PS1_TOP+="%{$reset_color%}"${SSH_CLIENT:+"(ssh)"}${LINE_COLOR}" ├"
+    PS1=${line_color}"┌─┤ %{$fg[green]%}"${USER}
+    PS1+=${line_color}"@%{$fg[blue]%}"${HOST}
+    PS1+="%{$reset_color%}"${SSH_CLIENT:+"(ssh)"}${line_color}" ├"
 
     # fill the line until the end
-    PS1_FILL_SIZE=$((${COLUMNS} - ${#USER} - ${#HOST} - ${#PS1_CWD}\
-                    ${SSH_CLIENT:+" - 5"} ${PS1_GIT:+" - 2"} - 14))
+    ps1_fill_size=$((${COLUMNS} - ${#USER} - ${#HOST} - ${ps1_cwd_size}\
+                    ${SSH_CLIENT:+" - 5"} - 14))
 
-    if [[ ${PS1_FILL_SIZE} -lt 0 ]]; then
-        PS1_TOP=${LINE_COLOR}"┌─"
-        PS1_FILL_SIZE=$(($COLUMNS - ${#PS1_CWD} - 11))
+    if [[ ${ps1_fill_size} -lt 0 ]]; then
+        PS1=${line_color}"┌─"
+        ps1_fill_size=$(($COLUMNS - ${ps1_cwd_size} - 9))
 
-        if [ ${#PS1_CWD} -gt $(($COLUMNS - 11)) ]; then
-            PS1_CWD=...${PS1_CWD:$((14 - $COLUMNS))}
-            PS1_FILL_SIZE=0
+        if [[ ${ps1_cwd_size} -gt $(($COLUMNS - 11)) ]]; then
+            ps1_cwd=...${ps1_cwd:$((12${ps1_git:+" + 2"} - $COLUMNS))}
+            ps1_fill_size=0
         fi
     fi
-    while ((PS1_FILL_SIZE)); do
-        PS1_TOP+='─'; ((PS1_FILL_SIZE=PS1_FILL_SIZE - 1))
+    while ((ps1_fill_size-- > 0)); do
+        PS1+='─'
     done
 
     # print the working directory
-    PS1_TOP+=${LINE_COLOR}"┤ "${PS1_GIT:+"${PS1_GIT_COLOR}⭠ "}
-    [[ -w $PWD ]] && PS1_TOP+="%{$reset_color%}" || PS1_TOP+="%{$fg[red]%}"
-    PS1_TOP+="${PS1_CWD}%{$reset_color%} ${LINE_COLOR}├─┐"
+    PS1+=${line_color}"┤ "${ps1_git:+"${ps1_git_color}⭠ "}
+    [[ -w "$PWD" ]] && PS1+="%{$reset_color%}" || PS1+="%{$fg[red]%}"
+    PS1+="${ps1_cwd}%{$reset_color%} ${line_color}├─┐"
 
 
-    PS1="${PS1_TOP}"$'\n'"%{${LINE_COLOR}%}└─ "
-    PS1+="${PS1_GIT_COLOR}${PS1_GIT:+"($PS1_GIT) "}${PS1_TAIL}%{$reset_color%}"
+    PS1+=$'\n'"%{${line_color}%}└─ "
+    PS1+="${ps1_git_color}${ps1_git:+"($ps1_git) "}${ps1_tail}%{$reset_color%}"
 
-    RPS1="%{${LINE_COLOR}%}%{%B%}${PS1_ERRNO}%{%b%}"
-    RPS1+="%{${LINE_COLOR}%} ─┘%{$reset_color%}"
+    RPS1="%{${line_color}%}%{%B%}${ps1_errno}%{%b%}"
+    RPS1+="%{${line_color}%} ─┘%{$reset_color%}"
 
-    unset PS1_ERRNO PS1_FILL_SIZE PS1_TOP LINE_COLOR PS1_TAIL\
-          PS1_CWD PS1_GIT PS1_GIT_COLOR
-}
+    unset ps1_errno ps1_fill_size line_color ps1_tail
+    unset ps1_cwd ps1_cwd_size ps1_git ps1_git_color
 # }}}
+
+}
 
 # secondary prompt, printed when the shell needs more information to complete a
 # command.
