@@ -13,6 +13,7 @@
 
 [core]
     editor           = vim
+    pager            = less
     autocrlf         = input
     filemode         = false
     whitespace       = trailing-space,space-before-tab
@@ -49,24 +50,35 @@
     lineNumber       = true
     patternType      = perl
 
+[url "git@bitbucket.org"]
+    insteadOf       = bb
+
 [alias]
     l                = log -n20 --pretty=sparselog --date=relative
-    up               = pull origin
+
     s                = status -sb
     st               = status
-    di               = diff
+
     co               = checkout
-    ci               = commit
     br               = branch
+    ci               = commit
     sta              = stash
+
+    di               = diff
+    ds               = diff --staged
+
+    unstage          = reset HEAD --
+
     assume           = update-index --assume-unchanged
     unassume         = update-index --no-assume-unchanged
     assumed          = "!git ls-files -v | awk '/^h/ {print $2;}'"
-	ds               = diff --staged
+
+    up               = pull origin
+
 
 [pretty]
-    sparselog        = format:\
-%C(auto)%h%C(reset) -%C(auto)%d %C(reset)%s %C(cyan)(%cd)%C(reset)
+    sparselog        = tformat:\
+%C(auto)%h%C(reset) -%C(auto)%d %C(reset)%s %C(cyan)(%ad)%C(reset)
     full-log         = tformat:\
 Commit: %Cred%h%Creset%C(yellow)%d%Creset (%H)%n\
 Author: %aN %C(blue bold)<%ae>%Creset%n\
