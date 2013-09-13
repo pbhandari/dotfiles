@@ -71,33 +71,11 @@ URxvt*fadeColor:            S_colorfade
 
 ! Cursor
 URxvt*cursorBlink:          true
-URxvt*cursorColor:          S_colorcursor
 URxvt*cursorUnderline:      false
 
 ! Pointer
 URxvt*pointerBlank:         true
 
-! Colours
-URxvt*background:           S_colorbg
-URxvt*foreground:           S_colorfg
-
-
-URxvt*color0:               S_color00
-URxvt*color1:               S_color01
-URxvt*color2:               S_color02
-URxvt*color3:               S_color03
-URxvt*color4:               S_color04
-URxvt*color5:               S_color05
-URxvt*color6:               S_color06
-URxvt*color7:               S_color07
-URxvt*color8:               S_color08
-URxvt*color9:               S_color09
-URxvt*color10:              S_color10
-URxvt*color11:              S_color11
-URxvt*color12:              S_color12
-URxvt*color13:              S_color13
-URxvt*color14:              S_color14
-URxvt*color15:              S_color15
 
 !-------------------------------------------------------------------------------
 ! Xterm settings
@@ -116,26 +94,6 @@ URxvt*color15:              S_color15
 *xterm*scrollTtyOutput:     false
 *xterm*scrollKey:           true
 *xterm*termName:            xterm-256color
-
-*xterm*background:          S_colorbg
-*xterm*foreground:          S_colorfg
-*xterm*cursorColor:         S_colorcursor
-*xterm*color0:              S_color00
-*xterm*color1:              S_color01
-*xterm*color2:              S_color02
-*xterm*color3:              S_color03
-*xterm*color4:              S_color04
-*xterm*color5:              S_color05
-*xterm*color6:              S_color06
-*xterm*color7:              S_color07
-*xterm*color8:              S_color08
-*xterm*color9:              S_color09
-*xterm*color10:             S_color10
-*xterm*color11:             S_color11
-*xterm*color12:             S_color12
-*xterm*color13:             S_color13
-*xterm*color14:             S_color14
-*xterm*color15:             S_color15
 
 !-------------------------------------------------------------------------------
 ! xscreensaver

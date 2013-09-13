@@ -1,3 +1,5 @@
+! vim:ft=xdefaults:
+
 urxvt*background: #30303a
 urxvt*foreground: #d6d6d6
 

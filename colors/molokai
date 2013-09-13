@@ -1,25 +1,23 @@
 ! vim:ft=xdefaults
 
-#define S_colorbg       #121212
-#define S_colorfg       #a0a0a0
-#define S_colorcursor   #a0a0a0
+*background:      #121212
+*foreground:      #a0a0a0
+*cursorColor:     #a0a0a0
 
-#define S_colorfade     #232323
-
-#define S_color00       #1B1D1E
-#define S_color01       #F92672
-#define S_color02       #82B414
-#define S_color03       #FD9714
-#define S_color04       #56C2D6
-#define S_color05       #CC54FE
-#define S_color06       #465447
-#define S_color07       #CCCCC6
-#define S_color08       #505354
-#define S_color09       #FF5995
-#define S_color10       #B6E354
-#define S_color11       #FEEDC6
-#define S_color12       #8CEDFF
-#define S_color13       #8C54FE
-#define S_color14       #899CA1
-#define S_color15       #F8F8F2
+*color0:       #1B1D1E
+*color1:       #F92672
+*color2:       #82B414
+*color3:       #FD9714
+*color4:       #56C2D6
+*color5:       #CC54FE
+*color6:       #465447
+*color7:       #CCCCC6
+*color8:       #505354
+*color9:       #FF5995
+*color10:      #B6E354
+*color11:      #FEEDC6
+*color12:      #8CEDFF
+*color13:      #8C54FE
+*color14:      #899CA1
+*color15:      #F8F8F2
 

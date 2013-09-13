@@ -1,3 +1,5 @@
+! vim:ft=xdefaults:
+
 ! TERMINAL COLOURS
 URxvt*cursorColor: #E2791B
 URxvt*colorIT: #666666
