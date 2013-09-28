@@ -287,6 +287,10 @@ function! RemoveWhiteSpace()
     if exists('b:noStripWhitespace')
         return
     endif
+    call RemoveWhiteSpaceForce()
+endfunction
+
+function! RemoveWhiteSpaceForce()
     exe "normal mz"
     %s/\s\+$//ge
     exe "normal 'z"
