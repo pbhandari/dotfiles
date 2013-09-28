@@ -67,7 +67,6 @@ URxvt*url-select.underline: true
 
 ! Fading
 URxvt*fading:               40
-URxvt*fadeColor:            S_colorfade
 
 ! Cursor
 URxvt*cursorBlink:          true

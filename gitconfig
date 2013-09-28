@@ -54,7 +54,7 @@
     insteadOf       = bb
 
 [alias]
-    l                = log -n20 --pretty=sparselog --date=relative
+    l                = log -n20 --pretty=sparselog --date=relative --graph
 
     s                = status -sb
     st               = status
@@ -77,15 +77,10 @@
 
 
 [pretty]
-    sparselog        = tformat:\
-%C(auto)%h%C(reset) -%C(auto)%d %C(reset)%s %C(cyan)(%ad)%C(reset)
-    full-log         = tformat:\
-Commit: %Cred%h%Creset%C(yellow)%d%Creset (%H)%n\
+    sparselog        = tformat:%C(red)%h%C(reset) -%C(auto)%d %C(reset)%s \
+%C(blue)<%an> %C(reset)%C(cyan)(%ad)%C(reset)
+    full-log         = tformat:%w\
+Commit: %Cred%h%Creset%C(auto)%d%Creset (%H)%n\
 Author: %aN %C(blue bold)<%ae>%Creset%n\
 Date  : %C(green)%ad%Creset%n\
-%n\
-%s\
-%n\
-%n\
-%-b\
-%n
+%n%B
