@@ -18,7 +18,7 @@ eval $( keychain --eval id_rsa 79376B22 )
 export MAIL="$HOME/.mail"
 export MAILCHECK=0
 
-export EDITOR="vim:vi:nano"
+export EDITOR=vim
 export VISUAL=$EDITOR
 export BROWSER="firefox"
 
