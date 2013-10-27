@@ -9,17 +9,6 @@
 Xcursor.theme:              Oxygen_Zion
 
 !-------------------------------------------------------------------------------
-! Xft settings
-!-------------------------------------------------------------------------------
-Xft*dpi:                    96
-Xft*autohint:               0
-Xft*antialias:              true
-Xft*rgba:                   rgb
-Xft*hinting:                true
-Xft*hintstyle:              hintslight
-Xft*lcdfilter:              lcddefault
-
-!-------------------------------------------------------------------------------
 ! URxvt settings
 !-------------------------------------------------------------------------------
 URxvt*utf8:                 1
@@ -34,13 +23,15 @@ URxvt*saveLines:            8192
 URxvt*internalBorder:       0
 URxvt*lineSpace:            0
 
+URxvt*iconFile:             urxvt
+
 ! Fonts
 URxvt*allow_bold:           false
-URxvt*font:                 xft:Monaco for Powerline:regular:size=8.5
-URxvt*imFont:               xft:Monaco for Powerline:regular:size=8.5
-URxvt*boldFont:             xft:Monaco for Powerline:bold:size=8.5
-URxvt*italicFont:           xft:Monaco for Powerline:italic:size=8.5
-URxvt*boldItalicFont:       xft:Monaco for Powerline:bold:italic:size=8.5
+URxvt*font:                 xft:Monaco for Powerline:regular:size=8.5,xft:Monospace:size=8.5
+URxvt*imFont:               xft:Monaco for Powerline:regular:size=8.5,xft:Monospace:size=8.5
+URxvt*boldFont:             xft:Monaco for Powerline:bold:size=8.5,xft:Monospace:size=8.5
+URxvt*italicFont:           xft:Monaco for Powerline:italic:size=8.5,xft:Monospace:size=8.5
+URxvt*boldItalicFont:       xft:Monaco for Powerline:bold:italic:size=8.5,xft:Monospace:size8.5
 ! Fix font space
 ! URxvt*letterSpace: -1
 
