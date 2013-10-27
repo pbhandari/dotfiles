@@ -65,6 +65,8 @@ set linebreak                   " line wrap on words not characters
 set synmaxcol=800               " don't highlight massive lines
 set tags+=tags;                 " use tag files
 
+set lazyredraw                  " lazily redraw the screen
+
 " }}}
 
 " Backups and Undos {{{
