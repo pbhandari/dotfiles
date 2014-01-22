@@ -8,11 +8,9 @@ export LESSOPEN="| /usr/bin/lesspipe.sh %s"
 export LESS=' -R -m -i'
 
 # export PATHs
-export PATH="$HOME/.local/bin:$PATH:$HOME/.local/share/os161/bin:$HOME/.cabal/bin"
+export PATH="$HOME/.local/bin:$PATH:"
 export CDPATH="$CDPATH:$HOME/sem"
 #export PYTHONPATH="/usr/lib/python3.3/site-packages"
-
-eval $( keychain --eval id_rsa 79376B22 )
 
 # export maildir
 export MAIL="$HOME/.mail"
