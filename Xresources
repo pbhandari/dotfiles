@@ -23,7 +23,7 @@ URxvt*saveLines:            8192
 URxvt*internalBorder:       0
 URxvt*lineSpace:            0
 
-URxvt*iconFile:             urxvt
+URxvt*iconFile:            /usr/share/.icons/Faenza/apps/64/gnome-terminal.png
 
 ! Fonts
 URxvt*allow_bold:           false
