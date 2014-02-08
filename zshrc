@@ -147,7 +147,7 @@ precmd() {
     ps1_tail+="%B%#%b %{$reset_color%}"
 
     ps1_git="$(parse_git_branch 2>/dev/null)"
-    [ "$(git status --porcelain 2>/dev/null)" ] \
+    [[ -n "$ps1_git" && -n "$(git status --porcelain 2>/dev/null)" ]] \
         && ps1_git_color="%{$fg[red]%}" \
         || ps1_git_color="%{$fg[green]%}"
 
@@ -164,7 +164,7 @@ precmd() {
     ps1_fill_size=$((${COLUMNS} - ${#USER} - ${#HOST} - ${ps1_cwd_size}\
                     ${SSH_CLIENT:+" - 5"} - 14))
 
-    if [[ ${ps1_fill_size} -lt 0 ]]; then
+    if [[ ${ps1_fill_size} < 0 ]]; then
         PS1=${line_color}"┌─"
         ps1_fill_size=$(($COLUMNS - ${ps1_cwd_size} - 9))
 
@@ -173,9 +173,7 @@ precmd() {
             ps1_fill_size=0
         fi
     fi
-    while ((ps1_fill_size-- > 0)); do
-        PS1+='─'
-    done
+    while ((ps1_fill_size-- > 0)); do PS1+='─'; done
 
     # print the working directory
     PS1+=${line_color}"┤ "${ps1_git:+"${ps1_git_color}⭠ "}
