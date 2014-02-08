@@ -28,26 +28,29 @@ zle     -N  down-line-or-beginning-search
 zle     -N  expand-or-complete-with-dots
 
 bindkey -v
-bindkey     "^[w"       kill-region
-bindkey     "^r"        history-incremental-search-backward
+bindkey     "^[w"               kill-region
+bindkey     "^r"                history-incremental-search-backward
 
 # setup key accordingly
-bindkey "${key[Home]}"   beginning-of-line
-bindkey "${key[End]}"    end-of-line
+bindkey     "${key[Home]}"      beginning-of-line
+bindkey     "${key[End]}"       end-of-line
 
-bindkey "${key[Insert]}" overwrite-mode
-bindkey "${key[Delete]}" delete-char
+bindkey     "${key[Insert]}"    overwrite-mode
+bindkey     "${key[Delete]}"    delete-char
 
-bindkey "${key[Up]}"     up-line-or-beginning-search
-bindkey "${key[Down]}"   down-line-or-beginning-search
+bindkey     "${key[Up]}"        up-line-or-beginning-search
+bindkey     "${key[Down]}"      down-line-or-beginning-search
 
-bindkey "${key[Left]}"   backward-char
-bindkey "${key[Right]}"  forward-char
+bindkey     "${key[Left]}"      backward-char
+bindkey     "${key[Right]}"     forward-char
 
-bindkey "^[[Z"           reverse-menu-complete
-bindkey "^[m"            copy-prev-shell-word
-bindkey "^I"             expand-or-complete-with-dots
+bindkey     "^[[Z"              reverse-menu-complete
+bindkey     "^[m"               copy-prev-shell-word
+bindkey     "^I"                expand-or-complete-with-dots
 
-bindkey -s  "^[l"        "ls\n"  # ls on <M-l>
+bindkey -s  "^[l"               "ls\n"  # ls    on <M-l>
+bindkey -s "\e${key[Home]}"     "~/"    # ~/    on <M-Home>
+bindkey -s "\e${key[End]}"      "../"   # ../   on <M-End>
+bindkey -s "\e "      "vim "   # ../   on <M-End>
 
-bindkey -M  menuselect   '^o' accept-and-infer-next-history
+bindkey -M  menuselect  '^o'    accept-and-infer-next-history
