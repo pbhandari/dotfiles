@@ -207,21 +207,28 @@ let g:haddock_browser      = "/usr/bin/firefox"
 " ================== Haskell
 let g:ghc = "/usr/bin/ghc"
 autocmd BufEnter *.hs compiler ghc
-autocmd! Filetype haskell set makeprg=ghc\ %
+autocmd! FileType haskell set makeprg=ghc\ %
 
 " ================== Latex
-autocmd Filetype tex setlocal makeprg=pdflatex\ % spell textwidth=78
+autocmd FileType tex setlocal spell textwidth=78
 
 " ================== Markdown
-autocmd Filetype markdown setlocal spell textwidth=78
+autocmd FileType markdown setlocal spell textwidth=78
 
+" Don't strip whitespace since it actually matters
 autocmd FileType markdown let b:noStripWhitespace=1
 
-autocmd Filetype markdown call matchdelete(TrailSpace)
-autocmd Filetype markdown let TrailSpace = matchadd('TrailSpace' , '\s\s\zs\s\+$')
+" And don't whine about the 'newline' marker
+autocmd FileType markdown call matchdelete(TrailSpace)
+autocmd FileType markdown let TrailSpace = matchadd('TrailSpace','\s\s\zs\s\+$')
 
 "  ================ CHANGELOG
-autocmd BufRead,BufNewFile CHANGELOG set filetype=changelog
+autocmd BufRead,BufNewFile CHANGELOG setlocal filetype=changelog
+
+" ================= MAIL
+autocmd FileType mail let b:noStripWhitespace=1
+autocmd FileType mail setlocal spell textwidth=78
+
 " }}}
 
 " Remaps {{{
@@ -274,16 +281,7 @@ vnoremap <silent> <leacer>C "_C
 
 " }}}
 
-" Autocmds and Functions{{{
-autocmd CursorHoldI * stopinsert
-autocmd InsertEnter * let updaterestore=&updatetime | set updatetime=10000
-autocmd InsertLeave * let &updatetime=updaterestore
-
-"remove whitespace before writing to any file
-autocmd BufWrite,FileWritePre * call RemoveWhiteSpace()
-
-autocmd BufEnter *golf* call matchdelete(OverLine)
-
+" Functions {{{
 " Removes superfluous white space from the end of a line
 function! RemoveWhiteSpace()
     if exists('b:noStripWhitespace')
@@ -297,6 +295,34 @@ function! RemoveWhiteSpaceForce()
     %s/\s\+$//ge
     exe "normal 'z"
 endfunction
+" }}}
+
+" University stuff {{{
+function! UniSettings()
+    let g:prajj_current_dir=getcwd()
+    if g:prajj_current_dir =~ "d18"
+        syn keyword cTodo contained QUESTION CRUNCHY NOTE TO DO
+    elseif g:prajj_current_dir =~ "c01/asst"
+        let g:syntastic_java_javac_classpath='/home/pbhandari/sem/c01/asst/bin/'
+        SyntasticCheck
+    endif
+endfunction
+autocmd! Bufenter * call UniSettings()
+
+" }}}
+
+" Misc Autocmds {{{
+
+" Hop out of insertmode after 5 seconds of inactivity
+autocmd CursorHoldI * stopinsert
+autocmd InsertEnter * let updaterestore=&updatetime | set updatetime=5000
+autocmd InsertLeave * let &updatetime=updaterestore
+
+" Remove whitespace before writing to any file
+autocmd BufWrite,FileWritePre * call RemoveWhiteSpace()
+
+" Don't whine about long lines when I'm golfing please
+autocmd BufEnter *golf* call matchdelete(OverLine)
 " }}}
 
 " OVERRIDES {{{
