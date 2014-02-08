@@ -71,7 +71,7 @@ main = do
 
 -- my Terminal
 myTerminal :: String
-myTerminal = "termite"
+myTerminal = "urxvtcd"
 
 -- modMask
 myModMask :: KeyMask
@@ -194,76 +194,62 @@ myManageHook = composeAll . concat $ [ []
 -- key bindings
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
-      ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
-    , (( modMask .|. controlMask, xK_Return),
-                spawn $ (XMonad.terminal conf) ++ " -e 'tmux new -As xmonad'")
+      ((modMask .|. shiftMask   , xK_Return) , spawn $ myTerminal)
+    , ((modMask .|. controlMask , xK_Return) , spawn $ myTerminal ++ " -e tmux new -As xmonad")
 
     -- opening program launcher / search engine
-    , ((modMask, xK_p), spawn "dmenu_run")
+    , ((modMask                 , xK_p)       , spawn "dmenu_run -fn Monaco:size=8.5")
 
     -- layouts
-    , ((modMask, xK_space ), sendMessage NextLayout)
-    , ((modMask .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
-    , ((modMask, xK_b ), sendMessage ToggleStruts)
-
+    , ((modMask                 , xK_space)   , sendMessage NextLayout)
+    , ((modMask .|. shiftMask   , xK_space)   , setLayout $ XMonad.layoutHook conf)
+    , ((modMask                 , xK_b)       , sendMessage ToggleStruts)
     -- floating layer stuff
-    , ((modMask, xK_t ), withFocused $ windows . W.sink)
-
+    , ((modMask                 , xK_t)       , withFocused $ windows . W.sink)
     -- refresh'
-    , ((modMask, xK_n ), refresh)
-
+    , ((modMask                 , xK_n)       , refresh)
     -- focus
-    , ((modMask, xK_Tab ), windows W.focusDown)
-    , ((modMask .|. shiftMask, xK_Tab ), windows W.focusUp)
+    , ((modMask                 , xK_Tab)     , windows W.focusDown)
+    , ((modMask .|. shiftMask   , xK_Tab)     , windows W.focusUp)
 
-    , ((modMask, xK_k ), windows W.focusUp)
-    , ((modMask, xK_j ), windows W.focusDown)
-    , ((modMask, xK_Up ), windows W.focusUp)
-    , ((modMask, xK_Down ), windows W.focusDown)
-    , ((modMask, xK_m ), windows W.focusMaster)
+    , ((modMask                 , xK_k)       , windows W.focusUp)
+    , ((modMask                 , xK_j)       , windows W.focusDown)
+    , ((modMask                 , xK_Up)      , windows W.focusUp)
+    , ((modMask                 , xK_Down)    , windows W.focusDown)
+    , ((modMask                 , xK_m)       , windows W.focusMaster)
 
     -- swapping
-    , ((modMask .|. shiftMask, xK_k ), windows W.swapUp )
-    , ((modMask .|. shiftMask, xK_j ), windows W.swapDown )
-    , ((modMask .|. shiftMask, xK_Up ), windows W.swapUp )
-    , ((modMask .|. shiftMask, xK_Down ), windows W.swapDown )
-    , ((modMask , xK_Return), windows W.swapMaster)
+    , ((modMask .|. shiftMask   , xK_k)       , windows W.swapUp)
+    , ((modMask .|. shiftMask   , xK_j)       , windows W.swapDown)
+    , ((modMask .|. shiftMask   , xK_Up)      , windows W.swapUp)
+    , ((modMask .|. shiftMask   , xK_Down)    , windows W.swapDown)
+    , ((modMask                 , xK_Return)  , windows W.swapMaster)
 
     -- increase or decrease number of windows in the master area
-    , ((modMask , xK_comma ), sendMessage (IncMasterN 1))
-    , ((modMask , xK_period), sendMessage (IncMasterN (-1)))
+    , ((modMask                 , xK_comma)   , sendMessage (IncMasterN 1))
+    , ((modMask                 , xK_period)  , sendMessage (IncMasterN (-1)))
 
-    , ((modMask, xK_h ), sendMessage Shrink)
-    , ((modMask, xK_l ), sendMessage Expand)
-    , ((modMask, xK_Left ), sendMessage Shrink)
-    , ((modMask, xK_Right ), sendMessage Expand)
+    , ((modMask                 , xK_h)       , sendMessage Shrink)
+    , ((modMask                 , xK_l)       , sendMessage Expand)
+    , ((modMask                 , xK_Left)    , sendMessage Shrink)
+    , ((modMask                 , xK_Right)   , sendMessage Expand)
 
     --Music mpc
-    , ((modMask .|. controlMask, xK_a), spawn "mpc prev")
-    , ((modMask .|. controlMask, xK_s), spawn "mpc toggle")
-    , ((modMask .|. controlMask, xK_d), spawn "mpc next")
-    {-, ((0 , 0x1008ff16 ), spawn "mpc prev")-}
-    {-, ((0 , 0x1008ff14 ), spawn "mpc toggle")-}
-    {-, ((0 , 0x1008ff17 ), spawn "mpc next")-}
+    , ((modMask .|. controlMask , xK_a)       , spawn "mpc prev")
+    , ((modMask .|. controlMask , xK_s)       , spawn "mpc toggle")
+    , ((modMask .|. controlMask , xK_d)       , spawn "mpc next")
 
     --Launching programs
-    , (( modMask .|. shiftMask, xK_c), kill) -- to kill applications
+    , (( modMask .|. shiftMask  , xK_c)       , kill) -- to kill applications
 
     -- volume control
-    , ((modMask .|. controlMask, xK_q), spawn "amixer sset Master toggle")
-    , ((modMask .|. controlMask, xK_w), spawn "amixer sset Master 5%+")
-    , ((modMask .|. controlMask, xK_e), spawn "amixer sset Master 5%-")
-    {-, ((0 , 0x1008ff13 ), spawn "amixer sset Master 5%+")-}
-    {-, ((0 , 0x1008ff11 ), spawn "amixer sset Master 5%-")-}
-    {-, ((0 , 0x1008ff12 ), spawn "amixer sset Master toggle")-}
-
-    -- brightness control
-    --, ((0 , 0x1008ff03 ), spawn "xcalib -co 50 -a")
-    --, ((0 , 0x1008ff02 ), spawn "xcalib -c -a")
+    , ((modMask .|. controlMask , xK_q)       , spawn "amixer sset Master toggle")
+    , ((modMask .|. controlMask , xK_w)       , spawn "amixer sset Master 5%+")
+    , ((modMask .|. controlMask , xK_e)       , spawn "amixer sset Master 5%-")
 
     -- quit, or restart
-    , ((modMask .|. shiftMask, xK_q ), io (exitWith ExitSuccess))
-    , ((modMask , xK_q ), restart "xmonad" True)
+    , ((modMask .|. shiftMask   , xK_q)       , io (exitWith ExitSuccess))
+    , ((modMask                 , xK_q)       , restart "xmonad" True)
     ]
     -- mod-[1..9] %! Switch to workspace N
     -- mod-shift-[1..9] %! Move client to workspace N
