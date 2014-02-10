@@ -231,13 +231,24 @@ autocmd FileType markdown let TrailSpace = matchadd('TrailSpace','\s\s\zs\s\+$')
 "  ================ CHANGELOG
 autocmd BufRead,BufNewFile CHANGELOG setlocal filetype=changelog
 
-" ================= MAIL
+" ================= Mail
 autocmd FileType mail let b:noStripWhitespace=1
 autocmd FileType mail setlocal spell textwidth=78
 
 " }}}
 
 " Remaps {{{
+" Disable the Arrow keys
+noremap! <LEFT>  <NOP>
+noremap! <RIGHT> <NOP>
+noremap! <UP>    <NOP>
+noremap! <DOWN>  <NOP>
+
+noremap <LEFT>  <NOP>
+noremap <RIGHT> <NOP>
+noremap <UP>    <NOP>
+noremap <DOWN>  <NOP>
+
 " Easy precision
 nnoremap ' `
 nnoremap ` '
@@ -259,19 +270,19 @@ cmap w!! w !sudo tee % >/dev/null
 nnoremap Y y$
 
 " Switch between absolute and relative line numbers
-nnoremap <silent> <leader><leader>n
-            \ :exec "set " .((&number == 1)? "relative" : "") . "number"<CR>
+inoremap <silent> <leader><leader>n <ESC>:set relativenumber!<CR>a
+nnoremap <silent> <leader><leader>n <ESC>:set relativenumber!<CR>
 
 " quick and easy make
+inoremap <leader>mk <C-o>:make<CR>
 nnoremap <leader>mk :make<CR>
 
 " quick esacpes
 inoremap qq <ESC>
 
 " Help key is not helpful
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
+noremap  <F1> <ESC>
+noremap! <F1> <ESC>
 
 " ,dX deletes a line without adding it to yank stack: normal and visual mode.
 nnoremap <silent> <leader>d "_d
@@ -280,10 +291,10 @@ nnoremap <silent> <leader>D "_D
 vnoremap <silent> <leader>D "_D
 
 " ,cX changes a line without adding it to yank stack: normal and visual mode.
-nnoremap <silent> <leacer>c "_c
-vnoremap <silent> <leacer>c "_c
-nnoremap <silent> <leacer>C "_C
-vnoremap <silent> <leacer>C "_C
+nnoremap <silent> <leader>c "_c
+vnoremap <silent> <leader>c "_c
+nnoremap <silent> <leader>C "_C
+vnoremap <silent> <leader>C "_C
 
 " }}}
 
@@ -318,6 +329,9 @@ autocmd! Bufenter * call UniSettings()
 " }}}
 
 " Misc Autocmds {{{
+
+" Read template files if they exist
+autocmd BufNewFile * silent! 0r ~/.vim/templates/%:e.skel
 
 " Hop out of insertmode after 5 seconds of inactivity
 autocmd CursorHoldI * stopinsert
