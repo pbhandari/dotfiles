@@ -1,0 +1,58 @@
+\documentclass{article}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[margin=1in, letterpaper]{geometry}
+\usepackage[pdftex]{graphicx}
+\usepackage{wrapfig}
+\usepackage{pdfpages}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{color}
+\setlength{\headheight}{22.7pt}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\newcommand{\myName}{Prajjwal Bhandari}
+\newcommand{\myUTor}{bhanda35}
+
+\newcommand{\courseCode}{FIXME}
+\newcommand{\coursename}{FIXME}
+\newcommand{\profName}{FIXME}
+
+\newcommand{\projName}{FIXME}
+
+\author{\myName}
+\pagestyle{fancyplain}
+\fancyhf{}
+
+\lhead{\fancyplain{}{\myName}}
+\rhead{\fancyplain{}{\courseCode\ \projName\\ \today}}
+\rfoot{\fancyplain{}{\thepage}}
+
+\lstset{%
+    backgroundcolor=\color{white},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\footnotesize\texttt,
+    captionpos=b,
+    keepspaces=true,
+    keywordstyle=\color{blue},
+    rulecolor=\color{black},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    stringstyle=\color{rgb}{0.58,0,0.82},
+    tabsize=2,
+    title=\lstname,
+    %language=sql
+}
+
+\begin{document}
+
+\end{document}
