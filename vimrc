@@ -235,6 +235,9 @@ autocmd BufRead,BufNewFile CHANGELOG setlocal filetype=changelog
 autocmd FileType mail let b:noStripWhitespace=1
 autocmd FileType mail setlocal spell textwidth=78
 
+" ================= Perl
+autocmd FileType perl setlocal keywordprg=perldoc\ -f
+
 " }}}
 
 " Remaps {{{
