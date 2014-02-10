@@ -242,10 +242,10 @@ autocmd FileType perl setlocal keywordprg=perldoc\ -f
 
 " Remaps {{{
 " Disable the Arrow keys
-noremap! <LEFT>  <NOP>
-noremap! <RIGHT> <NOP>
-noremap! <UP>    <NOP>
-noremap! <DOWN>  <NOP>
+inoremap <LEFT>  <NOP>
+inoremap <RIGHT> <NOP>
+inoremap <UP>    <NOP>
+inoremap <DOWN>  <NOP>
 
 noremap <LEFT>  <NOP>
 noremap <RIGHT> <NOP>
