@@ -103,11 +103,11 @@ set foldopen+=jump,mark,percent,quickfix,search,tag,undo
 
 " Completion {{{
 set wildmode=full
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
+set wildmenu                            " C-n and C-p scroll through matches
 
 "stuff to ignore when tab completing
-set wildignore=*.o,*.obj,*~             " object files
-set wildignore+=*.class                 " class files
+set wildignore=*.o,*.obj                " object files
+set wildignore+=*.class                 " Java class files
 set wildignore+=*.pyc                   " python compiled files
 
 set wildignore+=*vim/backups*           " anything from the backups folder
@@ -273,7 +273,7 @@ cmap w!! w !sudo tee % >/dev/null
 nnoremap Y y$
 
 " Switch between absolute and relative line numbers
-inoremap <silent> <leader><leader>n <ESC>:set relativenumber!<CR>a
+inoremap <silent> <leader><leader>n <C-o>:set relativenumber!<CR>
 nnoremap <silent> <leader><leader>n <ESC>:set relativenumber!<CR>
 
 " quick and easy make
