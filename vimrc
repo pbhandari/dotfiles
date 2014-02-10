@@ -94,7 +94,7 @@ set expandtab                   " All tabs are spaces
 " }}}
 
 " Folds {{{
-set foldmethod=marker          " Fold based on indent
+set foldmethod=marker          " Fold based on marker
 set foldnestmax=3              " Deepest fold is 3 levels
 set nofoldenable               " Dont fold by default
 set foldopen=block,hor,insert  " Which commands trigger autofold
@@ -102,18 +102,24 @@ set foldopen+=jump,mark,percent,quickfix,search,tag,undo
 " }}}
 
 " Completion {{{
-set wildmode=list:longest
+set wildmode=full
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
-set wildignore+=*vim/backups*
-set wildignore+=*sass-cache*
-set wildignore+=vendor/rails/**
-set wildignore+=vendor/cache/**
-set wildignore+=*.gem
+
+"stuff to ignore when tab completing
+set wildignore=*.o,*.obj,*~             " object files
+set wildignore+=*.class                 " class files
+set wildignore+=*.pyc                   " python compiled files
+
+set wildignore+=*vim/backups*           " anything from the backups folder
+set wildignore+=*~,#*#,*.swp            " all other backup files
+
+" tmp folder and log folders
 set wildignore+=log/**
-set wildignore+=tmp/**
+set wildignore+=tmp/**                  " anything that is temporary
+
+" image files
 set wildignore+=*.png,*.jpg,*.gif
-set wildignore+=*.class
+set wildignore+=*.bmp
 " }}}
 
 " Search Settings  {{{
