@@ -317,20 +317,6 @@ function! RemoveWhiteSpaceForce()
 endfunction
 " }}}
 
-" University stuff {{{
-function! UniSettings()
-    let g:prajj_current_dir=getcwd()
-    if g:prajj_current_dir =~ "d18"
-        syn keyword cTodo contained QUESTION CRUNCHY NOTE TO DO
-    elseif g:prajj_current_dir =~ "c01/asst"
-        let g:syntastic_java_javac_classpath='/home/pbhandari/sem/c01/asst/bin/'
-        SyntasticCheck
-    endif
-endfunction
-autocmd! Bufenter * call UniSettings()
-
-" }}}
-
 " Misc Autocmds {{{
 
 " Read template files if they exist
@@ -350,6 +336,7 @@ autocmd BufEnter *golf* call matchdelete(OverLine)
 
 " OVERRIDES {{{
 autocmd BufEnter * set cmdheight=1
+source $HOME/.vimrc.local
 " }}}
 
 " vim:foldenable
