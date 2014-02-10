@@ -52,6 +52,7 @@ URxvt*keysym.M-u:           perl:url-select:select_next
 ! start keyboard select
 URxvt*keysym.M-V:           perl:keyboard-select:activate
 URxvt*keysym.M-s:           perl:keyboard-select:search
+URxvt*keysym.M-v:           perl:keyboard-select:paste
 
 URxvt*url-select.launcher:  /usr/bin/firefox -new-tab
 URxvt*url-select.underline: true
