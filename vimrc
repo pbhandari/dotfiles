@@ -14,8 +14,9 @@ filetype on                     " Turn on filetype checking
 filetype plugin on
 filetype indent on
 
-set bg=dark                    " Makes items more readable
+set bg=dark                     " Makes items more readable
 
+colorscheme molokai             " Change the colorscheme
 " }}}
 
 "  General Config {{{
@@ -97,8 +98,11 @@ set expandtab                   " All tabs are spaces
 set foldmethod=marker          " Fold based on marker
 set foldnestmax=3              " Deepest fold is 3 levels
 set nofoldenable               " Dont fold by default
-set foldopen=block,hor,insert  " Which commands trigger autofold
-set foldopen+=jump,mark,percent,quickfix,search,tag,undo
+
+set foldopen=block,hor,insert  " Which commands trigger autounfold
+set foldopen+=jump,mark
+set foldopen+=percent,search
+set foldopen+=quickfix,tag,undo
 " }}}
 
 " Completion {{{
@@ -147,11 +151,6 @@ let OverLine = matchadd('OverLine', '\%>80v.\+')
 autocmd ColorScheme * highlight OverLine cterm=italic ctermfg=red
 autocmd ColorScheme * highlight OverLine gui=italic guifg=red
 " }}}
-
-" Colorscheme {{{
-
-colorscheme molokai
-"}}}
 
 " Plugins {{{
 " ================== Buffergator
@@ -241,7 +240,7 @@ autocmd FileType perl setlocal keywordprg=perldoc\ -f
 " }}}
 
 " Remaps {{{
-" Disable the Arrow keys
+" Disable the Arrow keys {{{
 inoremap <LEFT>  <NOP>
 inoremap <RIGHT> <NOP>
 inoremap <UP>    <NOP>
@@ -251,6 +250,22 @@ noremap <LEFT>  <NOP>
 noremap <RIGHT> <NOP>
 noremap <UP>    <NOP>
 noremap <DOWN>  <NOP>
+"}}}
+
+" Use the Black Hole Buffer {{{
+
+" ,dX deletes a line without adding it to yank stack: normal and visual mode.
+nnoremap <silent> <leader>d "_d
+vnoremap <silent> <leader>d "_d
+nnoremap <silent> <leader>D "_D
+vnoremap <silent> <leader>D "_D
+
+" ,cX changes a line without adding it to yank stack: normal and visual mode.
+nnoremap <silent> <leader>c "_c
+vnoremap <silent> <leader>c "_c
+nnoremap <silent> <leader>C "_C
+vnoremap <silent> <leader>C "_C
+"}}}
 
 " Easy precision
 nnoremap ' `
@@ -261,13 +276,13 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
 " Show whitespaces
-nmap <silent> <leader>s :set nolist!<CR>
+nnoremap <silent> <leader>s :set nolist!<CR>
 
 " Clear highlighted search
-nmap <silent> <leader>/ :nohlsearch<CR>
+nnoremap <silent> <leader>/ :nohlsearch<CR>
 
 " Quick write read only Files
-cmap w!! w !sudo tee % >/dev/null
+cnoremap w!! w !sudo tee % >/dev/null
 
 " Y works the same as C, and D
 nnoremap Y y$
@@ -288,18 +303,6 @@ inoremap kj <ESC>
 " Help key is not helpful
 noremap  <F1> <ESC>
 noremap! <F1> <ESC>
-
-" ,dX deletes a line without adding it to yank stack: normal and visual mode.
-nnoremap <silent> <leader>d "_d
-vnoremap <silent> <leader>d "_d
-nnoremap <silent> <leader>D "_D
-vnoremap <silent> <leader>D "_D
-
-" ,cX changes a line without adding it to yank stack: normal and visual mode.
-nnoremap <silent> <leader>c "_c
-vnoremap <silent> <leader>c "_c
-nnoremap <silent> <leader>C "_C
-vnoremap <silent> <leader>C "_C
 
 " }}}
 
