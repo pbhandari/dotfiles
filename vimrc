@@ -282,6 +282,8 @@ nnoremap <leader>mk :make<CR>
 
 " quick esacpes
 inoremap qq <ESC>
+inoremap jk <ESC>
+inoremap kj <ESC>
 
 " Help key is not helpful
 noremap  <F1> <ESC>
@@ -336,7 +338,11 @@ autocmd BufEnter *golf* call matchdelete(OverLine)
 
 " OVERRIDES {{{
 autocmd BufEnter * set cmdheight=1
-source $HOME/.vimrc.local
+
+" Source local vimrc if it exists
+if filereadable($HOME . "/.vimrc.local")
+    source $HOME/.vimrc.local
+endif
 " }}}
 
 " vim:foldenable
