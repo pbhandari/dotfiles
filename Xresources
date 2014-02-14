@@ -23,7 +23,7 @@ URxvt*saveLines:            8192
 URxvt*internalBorder:       0
 URxvt*lineSpace:            0
 
-URxvt*iconFile:            /usr/share/.icons/Faenza/apps/64/gnome-terminal.png
+URxvt*iconFile:            /usr/share/icons/Faenza/apps/64/gnome-terminal.png
 
 ! Fonts
 URxvt*allow_bold:           false
@@ -34,8 +34,10 @@ URxvt*italicFont:           xft:Monaco for Powerline:italic:size=8.5,xft:Monospa
 URxvt*boldItalicFont:       xft:Monaco for Powerline:bold:italic:size=8.5,xft:Monospace:size8.5
 ! Fix font space
 ! URxvt*letterSpace: -1
+URxvt*iso14755:             false
+URxvt*iso14755_52:          false
 
-URxvt*termName:             urxvt-256color
+URxvt*termName:             rxvt-unicode-256color
 
 ! Scrollbar
 URxvt*scrollStyle:          rxvt
