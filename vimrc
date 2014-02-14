@@ -364,8 +364,6 @@ autocmd BufEnter *golf* call matchdelete(OverLine)
 " }}}
 
 " OVERRIDES {{{
-autocmd BufEnter * set cmdheight=1
-
 " Source local vimrc if it exists
 if filereadable($HOME . "/.vimrc.local")
     source $HOME/.vimrc.local
