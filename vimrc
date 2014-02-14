@@ -241,6 +241,16 @@ autocmd FileType perl setlocal keywordprg=perldoc\ -f
 
 " Remaps {{{
 " Disable the Arrow keys {{{
+inoremap <C-LEFT>  <NOP>
+inoremap <C-RIGHT> <NOP>
+inoremap <C-UP>    <NOP>
+inoremap <C-DOWN>  <NOP>
+
+noremap  <C-LEFT>  <NOP>
+noremap  <C-RIGHT> <NOP>
+noremap  <C-UP>    <NOP>
+noremap  <C-DOWN>  <NOP>
+
 inoremap <LEFT>  <NOP>
 inoremap <RIGHT> <NOP>
 inoremap <UP>    <NOP>
@@ -266,6 +276,12 @@ vnoremap <silent> <leader>c "_c
 nnoremap <silent> <leader>C "_C
 vnoremap <silent> <leader>C "_C
 "}}}
+
+" Move lines in file
+inoremap <silent> k <C-o>:m-2 <CR>
+inoremap <silent> j <C-o>:m+1<CR>
+nnoremap <silent> k :<C-U>exe "m-" . (v:count1 + 1) <CR>
+nnoremap <silent> j :<C-U>exe "m+" . v:count1       <CR>
 
 " Easy precision
 nnoremap ' `
@@ -293,17 +309,25 @@ nnoremap <silent> <leader><leader>n <ESC>:set relativenumber!<CR>
 
 " quick and easy make
 inoremap <leader>mk <C-o>:make<CR>
-nnoremap <leader>mk :make<CR>
+nnoremap <leader>mk      :make<CR>
 
 " quick esacpes
-inoremap qq <ESC>
-inoremap jk <ESC>
-inoremap kj <ESC>
+noremap  qq <NOP>
+noremap! qq <ESC>
+onoremap qq <C-c>
+vnoremap qq <ESC>
 
 " Help key is not helpful
 noremap  <F1> <ESC>
 noremap! <F1> <ESC>
 
+noremap <BSLASH> ;
+noremap <BAR> ,
+noremap ; :
+
+" Help key is not helpful
+noremap  <F1> <ESC>
+noremap! <F1> <ESC>
 " }}}
 
 " Functions {{{
