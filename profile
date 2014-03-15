@@ -55,3 +55,5 @@ if [ "$TERM" = "linux" ]; then
 
     clear #for background artifacting
 fi
+
+[ -f $HOME/.keychaineval ] && source $HOME/.keychaineval
