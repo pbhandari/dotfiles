@@ -101,8 +101,9 @@ set foldopen+=quickfix,tag,undo
 " }}}
 
 " Completion {{{
-set wildmode=full
 set wildmenu                            " C-n and C-p scroll through matches
+set wildmode=longest:full,full          " Show completions on first <TAB> and
+                                        " start cycling through on second <TAB>
 
 "stuff to ignore when tab completing
 set wildignore=*.o,*.obj                " object files
@@ -240,28 +241,6 @@ autocmd FileType perl setlocal keywordprg=perldoc\ -f
 " }}}
 
 " Remaps {{{
-" Disable the Arrow keys {{{
-inoremap <C-LEFT>  <NOP>
-inoremap <C-RIGHT> <NOP>
-inoremap <C-UP>    <NOP>
-inoremap <C-DOWN>  <NOP>
-
-noremap  <C-LEFT>  <NOP>
-noremap  <C-RIGHT> <NOP>
-noremap  <C-UP>    <NOP>
-noremap  <C-DOWN>  <NOP>
-
-inoremap <LEFT>  <NOP>
-inoremap <RIGHT> <NOP>
-inoremap <UP>    <NOP>
-inoremap <DOWN>  <NOP>
-
-noremap <LEFT>  <NOP>
-noremap <RIGHT> <NOP>
-noremap <UP>    <NOP>
-noremap <DOWN>  <NOP>
-"}}}
-
 " Use the Black Hole Buffer {{{
 
 " ,dX deletes a line without adding it to yank stack: normal and visual mode.
@@ -305,7 +284,8 @@ nnoremap Y y$
 
 " Switch between absolute and relative line numbers
 inoremap <silent> <leader><leader>n <C-o>:set relativenumber!<CR>
-nnoremap <silent> <leader><leader>n <ESC>:set relativenumber!<CR>
+vnoremap <silent> <leader><leader>n <ESC>:set relativenumber!<CR>gv
+nnoremap <silent> <leader><leader>n      :set relativenumber!<CR>
 
 " quick and easy make
 inoremap <leader>mk <C-o>:make<CR>
