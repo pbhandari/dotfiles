@@ -16,6 +16,7 @@ key[Enter]=${terminfo[kent]}
 
 autoload up-line-or-beginning-search
 autoload down-line-or-beginning-search
+autoload -U edit-command-line
 
 expand-or-complete-with-dots() {
     echo -n "\e[31m......\e[0m"
@@ -23,9 +24,10 @@ expand-or-complete-with-dots() {
     zle redisplay
 }
 
-zle     -N  up-line-or-beginning-search
-zle     -N  down-line-or-beginning-search
-zle     -N  expand-or-complete-with-dots
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+zle -N expand-or-complete-with-dots
+zle -N edit-command-line
 
 bindkey -v
 bindkey     "^[w"               kill-region
@@ -48,9 +50,10 @@ bindkey     "^[[Z"              reverse-menu-complete
 bindkey     "^[m"               copy-prev-shell-word
 bindkey     "^I"                expand-or-complete-with-dots
 
-bindkey -s  "^[l"               "ls\n"  # ls    on <M-l>
+bindkey -s  "\el"               "ls\n"  # ls    on <M-l>
 bindkey -s "\e${key[Home]}"     "~/"    # ~/    on <M-Home>
 bindkey -s "\e${key[End]}"      "../"   # ../   on <M-End>
-bindkey -s "\e "      "vim "   # ../   on <M-End>
+bindkey -s "\e "                "vim "  # vim   on <M-Space>
 
 bindkey -M  menuselect  '^o'    accept-and-infer-next-history
+bindkey -M  vicmd        v       edit-command-line
