@@ -1,13 +1,10 @@
 " .vimrc
 
 " Basic Things {{{
-
-set nocompatible                " Revert all settings back to vim default
-
 " Infect all the things
 execute pathogen#infect('bundle/{}')
 
-runtime macros/matchit.vim      " Better open/close matching
+set nocompatible                " Revert all settings back to vim default
 
 syntax on                       " Turn on Syntax hilighting
 filetype on                     " Turn on filetype checking
@@ -15,8 +12,6 @@ filetype plugin on
 filetype indent on
 
 set bg=dark                     " Makes items more readable
-
-colorscheme molokai             " Change the colorscheme
 " }}}
 
 "  General Config {{{
@@ -28,8 +23,8 @@ set backspace=indent,eol,start  " Allow backspace in insert mode
 
 set showcmd                     " Show incomplete cmds down the bottom
 set laststatus=2                " Always show the statusbar
-set cmdheight=1                 " Set the height of the command line
-set showtabline=1               " Always show tab-bar
+set cmdheight=1                 " Always show the command line
+set showtabline=1               " Show tab-bar only if there are tabs
 set cursorline                  " Highlight current line
 
 set visualbell                  " No sounds
@@ -138,6 +133,11 @@ set wrapscan                    " Wrap search upon reaching the end of document
 " }}}
 
 " Highlight {{{
+" Highlights lines over 80 chars,
+highlight OverLine cterm=italic gui=italic ctermfg=red guifg=red
+let OverLine = matchadd('OverLine', '\%>80v.\+')
+autocmd ColorScheme * highlight OverLine cterm=italic ctermfg=red
+autocmd ColorScheme * highlight OverLine gui=italic guifg=red
 
 " Highlights trailing spaces with a red underline
 highlight TrailSpace cterm=underline ctermfg=red gui=underline guifg=red
@@ -145,11 +145,6 @@ let TrailSpace = matchadd('TrailSpace' , '\s\+$')
 autocmd ColorScheme * highlight TrailSpace cterm=underline ctermfg=red
 autocmd ColorScheme * highlight TrailSpace gui=underline guifg=red
 
-" Highlights lines over 80 chars,
-highlight OverLine cterm=italic gui=italic ctermfg=red guifg=red
-let OverLine = matchadd('OverLine', '\%>80v.\+')
-autocmd ColorScheme * highlight OverLine cterm=italic ctermfg=red
-autocmd ColorScheme * highlight OverLine gui=italic guifg=red
 " }}}
 
 " Plugins {{{
@@ -205,6 +200,11 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
 " ================== HaskellMode
 let g:haddock_indexfiledir = "~/.vim/bundle/haskellmode-vim"
 let g:haddock_browser      = "/usr/bin/firefox"
+
+" ================== Load Plugins
+runtime macros/matchit.vim      " Better open/close matching
+
+colorscheme molokai             " Change the colorscheme
 " }}}
 
 " Filetypes {{{
@@ -313,21 +313,19 @@ nnoremap <leader>mk      :make<CR>
 
 " quick esacpes
 noremap  qq <NOP>
-noremap! qq <ESC>
-onoremap qq <C-c>
+inoremap qq <ESC>
 vnoremap qq <ESC>
 
 " Help key is not helpful
 noremap  <F1> <ESC>
 noremap! <F1> <ESC>
 
-noremap <BSLASH> ;
-noremap <BAR> ,
+" Easier entry to commmand-mode
 noremap ; :
 
-" Help key is not helpful
-noremap  <F1> <ESC>
-noremap! <F1> <ESC>
+" These are pretty handy.
+noremap <BSLASH> ;
+noremap <BAR> ,
 " }}}
 
 " Functions {{{
