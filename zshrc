@@ -130,6 +130,15 @@ function cnky() {
 # prompt {{{
 prompt off
 
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' max-exports 3
+zstyle ':vcs_info:git*' stagedstr 'M'
+zstyle ':vcs_info:git*' unstagedstr 'M'
+zstyle ':vcs_info:git*' check-for-changes true
+zstyle ':vcs_info:git*' actionformats '(%b|%a) ' '%u%c' '%s'
+zstyle ':vcs_info:git*' formats '(%b) ' '%u%c' '%s'
+zstyle ':vcs_info:' enable git
+
 precmd() {
 
 # PS1 {{{
@@ -146,8 +155,10 @@ precmd() {
     fi
     ps1_tail+="%B%#%b %{$reset_color%}"
 
-    ps1_git="$(parse_git_branch 2>/dev/null)"
-    [[ -n "$ps1_git" && -n "$(git status --porcelain 2>/dev/null)" ]] \
+    vcs_info
+
+    [[ "${vcs_info_msg_2_}" == "git" ]] && ps1_git=${vcs_info_msg_0_}
+    [[ -n "${ps1_git}" && -n "${vcs_info_msg_1_}" ]] \
         && ps1_git_color="%{$fg[red]%}" \
         || ps1_git_color="%{$fg[green]%}"
 
@@ -182,7 +193,7 @@ precmd() {
 
 
     PS1+=$'\n'"%{${line_color}%}└─ "
-    PS1+="${ps1_git_color}${ps1_git:+"($ps1_git) "}${ps1_tail}%{$reset_color%}"
+    PS1+="${ps1_git_color}${ps1_git}${ps1_tail}%{$reset_color%}"
 
     RPS1="%{${line_color}%}%{%B%}${ps1_errno}%{%b%}"
     RPS1+="%{${line_color}%} ─┘%{$reset_color%}"
