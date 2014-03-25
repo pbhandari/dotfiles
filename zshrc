@@ -125,6 +125,13 @@ function cnky() {
     done
 }
 
++vi-git-untracked() {
+    git rev-parse --is-inside-work-tree &> /dev/null || return;
+    git status --porcelain | grep '??' &> /dev/null || return;
+
+    hook_com[unstaged]+='T'
+}
+
 # }}}
 
 # prompt {{{
@@ -132,12 +139,11 @@ prompt off
 
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' max-exports 3
-zstyle ':vcs_info:git*' stagedstr 'M'
-zstyle ':vcs_info:git*' unstagedstr 'M'
 zstyle ':vcs_info:git*' check-for-changes true
 zstyle ':vcs_info:git*' actionformats '(%b|%a) ' '%u%c' '%s'
 zstyle ':vcs_info:git*' formats '(%b) ' '%u%c' '%s'
 zstyle ':vcs_info:' enable git
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 
 precmd() {
 
