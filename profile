@@ -6,9 +6,13 @@ export PAGER="less"
 export LESSOPEN="| /usr/bin/lesspipe.sh %s"
 export LESS=' -R -m -i'
 
+export GIT_PAGER="less -FX"
+
 # export PATHs
-export PATH="$HOME/.local/bin:$PATH:$HOME/.gem/ruby/2.1.0/bin:$HOME/.cabal/bin"
-export CDPATH="$CDPATH:$HOME/sem"
+export GOPATH="$HOME/.golang"
+PATH="$HOME/.local/bin:$PATH"
+PATH="$PATH:$HOME/.gem/ruby/2.1.0/bin:$HOME/.cabal/bin:$GOPATH"
+export PATH
 #export PYTHONPATH="/usr/lib/python3.3/site-packages"
 
 # export maildir
