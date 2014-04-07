@@ -202,6 +202,9 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
 let g:haddock_indexfiledir = "~/.vim/bundle/haskellmode-vim"
 let g:haddock_browser      = "/usr/bin/firefox"
 
+" ================== Molokai
+let g:rehash256 = 1
+
 " ================== Load Plugins
 runtime macros/matchit.vim      " Better open/close matching
 
