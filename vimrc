@@ -299,7 +299,7 @@ endfunction
 autocmd BufRead *sh_history set filetype=none
 
 " Read template files if they exist
-autocmd BufNewFile * silent! 0r ~/.vim/templates/%:e.skel
+autocmd BufNewFile * silent! exe "0r ~/.vim/templates/" . &ft  . ".skel"
 
 " Hop out of insertmode after 5 seconds of inactivity
 autocmd CursorHoldI * stopinsert
