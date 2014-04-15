@@ -41,8 +41,10 @@ venv() {
     fi
 
     if [ ! -e $venv_dir/$1 ]; then
-        cd $venv_dir
-        virtualenv $@
+        (
+            cd $venv_dir
+            virtualenv $@
+        )
     fi
 
     if [ ! -d $venv_dir/$1 ]; then
