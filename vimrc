@@ -211,38 +211,6 @@ runtime macros/matchit.vim      " Better open/close matching
 colorscheme molokai             " Change the colorscheme
 " }}}
 
-" Filetypes {{{
-
-" ================== Haskell
-let g:ghc = "/usr/bin/ghc"
-autocmd BufEnter *.hs compiler ghc
-autocmd! FileType haskell set makeprg=ghc\ %
-
-" ================== Latex
-autocmd FileType tex setlocal spell textwidth=78
-
-" ================== Markdown
-autocmd FileType markdown setlocal spell textwidth=78
-
-" Don't strip whitespace since it actually matters
-autocmd FileType markdown let b:noStripWhitespace=1
-
-" And don't whine about the 'newline' marker
-autocmd FileType markdown call matchdelete(TrailSpace)
-autocmd FileType markdown let TrailSpace = matchadd('TrailSpace','\s\s\zs\s\+$')
-
-"  ================ CHANGELOG
-autocmd BufRead,BufNewFile CHANGELOG setlocal filetype=changelog
-
-" ================= Mail
-autocmd FileType mail let b:noStripWhitespace=1
-autocmd FileType mail setlocal spell textwidth=78
-
-" ================= Perl
-autocmd FileType perl setlocal keywordprg=perldoc\ -f
-
-" }}}
-
 " Remaps {{{
 " Use the Black Hole Buffer {{{
 
