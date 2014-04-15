@@ -1,10 +1,5 @@
 #!/bin/sh
 
-
-# ic and bv computers
-ic="IITS-I406-30137.utsc.utoronto.ca"
-bv="iits-b473-20079.utsc-labs.utoronto.ca"
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     [ -r ~/.dircolors ] \
@@ -33,17 +28,12 @@ alias sl=ls # often screw this up
 alias pu='pushd'
 alias po='popd'
 
+alias c="clear"
+
 # Super user
 alias _='sudo'
 
 alias afind='ack-grep -il'
-
-######################## RANDOM ########################
-# Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh
-
-#alias fancysay="fortune -a | fmt -80 -s | $(shuf -n 1 -e cowsay cowthink)\
-                #-$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e \
-                #$(cowsay -l | tail -n +2)) -n"
 
 alias ping='ping -c5'
 alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress "
