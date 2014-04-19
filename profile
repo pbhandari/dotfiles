@@ -11,7 +11,10 @@ export GIT_PAGER="less -FX"
 # export PATHs
 export GOPATH="$HOME/.golang"
 PATH="$HOME/.local/bin:$PATH"
-PATH="$PATH:$HOME/.gem/ruby/2.1.0/bin:$HOME/.cabal/bin:$GOPATH"
+PATH="$PATH:$HOME/.rvm/bin"                 # RVM
+PATH="$PATH:$HOME/.gem/ruby/2.1.0/bin"      # ruby gems
+PATH="$PATH:$HOME/.cabal/bin"               # haskell
+PATH="$PATH:$GOPATH"                        # go
 export PATH
 #export PYTHONPATH="/usr/lib/python3.3/site-packages"
 
