@@ -177,7 +177,6 @@ endif
 
 "let g:Powerline_symbols_override = { 'LINE' : 'L' }
 let g:Powerline_stl_path_style = 'short'
-let g:Powerline_colorsheme     = 'solarized16'
 
 " Don't show current mode down the bottom
 set noshowmode
@@ -313,11 +312,9 @@ autocmd BufWrite,FileWritePre * call RemoveWhiteSpace()
 autocmd BufEnter *golf* call matchdelete(OverLine)
 " }}}
 
-" OVERRIDES {{{
 " Source local vimrc if it exists
 if filereadable($HOME . "/.vimrc.local")
     source $HOME/.vimrc.local
 endif
-" }}}
 
 " vim:foldenable
