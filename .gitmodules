@@ -91,3 +91,6 @@
 [submodule "vim/bundle/vim-kolor"]
 	path = vim/bundle/vim-kolor
 	url = https://github.com/zeis/vim-kolor
+[submodule "vim/bundle/ultisnips"]
+	path = vim/bundle/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
