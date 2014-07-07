@@ -114,7 +114,7 @@ __prompt_command() {
 
     # fill the line until the end
     local PS1_TOP_LEN=$((${#USER}+${#PS1_HOST} + ${#PS1_CWD} + \
-                        ${#PS1_HAS_SSH} + ${#PS1_ERRNO} + ${#PS1_GIT} + 14))
+                        ${#PS1_HAS_SSH} + ${#PS1_ERRNO} + ${#PS1_GIT} + 15))
     local PS1_FILL_SIZE=$((${COLUMNS} - ${PS1_TOP_LEN}))
     [ ${PS1_FILL_SIZE} -gt 0 ] || PS1_FILL_SIZE=1
     local PS1_TOP+=${LINE_COLOR}
@@ -125,7 +125,7 @@ __prompt_command() {
 
     # print the working directory
     local PS1_TOP+='┤ '${PS1_GIT_COLOR}${PS1_GIT}
-    local PS1_TOP+='\[\033[00m\]'${PS1_CWD}' '${LINE_COLOR}'├──'${PS1_ERRNO}
+    local PS1_TOP+='\[\033[00m\]'${PS1_CWD}' '${LINE_COLOR}'├──┤'${PS1_ERRNO}
     local PS1_TOP+='\[\033[00m\]'
 
     PS1="${PS1_TOP}\n${LINE_COLOR}└─ ${PS1_TAIL}"
