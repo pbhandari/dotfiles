@@ -89,6 +89,10 @@ set shiftround                  " Round tabulation to a multiple of /shiftwidth/
 set expandtab                   " All tabs are spaces
 " }}}
 
+" Completion {{{
+set completeopt=longest,menuone
+" }}}
+
 " Folds {{{
 set foldmethod=marker          " Fold based on marker
 set foldnestmax=3              " Deepest fold is 3 levels
@@ -146,6 +150,11 @@ let TrailSpace = matchadd('TrailSpace' , '\s\+$')
 autocmd ColorScheme * highlight TrailSpace cterm=underline ctermfg=red
 autocmd ColorScheme * highlight TrailSpace gui=underline guifg=red
 
+
+" Add more items to the Todo group
+highlight link myTodo Todo
+autocmd Syntax * syntax keyword myTodo containedin=.*Comment
+                 \ contained WARNING NOTE
 " }}}
 
 " Plugins {{{
@@ -208,6 +217,7 @@ let g:rehash256 = 1
 runtime macros/matchit.vim      " Better open/close matching
 
 colorscheme molokai             " Change the colorscheme
+
 " }}}
 
 " Remaps {{{
@@ -316,5 +326,4 @@ autocmd BufEnter *golf* call matchdelete(OverLine)
 if filereadable($HOME . "/.vimrc.local")
     source $HOME/.vimrc.local
 endif
-
 " vim:foldenable
