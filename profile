@@ -10,11 +10,15 @@ export GIT_PAGER="less -FX"
 
 # export PATHs
 export GOPATH="$HOME/.golang"
-PATH="$HOME/.local/bin:$PATH"
+
+PATH="$HOME/.local/os161/bin:$PATH"         # os161
+PATH="$HOME/.local/bin:$PATH"               # .local/bin
+
 PATH="$PATH:$HOME/.rvm/bin"                 # RVM
 PATH="$PATH:$HOME/.gem/ruby/2.1.0/bin"      # ruby gems
 PATH="$PATH:$HOME/.cabal/bin"               # haskell
 PATH="$PATH:$GOPATH"                        # go
+PATH="$PATH:$HOME/.perl5/bin"               # perl 5
 export PATH
 #export PYTHONPATH="/usr/lib/python3.3/site-packages"
 
@@ -27,7 +31,7 @@ export VISUAL=$EDITOR
 export BROWSER="firefox"
 
 export LOCALE='en_CA.UTF-8'
-export LC_COLLATE='C'
+export LC_COLLATE='POSIX'
 
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
