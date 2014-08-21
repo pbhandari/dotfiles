@@ -4,5 +4,5 @@ vim/tmp
 *.o
 *.hi
 xmonad.errors
-xmonad-i386-linux
+xmonad-*-linux
 
