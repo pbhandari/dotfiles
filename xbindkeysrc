@@ -40,11 +40,11 @@ Shift + Print
 Control + Shift + Print
 
 # volume up
-"amixer sset Master 5%+"
+"amixer sset Master 2%+ unmute"
  XF86AudioRaiseVolume
 
 # volume down
-"amixer sset Master 5%-"
+"amixer sset Master 2%- unmute"
  XF86AudioLowerVolume
 
 # volume mute
@@ -59,6 +59,12 @@ Control + Shift + Print
 
 "mpc next"
  XF86AudioNext
+
+"xbacklight +3"
+XF86MonBrightnessUp
+
+"xbacklight -3"
+XF86MonBrightnessDown
 
 # kill a client window
 "xkill"
