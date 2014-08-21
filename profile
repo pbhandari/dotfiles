@@ -49,10 +49,11 @@ PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option lv3:ralt_alt"
 PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option compose:paus"
 PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option shift:both_shiftlock"
 export PRAJJ_XKB_OPTS
+export SESSION_FILE=${XDG_CONFIG_HOME:-${HOME}/.config}/.xsession
 
 if [ "$TERM" = "linux" ]; then
 
-    echo -en "\e]P01B1D1E"
+    #echo -en "\e]P01B1D1E"
     echo -en "\e]P1F92672"
     echo -en "\e]P282B414"
     echo -en "\e]P3FD9714"

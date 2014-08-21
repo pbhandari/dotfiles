@@ -29,6 +29,7 @@ alias pu='pushd'
 alias po='popd'
 
 alias c="clear"
+alias claer='clear'
 
 # Super user
 alias _='sudo'

@@ -119,12 +119,6 @@ function stats() {
             | sort -nr | head -n ${1:-10} | column -c3 -t | nl
 }
 
-function cnky() {
-    for i in sys mpd clock; do
-        conky -c $HOME/.conky/$i/conkyrc &
-    done
-}
-
 +vi-git-untracked() {
     git rev-parse --is-inside-work-tree &> /dev/null || return;
     git status --porcelain | grep '??' &> /dev/null || return;

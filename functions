@@ -23,7 +23,7 @@ backup() {
 }
 
 toggleTouchpad() {
-    device="$(xinput --list | sed -n '/GlidePoint/s/.*id=\([0-9]\+\).*/\1/p')"
+    device="$(xinput --list | sed -n '/TouchPad/s/.*id=\([0-9]\+\).*/\1/p')"
     case $1 in
         enable|on|"1") xinput enable $device
             ;;
