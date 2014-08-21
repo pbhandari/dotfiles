@@ -49,13 +49,15 @@ URxvt*perl-ext-common:      default,clipboard,url-select,keyboard-select,matcher
 URxvt*matcher.button:       1
 URxvt*urlLauncher:          firefox
 
+! start keyboard select
+URxvt*keysym.M-z:           perl:keyboard-select:activate
+
+URxvt*keysym.M-c:           perl:clipboard:copy
+URxvt*keysym.M-v:           perl:clipboard:paste
+URxvt*keysym.M-C-v:         perl:clipboard:paste_escaped
+
 ! open urls in firefox
 URxvt*keysym.M-u:           perl:url-select:select_next
-! start keyboard select
-URxvt*keysym.M-V:           perl:keyboard-select:activate
-URxvt*keysym.M-s:           perl:keyboard-select:search
-URxvt*keysym.M-v:           perl:keyboard-select:paste
-
 URxvt*url-select.launcher:  /usr/bin/firefox -new-tab
 URxvt*url-select.underline: true
 
