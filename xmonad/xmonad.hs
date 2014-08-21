@@ -56,9 +56,10 @@ main = do
         , modMask               = mod4Mask
         , keys                  = myKeys
         , workspaces            = myWorkspaces
-        , focusFollowsMouse     = False
+        , focusFollowsMouse     = True
         , terminal              = myTerminal
         , focusedBorderColor    = "#2277cc"
+        , borderWidth           = 1
         -- more changes
         , logHook               = myLogHook dzenBar
         } where
@@ -101,7 +102,7 @@ myLogHook str = dynamicLogWithPP $ myDzenPP { ppOutput = hPutStrLn str}
 myDzenPP :: PP
 myDzenPP = defaultPP {
               ppTitle           = dzenColor "gray" "" . shorten 50
-            , ppCurrent         = dzenColor "white" "" . pad
+            , ppCurrent         = dzenColor "white" "#005577" . pad
             , ppVisible         = dzenColor "gray" "" . pad
             , ppHidden          = dzenColor "lightblue" "" . pad
             , ppHiddenNoWindows = dzenColor "#777777"  "". pad
@@ -236,8 +237,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
 
     --Music mpc
     , ((modMask .|. controlMask , xK_a)       , spawn "mpc prev")
-    , ((modMask .|. controlMask , xK_s)       , spawn "mpc toggle")
-    , ((modMask .|. controlMask , xK_d)       , spawn "mpc next")
+    , ((modMask .|. controlMask , xK_r)       , spawn "mpc toggle")
+    , ((modMask .|. controlMask , xK_s)       , spawn "mpc next")
 
     --Launching programs
     , (( modMask .|. shiftMask  , xK_c)       , kill) -- to kill applications
@@ -245,7 +246,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
     -- volume control
     , ((modMask .|. controlMask , xK_q)       , spawn "amixer sset Master toggle")
     , ((modMask .|. controlMask , xK_w)       , spawn "amixer sset Master 5%+")
-    , ((modMask .|. controlMask , xK_e)       , spawn "amixer sset Master 5%-")
+    , ((modMask .|. controlMask , xK_f)       , spawn "amixer sset Master 5%-")
 
     -- quit, or restart
     , ((modMask .|. shiftMask   , xK_q)       , io (exitWith ExitSuccess))
@@ -262,7 +263,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
     -- mod-shift-[w,e] %! move window to screen 1/2
     ++
     [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_e, xK_w, xK_r] [0..]
+        | (key, sc) <- zip [xK_x, xK_z, xK_c] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 
