@@ -11,7 +11,6 @@ export GIT_PAGER="less -FX"
 # export PATHs
 export GOPATH="$HOME/.golang"
 
-PATH="$HOME/.local/os161/bin:$PATH"         # os161
 PATH="$HOME/.local/bin:$PATH"               # .local/bin
 
 PATH="$PATH:$HOME/.rvm/bin"                 # RVM
@@ -30,7 +29,7 @@ export EDITOR=vim
 export VISUAL=$EDITOR
 export BROWSER="firefox"
 
-export LOCALE='en_CA.UTF-8'
+export LANG='en_CA.UTF-8'
 export LC_COLLATE='POSIX'
 
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -42,6 +41,14 @@ export HISTSIZE=100000
 export SAVEHIST=200000
 
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
+
+PRAJJ_XKB_OPTS=" -model pc104"
+PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -layout us,us -variant colemak, "
+PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option grp:sclk_toggle -option grp_led:scroll"
+PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option lv3:ralt_alt"
+PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option compose:paus"
+PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option shift:both_shiftlock"
+export PRAJJ_XKB_OPTS
 
 if [ "$TERM" = "linux" ]; then
 
