@@ -16,7 +16,7 @@ PATH="$HOME/.local/bin:$PATH"               # .local/bin
 PATH="$PATH:$HOME/.rvm/bin"                 # RVM
 PATH="$PATH:$HOME/.gem/ruby/2.1.0/bin"      # ruby gems
 PATH="$PATH:$HOME/.cabal/bin"               # haskell
-PATH="$PATH:$GOPATH"                        # go
+PATH="$PATH:$GOPATH/bin"                    # go
 PATH="$PATH:$HOME/.perl5/bin"               # perl 5
 export PATH
 #export PYTHONPATH="/usr/lib/python3.3/site-packages"
