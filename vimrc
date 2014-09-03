@@ -173,11 +173,12 @@ let NERDTreeKeepTreeInNewTab            = 1
 let g:nerdtree_tabs_open_on_gui_startup = 0
 
 " ================= syntastic
-let g:syntastic_check_on_open        = 1
-let g:syntastic_error_symbol         = '✗'
-let g:syntastic_style_error_symbol   = '★'
-let g:syntastic_warning_symbol       = '⚠'
-let g:syntastic_style_warning_symbol = '>'
+let g:syntastic_check_on_open            = 1
+let g:syntastic_error_symbol             = '✗'
+let g:syntastic_style_error_symbol       = '★'
+let g:syntastic_warning_symbol           = '⚠'
+let g:syntastic_style_warning_symbol     = '>'
+let g:syntastic_always_populate_loc_list = 1
 
 "============== vim-airline
 
@@ -193,7 +194,7 @@ let g:airline_right_alt_sep    = '⮃'
 let g:airline_symbols.branch   = '⭠'
 let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.linenr   = '⮃ ⭡'
-let g:airline_symbols.paste    = 'ρ'
+let g:airline_symbols.paste    = 'paste'
 
 let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
