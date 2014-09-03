@@ -8,3 +8,8 @@ let b:noStripWhitespace=1
 call matchdelete(TrailSpace)
 let TrailSpace = matchadd('TrailSpace','\s\s\zs\s\+$')
 
+" Show listchars since EOL is pretty useful here
+setlocal list
+
+" TODO: modify this so that new line markers are only shown on lines with 2 or
+" more spaces
