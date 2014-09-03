@@ -1,6 +1,7 @@
 vim/backups
 vim/spell
 vim/tmp
+vim/.netrwhist
 .viminfo
 *.o
 *.hi
