@@ -57,6 +57,9 @@ Control + Shift + Print
 "mpc prev"
  XF86AudioPrev
 
+"mpc prev"
+ Control + XF86AudioNext
+
 "mpc next"
  XF86AudioNext
 
