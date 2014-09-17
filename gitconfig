@@ -20,7 +20,7 @@
 
 [merge]
     log              = true
-    tool             = gvimdiff
+    tool             = vimdiff
 
 [push]
     default          = upstream
