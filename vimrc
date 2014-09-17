@@ -158,20 +158,6 @@ autocmd Syntax * syntax keyword myTodo containedin=.*Comment
 " }}}
 
 " Plugins {{{
-" ================== Buffergator
-let g:buffergator_suppress_keymaps=1
-
-" ================== NERDTree
-nnoremap <leader><leader>e :NERDTreeToggle<CR>
-let NERDTreeShowBookmarks               = 1
-let NERDTreeChDirMode                   = 0
-let NERDTreeQuitOnOpen                  = 1
-let NERDTreeMouseMode                   = 2
-let NERDTreeShowHidden                  = 1
-let NERDTreeIgnore                      = ['\.pyc','\~$','\.swo$','\.git','\.hg','\.svn','\.bzr']
-let NERDTreeKeepTreeInNewTab            = 1
-let g:nerdtree_tabs_open_on_gui_startup = 0
-
 " ================= syntastic
 let g:syntastic_check_on_open            = 1
 let g:syntastic_error_symbol             = '✗'
@@ -204,18 +190,11 @@ set noshowmode
 " ================== snipmate
 let g:snips_author="Prajjwal Bhandari"
 
-" ================== Sideways
-nnoremap <silent> <leader><leader>h :SidewaysLeft<CR>
-nnoremap <silent> <leader><leader>l :SidewaysRight<CR>
-
 " ================== UndoTree
 nnoremap <silent> <leader><leader>u :UndotreeToggle<CR>
 
 " ================== Tagbar
 nnoremap <silent> <leader><leader>t :TagbarToggle<CR>
-
-" ================== Ultisnips
-let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
 
 " ================== HaskellMode
 let g:haddock_indexfiledir = "~/.vim/bundle/haskellmode-vim"
@@ -328,9 +307,6 @@ autocmd InsertLeave * let &updatetime=updaterestore
 
 " Remove whitespace before writing to any file
 autocmd BufWrite,FileWritePre * call RemoveWhiteSpace()
-
-" Don't whine about long lines when I'm golfing please
-autocmd BufEnter *golf* call matchdelete(OverLine)
 " }}}
 
 " Source local vimrc if it exists

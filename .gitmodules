@@ -1,9 +1,6 @@
 [submodule "vim/bundle/ctrlp.vim"]
 	path = vim/bundle/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim.git
-[submodule "vim/bundle/editorconfig-vim"]
-	path = vim/bundle/editorconfig-vim
-	url = https://github.com/editorconfig/editorconfig-vim.git
 [submodule "vim/bundle/gist-vim"]
 	path = vim/bundle/gist-vim
 	url = https://github.com/mattn/gist-vim.git
@@ -16,18 +13,6 @@
 [submodule "vim/bundle/neocomplcache"]
 	path = vim/bundle/neocomplcache
 	url = https://github.com/Shougo/neocomplcache.git
-[submodule "vim/bundle/nerdcommenter"]
-	path = vim/bundle/nerdcommenter
-	url = https://github.com/scrooloose/nerdcommenter.git
-[submodule "vim/bundle/nerdtree"]
-	path = vim/bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
-[submodule "vim/bundle/scratch.vim"]
-	path = vim/bundle/scratch.vim
-	url = https://github.com/vim-scripts/scratch.vim.git
-[submodule "vim/bundle/sideways.vim"]
-	path = vim/bundle/sideways.vim
-	url = https://github.com/AndrewRadev/sideways.vim.git
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
@@ -46,12 +31,6 @@
 [submodule "vim/bundle/vim-buffergator"]
 	path = vim/bundle/vim-buffergator
 	url = https://github.com/jeetsukumaran/vim-buffergator.git
-[submodule "vim/bundle/vim-classpath"]
-	path = vim/bundle/vim-classpath
-	url = https://github.com/tpope/vim-classpath.git
-[submodule "vim/bundle/vim-colors"]
-	path = vim/bundle/vim-colors
-	url = https://github.com/spf13/vim-colors.git
 [submodule "vim/bundle/vim-commentary"]
 	path = vim/bundle/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
@@ -67,9 +46,6 @@
 [submodule "vim/bundle/vim-repeat"]
 	path = vim/bundle/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
-[submodule "vim/bundle/vim-scriptease"]
-	path = vim/bundle/vim-scriptease
-	url = https://github.com/tpope/vim-scriptease.git
 [submodule "vim/bundle/vim-surround"]
 	path = vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
@@ -79,9 +55,6 @@
 [submodule "vim/bundle/vimux"]
 	path = vim/bundle/vimux
 	url = https://github.com/benmills/vimux.git
-[submodule "vim/bundle/vim-colors-solarized"]
-	path = vim/bundle/vim-colors-solarized
-	url = https://github.com/altercation/vim-colors-solarized.git
 [submodule "vim/bundle/ultisnips"]
 	path = vim/bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
