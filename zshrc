@@ -197,6 +197,7 @@ precmd() {
 
     RPS1="%{${line_color}%}%{%B%}${ps1_errno}%{%b%}"
     RPS1+="%{${line_color}%} ─┘%{$reset_color%}"
+    if [[ ${TERM:-"xterm"} =~ ".*rxvt.*" ]]; then RPS1+=" "; fi
 
     unset ps1_errno ps1_fill_size line_color ps1_tail
     unset ps1_cwd ps1_cwd_size ps1_git ps1_git_color
