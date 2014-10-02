@@ -79,14 +79,8 @@
 [pretty]
     sparselog        = %C(red)%h%C(reset) -%C(auto)%d %C(reset)%s %C(blue)<%an> %C(reset)%C(cyan)(%ad)%C(reset)
 
-    full-log          = format:\
-                        %nCommit: %Cred%h%Creset%C(auto)%d%Creset (%H)\
-                        %nAuthor: %cN %C(blue bold)<%ce>%Creset\
-                        %nDate  : %C(green)%cd%Creset\
-                        %n%w(0,4,4)%+s%n%n%-b
-
     fulllog          = format:\
-                        %nCommit: %Cred%h%Creset%C(auto)%d%Creset (%H)\
+                        %nCommit: %Creset%C(auto)%d%Creset %Cred%H\
                         %nAuthor: %aN %C(blue bold)<%ae>%Creset\
                         %nDate  : %C(green)%ad%Creset\
-                        %n%w(0,4,4)%+s%n%n%-b
+                        %n%w(0,4,4)%+s%n%n%-b%n
