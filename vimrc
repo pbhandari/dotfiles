@@ -226,12 +226,6 @@ nnoremap <silent> <leader>C "_C
 vnoremap <silent> <leader>C "_C
 "}}}
 
-" Move lines in file
-inoremap <silent> k <C-o>:m-2 <CR>
-inoremap <silent> j <C-o>:m+1<CR>
-nnoremap <silent> k :<C-U>exe "m-" . (v:count1 + 1) <CR>
-nnoremap <silent> j :<C-U>exe "m+" . v:count1       <CR>
-
 " Easy precision
 nnoremap ' `
 nnoremap ` '
