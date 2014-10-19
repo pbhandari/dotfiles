@@ -69,6 +69,12 @@ XF86MonBrightnessUp
 "xbacklight -3"
 XF86MonBrightnessDown
 
+"xbacklight =1"
+Shift + XF86MonBrightnessDown
+
+"xbacklight =100"
+Shift + XF86MonBrightnessUp
+
 # kill a client window
 "xkill"
 Control + Shift + Mod1 + k
