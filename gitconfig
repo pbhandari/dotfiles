@@ -17,6 +17,7 @@
     autocrlf         = input
     filemode         = false
     whitespace       = trailing-space,space-before-tab
+    excludesfile     = /home/pbhandari/.cvsignore
 
 [merge]
     log              = true
