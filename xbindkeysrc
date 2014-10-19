@@ -51,6 +51,7 @@ Control + Shift + Print
 "amixer sset Master toggle"
  XF86AudioMute
 
+# control mpc
 "mpc toggle"
  XF86AudioPlay
 
@@ -63,6 +64,7 @@ Control + Shift + Print
 "mpc next"
  XF86AudioNext
 
+# backlight stuff
 "xbacklight +3"
 XF86MonBrightnessUp
 
@@ -82,3 +84,9 @@ Control + Shift + Mod1 + k
 # lock screen
 "slock"
 Control + Mod1 + l
+
+"urxvtcd"
+XF86MyComputer
+
+"urxvtcd -e tmux"
+Shift + XF86MyComputer
