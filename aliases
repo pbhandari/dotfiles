@@ -37,6 +37,5 @@ alias _='sudo'
 alias afind='ack-grep -il'
 
 alias ping='ping -c5'
-alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress "
 
 alias asdfg="setxkbmap $PRAJJ_XKB_OPTS"
