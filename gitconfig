@@ -50,6 +50,12 @@
     lineNumber       = true
     patternType      = perl
 
+[url "git@github.com"]
+    insteadOf       = gh
+
+[url "git@bitbucket.org"]
+    insteadOf       = bb
+
 [url "git@bitbucket.org"]
     insteadOf       = bb
 
