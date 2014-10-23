@@ -55,8 +55,10 @@ let mapleader           = ','   " Map Leader is comma
 " set list these characters
 set listchars=tab:▸\ ,eol:¬
 set listchars+=extends:❯,precedes:❮
+
 set showbreak=↪\                " show when the line is wrapped
 set linebreak                   " line wrap on words not characters
+set nowrap                      " don't wrap lines in vim.
 
 set synmaxcol=800               " don't highlight massive lines
 set tags+=tags;                 " use tag files
@@ -137,26 +139,6 @@ set wrapscan                    " Wrap search upon reaching the end of document
 
 " }}}
 
-" Highlight {{{
-" Highlights lines over 80 chars,
-highlight OverLine cterm=italic gui=italic ctermfg=red guifg=red
-let OverLine = matchadd('OverLine', '\%>80v.\+')
-autocmd ColorScheme * highlight OverLine cterm=italic ctermfg=red
-autocmd ColorScheme * highlight OverLine gui=italic guifg=red
-
-" Highlights trailing spaces with a red underline
-highlight TrailSpace cterm=underline ctermfg=red gui=underline guifg=red
-let TrailSpace = matchadd('TrailSpace' , '\s\+$')
-autocmd ColorScheme * highlight TrailSpace cterm=underline ctermfg=red
-autocmd ColorScheme * highlight TrailSpace gui=underline guifg=red
-
-
-" Add more items to the Todo group
-highlight link myTodo Todo
-autocmd Syntax * syntax keyword myTodo containedin=.*Comment
-                 \ contained WARNING NOTE
-" }}}
-
 " Plugins {{{
 " ================= syntastic
 let g:syntastic_check_on_open            = 1
@@ -208,6 +190,33 @@ runtime macros/matchit.vim      " Better open/close matching
 
 colorscheme molokai             " Change the colorscheme
 
+" }}}
+
+" Highlight {{{
+" Highlights lines over 80 chars,
+if exists("+colorcolumn")
+    set colorcolumn=81
+    highlight ColorColumn cterm=bold ctermfg=red ctermbg=236
+    highlight ColorColumn gui=bold guifg=red
+else
+    highlight OverLine cterm=bold ctermbg=red gui=bold guibg=red
+    let OverLine = matchadd('OverLine', '\%80v')
+    autocmd ColorScheme * highlight OverLine cterm=bold ctermbg=red
+    autocmd ColorScheme * highlight OverLine gui=bold guibg=red
+
+end
+
+" Highlights trailing spaces with a red underline
+highlight TrailSpace cterm=underline ctermfg=red gui=underline guifg=red
+let TrailSpace = matchadd('TrailSpace' , '\s\+$')
+autocmd ColorScheme * highlight TrailSpace cterm=underline ctermfg=red
+autocmd ColorScheme * highlight TrailSpace gui=underline guifg=red
+
+
+" Add more items to the Todo group
+highlight link myTodo Todo
+autocmd Syntax * syntax keyword myTodo containedin=.*Comment
+                 \ contained WARNING NOTE
 " }}}
 
 " Remaps {{{
