@@ -29,6 +29,7 @@ zle -N down-line-or-beginning-search
 zle -N expand-or-complete-with-dots
 zle -N edit-command-line
 
+
 bindkey -v
 bindkey     "^[w"               kill-region
 bindkey     "^r"                history-incremental-search-backward
@@ -51,9 +52,11 @@ bindkey     "^[m"               copy-prev-shell-word
 bindkey     "^I"                expand-or-complete-with-dots
 
 bindkey -s  "\el"               "ls\n"  # ls    on <M-l>
-bindkey -s "\e${key[Home]}"     "~/"    # ~/    on <M-Home>
-bindkey -s "\e${key[End]}"      "../"   # ../   on <M-End>
 bindkey -s "\e "                "vim "  # vim   on <M-Space>
 
 bindkey -M  menuselect  '^o'    accept-and-infer-next-history
-bindkey -M  vicmd        v       edit-command-line
+bindkey -M  vicmd        v      edit-command-line
+bindkey -M  vicmd        h      vi-backward-char              # left
+bindkey -M  vicmd        k      up-line-or-beginning-search   # up
+bindkey -M  vicmd        l      vi-forward-char               # right
+bindkey -M  vicmd        j      down-line-or-beginning-search # bottom
