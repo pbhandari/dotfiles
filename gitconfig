@@ -66,6 +66,8 @@
     s                = status -sb
     st               = status
 
+    sha              = log -n1 --pretty=sha
+
     co               = checkout
     br               = branch
     ci               = commit
@@ -85,6 +87,8 @@
 
 [pretty]
     sparselog        = %C(red)%h%C(reset) -%C(auto)%d %C(reset)%s %C(blue)<%an> %C(reset)%C(cyan)(%ad)%C(reset)
+
+    sha              = %h
 
     fulllog          = format:\
                         %nCommit: %Creset%C(auto)%d%Creset %Cred%H\
