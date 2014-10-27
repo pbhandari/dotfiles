@@ -194,17 +194,11 @@ colorscheme molokai             " Change the colorscheme
 
 " Highlight {{{
 " Highlights lines over 80 chars,
-if exists("+colorcolumn")
-    set colorcolumn=81
-    highlight ColorColumn cterm=bold ctermfg=red ctermbg=236
-    highlight ColorColumn gui=bold guifg=red
-else
-    highlight OverLine cterm=bold ctermbg=red gui=bold guibg=red
-    let OverLine = matchadd('OverLine', '\%80v')
-    autocmd ColorScheme * highlight OverLine cterm=bold ctermbg=red
-    autocmd ColorScheme * highlight OverLine gui=bold guibg=red
-
-end
+highlight ColorColumn cterm=bold ctermbg=161   ctermfg=white
+highlight ColorColumn gui=bold   guifg=#ff0000 guibg=white
+call matchadd('ColorColumn', '\%81v.', 100)
+autocmd ColorScheme * highlight ColorColumn cterm=bold ctermbg=161 ctermfg=white
+autocmd ColorScheme * highlight ColorColumn gui=bold guifg=#ff0000 guibg=white
 
 " Highlights trailing spaces with a red underline
 highlight TrailSpace cterm=underline ctermfg=red gui=underline guifg=red
