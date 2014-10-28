@@ -64,3 +64,6 @@
 [submodule "vim/bundle/vim-rsi"]
 	path = vim/bundle/vim-rsi
 	url = git@github.com:tpope/vim-rsi.git
+[submodule "vim/bundle/vim-snippets"]
+	path = vim/bundle/vim-snippets
+	url = https://github.com/honza/vim-snippets.git
