@@ -8,3 +8,10 @@ TO-DO
   `ftplugin` (namely everything in the filetypes section)
 - Fix the `zshrc` prompt so that it is faster
 - Fix the `zshrc` prompt so that it uses the `prompt` command
+
+Installation
+============
+cd into this directory
+```
+for file in *; do ln -s $PWD/$file $HOME/.$file; done
+```
