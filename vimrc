@@ -1,45 +1,26 @@
 " .vimrc
 
-" Basic Things {{{
+" General Behaviour {{{
 " Infect all the things
 execute pathogen#infect('bundle/{}')
+runtime macros/matchit.vim      " Better open/close matching
 
 set nocompatible                " Revert all settings back to vim default
 
-syntax on                       " Turn on Syntax hilighting
-filetype on                     " Turn on filetype checking
-filetype plugin on
-filetype indent on
-
-set bg=dark                     " Makes items more readable
-" }}}
-
-"  General Config {{{
-set number                      " Line numbers are good
-
-set ruler                       " Always show where you are in file
-
-set backspace=indent,eol,start  " Allow backspace in insert mode
-
-set showcmd                     " Show incomplete cmds down the bottom
-set laststatus=2                " Always show the statusbar
-set cmdheight=1                 " Always show the command line
-set showtabline=1               " Show tab-bar only if there are tabs
-set cursorline                  " Highlight current line
-
 set visualbell                  " No sounds
 set noerrorbells                " Don't beep
+
+set backspace=indent,eol,start  " Allow backspace in insert mode
 
 set pastetoggle=<F2>            " Enter paste-mode when F2
 set autoread                    " Reload files changed outside vim
 set autowrite                   " Write to file when changing buffers
 set hidden                      " Buffers exist in the background
-set switchbuf=useopen           " reveal already open files from the quickfix
-                                " window, instead of opening new buffers
+set switchbuf=useopen           " Use already open buffers if available
 
-set scrolloff=3                 " Start scroll 3 lines before vert buffer ends
-set sidescrolloff=3             " Start scroll 3 lines before horz buffer ends
-set virtualedit=onemore         " Allow for cursor beyond last character
+set linebreak                   " line wrap on words not characters
+set nowrap                      " don't wrap lines in vim.
+
 set viminfo='100,f1             " Save up to 100 marks, enable capital marks
 
 set history=1000                " Store lots of :cmdline history
@@ -49,26 +30,56 @@ set modeline                    " Enable modelines in vim
 
 set autochdir                   " Automatically cd into `dir %`
 
-let g:clipbrdDefaultReg = '+'   " Default Clipboard Registry = +
+let g:clipbrdDefaultReg = '*'   " Default Clipboard Registry = +
 let mapleader           = ','   " Map Leader is comma
 
-" set list these characters
+set report=0                    " Always report how many lines were changed
+
+set tags+=tags;                 " Use tag files
+
+set splitbelow                  " New windows start below old ones
+set splitright                  " New windows start to the right of old ones
+
+set tildeop                     " Tilde no longer only works on only one char
+" }}}
+
+"  Appearance {{{
+set bg=dark                     " Makes items more readable
+
+set number                      " Line numbers are good
+
+set showcmd                     " Show incomplete cmds down the bottom
+set cmdheight=1                 " Always show the command line
+
+set cursorline                  " Highlight current line
+set ruler                       " Always show where you are in file
+set laststatus=2                " Always show the statusbar
+set showtabline=1               " Show tab-bar only if there are tabs
+
+set scrolloff=3                 " Start scroll 3 lines before vert buffer ends
+set sidescrolloff=3             " Start scroll 3 lines before horz buffer ends
+
+set virtualedit=onemore         " Allow for cursor beyond last character
+
 set listchars=tab:▸\ ,eol:¬
 set listchars+=extends:❯,precedes:❮
 
 set showbreak=↪\                " show when the line is wrapped
-set linebreak                   " line wrap on words not characters
-set nowrap                      " don't wrap lines in vim.
-
 set synmaxcol=800               " don't highlight massive lines
-set tags+=tags;                 " use tag files
 
 set lazyredraw                  " lazily redraw the screen
 
+let g:rehash256 = 1
+colorscheme molokai
+
+syntax on                       " Turn on Syntax hilighting
+filetype on                     " Turn on filetype checking
+filetype plugin on
+filetype indent on
 " }}}
 
 " Backups and Undos {{{
-set backup                      " Enable backups
+" set backup                      " Enable backups
 set backupdir=~/.vim/tmp,/var/tmp,/tmp
 set directory=~/.vim/tmp,/var/tmp,/tmp
 
@@ -91,10 +102,6 @@ set shiftround                  " Round tabulation to a multiple of /shiftwidth/
 set expandtab                   " All tabs are spaces
 " }}}
 
-" Completion {{{
-set completeopt=longest,menuone
-" }}}
-
 " Folds {{{
 set foldmethod=marker          " Fold based on marker
 set foldnestmax=3              " Deepest fold is 3 levels
@@ -107,6 +114,8 @@ set foldopen+=quickfix,tag,undo
 " }}}
 
 " Completion {{{
+set completeopt=longest,menuone
+
 set wildmenu                            " C-n and C-p scroll through matches
 set wildmode=longest:full,full          " Show completions on first <TAB> and
                                         " start cycling through on second <TAB>
@@ -136,7 +145,6 @@ set incsearch                   " Find the next match as we type the search
 
 set hlsearch                    " Highlight searches by default
 set wrapscan                    " Wrap search upon reaching the end of document
-
 " }}}
 
 " Plugins {{{
@@ -181,15 +189,6 @@ nnoremap <silent> <leader><leader>t :TagbarToggle<CR>
 " ================== HaskellMode
 let g:haddock_indexfiledir = "~/.vim/bundle/haskellmode-vim"
 let g:haddock_browser      = "/usr/bin/firefox"
-
-" ================== Molokai
-let g:rehash256 = 1
-
-" ================== Load Plugins
-runtime macros/matchit.vim      " Better open/close matching
-
-colorscheme molokai             " Change the colorscheme
-
 " }}}
 
 " Highlight {{{
@@ -215,7 +214,6 @@ autocmd Syntax * syntax keyword myTodo containedin=.*Comment
 
 " Remaps {{{
 " Use the Black Hole Buffer {{{
-
 " ,dX deletes a line without adding it to yank stack: normal and visual mode.
 nnoremap <silent> <leader>d "_d
 vnoremap <silent> <leader>d "_d
@@ -292,6 +290,7 @@ endfunction
 " }}}
 
 " Misc Autocmds {{{
+" No need to highlight history files
 autocmd BufRead *sh_history set filetype=none
 
 " Read template files if they exist
