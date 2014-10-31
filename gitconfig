@@ -94,4 +94,6 @@
                         %nCommit: %Creset%C(auto)%d%Creset %Cred%H\
                         %nAuthor: %aN %C(blue bold)<%ae>%Creset\
                         %nDate  : %C(green)%ad%Creset\
-                        %n%w(0,4,4)%+s%n%n%-b%n
+                        %n%w(0,4,4)%+s\
+                        %n\
+                        %n%-b

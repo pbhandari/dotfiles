@@ -1,5 +1,9 @@
 #!/bin/sh
 
+add_torrent() {
+    transmission-remote -a ${@:-"`xsel -o`"}
+}
+
 parse_git_branch(){
     git rev-parse --abbrev-ref HEAD
 }
@@ -22,7 +26,7 @@ backup() {
     done
 }
 
-toggleTouchpad() {
+toggle_touchpad() {
     device="$(xinput --list | sed -n '/TouchPad/s/.*id=\([0-9]\+\).*/\1/p')"
     case $1 in
         enable|on|"1") xinput enable $device

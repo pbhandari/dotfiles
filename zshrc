@@ -129,7 +129,7 @@ function stats() {
 # }}}
 
 # prompt {{{
-prompt off
+which prompt >/dev/null 2>&1 && prompt off
 
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' max-exports 3
