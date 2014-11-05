@@ -1,6 +1,3 @@
-# fix colours for solarized terminal
-export GREP_COLOR='31'
-
 # enable syntax highlighting in less
 export PAGER="less"
 export LESSOPEN="| /usr/bin/lesspipe.sh %s"
@@ -9,15 +6,26 @@ export LESS=' -R -m -i'
 export GIT_PAGER="less -FX"
 
 # export PATHs
-export GOPATH="$HOME/.golang"
-
 PATH="$HOME/.local/bin:$PATH"               # .local/bin
 
-PATH="$PATH:$HOME/.rvm/bin"                 # RVM
-PATH="$PATH:$HOME/.gem/ruby/2.1.0/bin"      # ruby gems
-PATH="$PATH:$HOME/.cabal/bin"               # haskell
-PATH="$PATH:$GOPATH/bin"                    # go
-PATH="$PATH:$HOME/.perl5/bin"               # perl 5
+if which ruby > /dev/null 2>&1; then        # ruby gems and rvm
+    PATH="$PATH:`ruby -e 'print Gem.user_dir'`/bin"
+    PATH="$PATH:$HOME/.rvm/bin"
+fi
+
+if which ghci > /dev/null 2>&1; then        # haskell
+    PATH="$PATH:$HOME/.cabal/bin"
+fi
+
+if which go > /dev/null 2>&1; then          # go
+    export GOPATH="$HOME/.golang"
+    PATH="$PATH:$GOPATH/bin"
+fi
+
+if which perl5 > /dev/null 2>&1; then       # perl
+    PATH="$PATH:$HOME/.perl5/bin"
+fi
+
 export PATH
 #export PYTHONPATH="/usr/lib/python3.3/site-packages"
 
@@ -48,6 +56,7 @@ PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option grp:sclk_toggle -option grp_led:scroll"
 PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option lv3:ralt_alt"
 PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option compose:paus"
 PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option shift:both_shiftlock"
+PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option altwin:swap_alt_win"
 export PRAJJ_XKB_OPTS
 export SESSION_FILE=${XDG_CONFIG_HOME:-${HOME}/.config}/.xsession
 
