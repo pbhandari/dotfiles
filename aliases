@@ -39,3 +39,5 @@ alias afind='ack-grep -il'
 alias ping='ping -c5'
 
 alias asdfg="setxkbmap $PRAJJ_XKB_OPTS"
+
+alias gg=git
