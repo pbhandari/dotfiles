@@ -1,0 +1,84 @@
+#!/usr/bin/zsh
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' max-exports 3
+zstyle ':vcs_info:git*' check-for-changes true
+zstyle ':vcs_info:git*' actionformats '(%b|%a) ' '%u%c' '%s'
+zstyle ':vcs_info:git*' formats '(%b) ' '%u%c' '%s'
+zstyle ':vcs_info:' enable git
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+
+precmd() {
+
+# PS1 {{{
+    # set the error code
+    ps1_errno=$?
+
+    if [ ${ps1_errno} -eq 0 ]; then
+        ps1_errno=""
+        line_color="%{$reset_color%}"
+        ps1_tail+="%{$fg[magenta]%}"
+    else
+        line_color="%{$fg[red]%}"
+        ps1_tail+="%{$fg[red]%}"
+    fi
+    ps1_tail+="%B%#%b %{$reset_color%}"
+
+    vcs_info
+
+    [[ "${vcs_info_msg_2_}" == "git" ]] && ps1_git=${vcs_info_msg_0_}
+    [[ -n "${ps1_git}" && -n "${vcs_info_msg_1_}" ]] \
+        && ps1_git_color="%{$fg[red]%}" \
+        || ps1_git_color="%{$fg[green]%}"
+
+    # initialise all the required variables
+    ps1_cwd=${PWD/$HOME/\~}
+    ps1_cwd_size=$((${#ps1_cwd}${ps1_git:+" + 2"} + 0))
+
+    # print the username and hostname
+    PS1=${line_color}"┌─┤ %{$fg[green]%}"${USER}
+    PS1+=${line_color}"@%{$fg[blue]%}"${HOST}
+    PS1+="%{$reset_color%}"${SSH_CLIENT:+"(ssh)"}${line_color}" ├"
+
+    # fill the line until the end
+    ps1_fill_size=$((${COLUMNS} - ${#USER} - ${#HOST} - ${ps1_cwd_size}\
+                    ${SSH_CLIENT:+" - 5"} - 14))
+
+    if [[ ${ps1_fill_size} < 0 ]]; then
+        PS1=${line_color}"┌─"
+        ps1_fill_size=$(($COLUMNS - ${ps1_cwd_size} - 9))
+
+        if [[ ${ps1_cwd_size} -gt $(($COLUMNS - 11)) ]]; then
+            ps1_cwd=...${ps1_cwd:$((12${ps1_git:+" + 2"} - $COLUMNS))}
+            ps1_fill_size=0
+        fi
+    fi
+    while ((ps1_fill_size-- > 0)); do PS1+='─'; done
+
+    # print the working directory
+    PS1+=${line_color}"┤ "${ps1_git:+"${ps1_git_color}⭠ "}
+    [[ -w "$PWD" ]] && PS1+="%{$reset_color%}" || PS1+="%{$fg[red]%}"
+    PS1+="${ps1_cwd}%{$reset_color%} ${line_color}├─┐"
+
+
+    PS1+=$'\n'"%{${line_color}%}└─ "
+    PS1+="${ps1_git_color}${ps1_git}${ps1_tail}%{$reset_color%}"
+
+    RPS1="%{${line_color}%}%{%B%}${ps1_errno}%{%b%}"
+    RPS1+="%{${line_color}%} ─┘%{$reset_color%}"
+    if [[ ${TERM:-"xterm"} =~ ".*rxvt.*" ]]; then RPS1+=" "; fi
+
+    unset ps1_errno ps1_fill_size line_color ps1_tail
+    unset ps1_cwd ps1_cwd_size ps1_git ps1_git_color
+# }}}
+
+}
+
+# secondary prompt, printed when the shell needs more information to complete a
+# command.
+PS2='%_> '
+# selection prompt used within a select loop.
+PS3='?# '
+# the execution trace prompt (setopt xtrace). default: '+%N:%i>'
+PS4='+%N:%i:%_> '
+
