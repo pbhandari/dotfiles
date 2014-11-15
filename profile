@@ -60,7 +60,7 @@ PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option altwin:swap_alt_win"
 export PRAJJ_XKB_OPTS
 export SESSION_FILE=${XDG_CONFIG_HOME:-${HOME}/.config}/.xsession
 
-LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${HOME}/.local/lib"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${HOME}/.local/lib"
 
 # Colourise the ttys
 if [ "$TERM" = "linux" ]; then
