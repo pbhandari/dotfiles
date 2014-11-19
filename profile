@@ -5,28 +5,9 @@ export LESS=' -R -m -i'
 
 export GIT_PAGER="less -FX"
 
-# export PATHs
-PATH="$HOME/.local/bin:$PATH"               # .local/bin
+export GOPATH="$HOME/.golang"
+export WORKON_HOME="$HOME/.virtualenv"
 
-if which ruby > /dev/null 2>&1; then        # ruby gems and rvm
-    PATH="$PATH:`ruby -e 'print Gem.user_dir'`/bin"
-    PATH="$PATH:$HOME/.rvm/bin"
-fi
-
-if which ghci > /dev/null 2>&1; then        # haskell
-    PATH="$PATH:$HOME/.cabal/bin"
-fi
-
-if which go > /dev/null 2>&1; then          # go
-    export GOPATH="$HOME/.golang"
-    PATH="$PATH:$GOPATH/bin"
-fi
-
-if which perl5 > /dev/null 2>&1; then       # perl
-    PATH="$PATH:$HOME/.perl5/bin"
-fi
-
-export PATH
 #export PYTHONPATH="/usr/lib/python3.3/site-packages"
 
 # export maildir
@@ -85,5 +66,27 @@ if [ "$TERM" = "linux" ]; then
 
     clear #for background artifacting
 fi
+
+# export PATHs
+PATH="$HOME/.local/bin:$PATH"               # .local/bin
+
+if which ruby > /dev/null 2>&1; then        # ruby gems and rvm
+    PATH="$PATH:`ruby -e 'print Gem.user_dir'`/bin"
+    PATH="$PATH:$HOME/.rvm/bin"
+fi
+
+if which ghci > /dev/null 2>&1; then        # haskell
+    PATH="$PATH:$HOME/.cabal/bin"
+fi
+
+if which go > /dev/null 2>&1; then          # go
+    PATH="$PATH:$GOPATH/bin"
+fi
+
+if which perl5 > /dev/null 2>&1; then       # perl
+    PATH="$PATH:$HOME/.perl5/bin"
+fi
+
+export PATH
 
 [ -f $HOME/.keychaineval ] && source $HOME/.keychaineval
