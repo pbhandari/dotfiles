@@ -1,0 +1,39 @@
+#-- conky settings -- #
+background no
+update_interval 1
+
+double_buffer yes
+
+text_buffer_size 2048
+imlib_cache_size 0
+
+# -- Window specifications -- #
+
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_class conky
+own_window_hints undecorated,sticky,skip_taskbar,skip_pager,below
+background no
+
+border_inner_margin 0
+border_outer_margin 0
+
+minimum_size 150 150
+
+alignment tr
+gap_x 75
+gap_y 25
+
+# -- Graphics settings -- #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+
+# -- Lua Load -- #
+lua_load /home/pbhandari/.conky/clock/clock_rings.lua
+lua_draw_hook_pre clock_rings
+
+TEXT

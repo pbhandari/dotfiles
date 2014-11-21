@@ -1,0 +1,88 @@
+# Use Xft?
+use_xft yes
+xftfont DejaVu Sans:size=7:style=Bold
+xftalpha 0.8
+text_buffer_size 2048
+
+# Update interval in seconds
+update_interval 1
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+own_window_transparent yes
+own_window_type override
+own_window_class conky
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+background no
+
+# Minimum size of text area
+minimum_size 150 0
+maximum_width 150
+
+# Draw shades?
+draw_shades no
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+
+# Default colors and also border colors
+default_color gray
+
+# Text alignment, other possible values are commented
+#alignment top_left
+#alignment top_right
+alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 45
+gap_y 15
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer none
+
+TEXT
+${if_mpd_playing}\
+${font DejaVu Sans:style=Bold:size=8}${color white}\
+${if_match "$mpd_status" == "Playing"}${scroll 20 3 $mpd_title}\
+$else${mpd_title 20}$endif${color}${font}\
+
+$mpd_artist
+${if_empty $mpd_album}Unknown $else${mpd_album 20}$endif
+
+$mpd_elapsed$alignc\
+${if_match "$mpd_status" == "Playing"}\
+${font Heydings Controls:size=7:style=Bold}P${font}\
+\
+${else if_match "$mpd_status" == "Paused"}\
+${font Heydings Controls:size=7:style=Bold}u${font}\
+\
+$endif\
+\
+${if_match "$mpd_random" == "On"}${voffset -2}\
+ ${font Heydings Controls:size=8:style=Bold}s${font}$endif\
+\
+${if_match "$mpd_repeat" == "On"}\
+ ${font Heydings Controls:size=7:style=Bold}r${font}$endif\
+\
+$alignr$mpd_length\
+
+${mpd_bar 2,150}
+$endif
