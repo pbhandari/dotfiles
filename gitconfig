@@ -57,9 +57,6 @@
 [url "git@bitbucket.org"]
     insteadOf       = bb
 
-[url "git@bitbucket.org"]
-    insteadOf       = bb
-
 [alias]
     l                = log -n20 --pretty=sparselog --date=relative --graph
 
