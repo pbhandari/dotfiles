@@ -35,6 +35,13 @@ precmd() {
     ps1_cwd=${PWD/$HOME/\~}
     ps1_cwd_size=$((${#ps1_cwd}${ps1_git:+" + 2"} + 0))
 
+    ps1_venv_size=0
+    if [[ -n ${VIRTUAL_ENV} ]]; then
+        ps1_venv_info="`basename $VIRTUAL_ENV`"
+        ps1_venv_size=$((${#ps1_venv_info} + 7))
+        ps1_venv_info="─┤ %{$fg[blue]%}${ps1_venv_info}%{$line_color%} ├──"
+    fi
+
     # print the username and hostname
     PS1=${line_color}"┌─┤ %{$fg[green]%}"${USER}
     PS1+=${line_color}"@%{$fg[blue]%}"${HOST}
@@ -42,18 +49,35 @@ precmd() {
 
     # fill the line until the end
     ps1_fill_size=$((${COLUMNS} - ${#USER} - ${#HOST} - ${ps1_cwd_size}\
-                    ${SSH_CLIENT:+" - 5"} - 14))
+                    ${SSH_CLIENT:+" - 5"} - ${ps1_venv_size} - 14))
 
     if [[ ${ps1_fill_size} < 0 ]]; then
         PS1=${line_color}"┌─"
-        ps1_fill_size=$(($COLUMNS - ${ps1_cwd_size} - 9))
+        ps1_fill_size=$(($COLUMNS - ${ps1_cwd_size} - ${ps1_venv_size} - 9))
 
-        if [[ ${ps1_cwd_size} -gt $(($COLUMNS - 11)) ]]; then
-            ps1_cwd=...${ps1_cwd:$((12${ps1_git:+" + 2"} - $COLUMNS))}
-            ps1_fill_size=0
+        if [[ ${ps1_fill_size} < 0 ]]
+        then
+            ps1_new_cwd=...${ps1_cwd:$((12 ${ps1_git:+" + 2"} \
+                                           ${ps1_venv_info:+"+ 2"} - $COLUMNS))}
+            [[ ${#ps1_new_cwd} -ge ${#ps1_cwd} ]] && ps1_new_cwd=${ps1_cwd}
+
+            ps1_fill_size=$(($COLUMNS - ${#ps1_new_cwd}${ps1_venv_info:+"- 2"}${ps1_git:+"- 2"} - 9))
+            [[ ${ps1_fill_size} < 0 ]] && ps1_fill_size=0
+
+            ps1_cwd=${ps1_venv_info:+"%{$fg[blue]%}V%{${reset_color}%} "}
+
+            [[ -w "$PWD" ]] && ps1_cwd+="%{$reset_color%}" \
+                            || ps1_cwd+="%{$fg[red]%}"
+            ps1_cwd+="$ps1_new_cwd"
+
+            ps1_venv_info=""
+
+            unset ps1_new_cwd
         fi
     fi
     while ((ps1_fill_size-- > 0)); do PS1+='─'; done
+
+    PS1+=$ps1_venv_info
 
     # print the working directory
     PS1+=${line_color}"┤ "${ps1_git:+"${ps1_git_color}⭠ "}
@@ -69,7 +93,7 @@ precmd() {
     if [[ ${TERM:-"xterm"} =~ ".*rxvt.*" ]]; then RPS1+=" "; fi
 
     unset ps1_errno ps1_fill_size line_color ps1_tail
-    unset ps1_cwd ps1_cwd_size ps1_git ps1_git_color
+    unset ps1_cwd ps1_cwd_size ps1_git ps1_git_color ps1_venv_info
 # }}}
 
 }
