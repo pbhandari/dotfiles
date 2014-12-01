@@ -86,7 +86,7 @@ Control + Shift + Mod1 + k
 Control + Mod1 + l
 
 "urxvtcd"
-XF86MyComputer
+XF86LaunchA
 
 "urxvtcd -e tmux"
-Shift + XF86MyComputer
+Shift + XF86LaunchA
