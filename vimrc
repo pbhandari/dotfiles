@@ -47,6 +47,7 @@ set tildeop                     " Tilde no longer only works on only one char
 set bg=dark                     " Makes items more readable
 
 set number                      " Line numbers are good
+set relativenumber              " Relative numbers are better
 
 set showcmd                     " Show incomplete cmds down the bottom
 set cmdheight=1                 " Always show the command line
@@ -290,6 +291,13 @@ endfunction
 " }}}
 
 " Misc Autocmds {{{
+" Switch between relative and absolute numbering
+augroup RELNUMBER
+    autocmd!
+    autocmd InsertEnter * setlocal norelativenumber
+    autocmd InsertLeave * setlocal relativenumber
+augroup END
+
 " No need to highlight history files
 autocmd BufRead *sh_history set filetype=none
 
