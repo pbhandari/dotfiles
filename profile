@@ -5,11 +5,6 @@ export LESS=' -R -m -i'
 
 export GIT_PAGER="less -FX"
 
-export GOPATH="$HOME/.golang"
-export WORKON_HOME="$HOME/.virtualenv"
-
-#export PYTHONPATH="/usr/lib/python3.3/site-packages"
-
 # export maildir
 export MAIL="$HOME/.mail"
 export MAILCHECK=0
@@ -80,11 +75,17 @@ if which ghci > /dev/null 2>&1; then        # haskell
 fi
 
 if which go > /dev/null 2>&1; then          # go
+export GOPATH="$HOME/.golang"
     PATH="$PATH:$GOPATH/bin"
 fi
 
 if which perl5 > /dev/null 2>&1; then       # perl
     PATH="$PATH:$HOME/.perl5/bin"
+fi
+
+if which python > /dev/null 2>&1; then
+    export WORKON_HOME="$HOME/.virtualenv"
+    #export PYTHONPATH="/usr/lib/python3.3/site-packages"
 fi
 
 export PATH
