@@ -32,11 +32,11 @@ Mod4 + Shift + f
 Mod4 + Shift + e
 
 # screenshot
-"scrot %d.%m.%Y-%H:%M:%S.png -e 'mv $f $m ~/pics/shots'"
+"scrot %d.%m.%Y-%H:%M:%S.png -e 'mv $f $m ~/media/pics/shots'"
 Shift + Print
 
 # screenshot (delayed 5s)
-"scrot %d.%m.%Y-%H:%M:%S.png -d 5 -e 'mv $f $m ~/pics/shots'"
+"scrot %d.%m.%Y-%H:%M:%S.png -d 5 -e 'mv $f $m ~/media/pics/shots'"
 Control + Shift + Print
 
 # volume up
