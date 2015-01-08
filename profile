@@ -74,8 +74,8 @@ if which ghci > /dev/null 2>&1; then        # haskell
 fi
 
 if which go > /dev/null 2>&1; then          # go
-export GOPATH="$HOME/.golang"
     PATH="$PATH:$GOPATH/bin"
+    export GOPATH="$HOME/.golang"
 fi
 
 if which perl5 > /dev/null 2>&1; then       # perl
