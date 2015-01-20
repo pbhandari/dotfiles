@@ -1,3 +1,7 @@
+_vim/backups
+_vim/spell
+_vim/tmp
+_vim/.netrwhist
 vim/backups
 vim/spell
 vim/tmp
