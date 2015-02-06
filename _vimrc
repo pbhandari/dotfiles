@@ -30,8 +30,9 @@ set modeline                    " Enable modelines in vim
 
 set autochdir                   " Automatically cd into `dir %`
 
-let g:clipbrdDefaultReg = '*'   " Default Clipboard Registry = +
-let mapleader           = ','   " Map Leader is comma
+let g:clipbrdDefaultReg = '*'   " Default Clipboard Registry = *
+let mapleader           = ' '   " Map Leader is space
+let maplocalleader      = ','   " Local Map Leader is comma
 
 set report=0                    " Always report how many lines were changed
 
@@ -228,6 +229,17 @@ nnoremap <silent> <leader>C "_C
 vnoremap <silent> <leader>C "_C
 "}}}
 
+" Disable Arrow keys. {{{
+noremap <UP> <NOP>
+noremap <DOWN> <NOP>
+noremap <LEFT> <NOP>
+noremap <RIGHT> <NOP>
+inoremap <UP> <NOP>
+inoremap <DOWN> <NOP>
+inoremap <LEFT> <NOP>
+inoremap <RIGHT> <NOP>
+" }}}
+
 " Easy precision
 nnoremap ' `
 nnoremap ` '
@@ -248,14 +260,8 @@ cnoremap w!! w !sudo tee % >/dev/null
 " Y works the same as C, and D
 nnoremap Y y$
 
-" Switch between absolute and relative line numbers
-inoremap <silent> <leader><leader>n <C-o>:set relativenumber!<CR>
-vnoremap <silent> <leader><leader>n <ESC>:set relativenumber!<CR>gv
-nnoremap <silent> <leader><leader>n      :set relativenumber!<CR>
-
 " quick and easy make
-inoremap <leader>mk <C-o>:make<CR>
-nnoremap <leader>mk      :make<CR>
+nnoremap <leader>mk :make<CR>
 
 " quick esacpes
 noremap  qq <NOP>
@@ -272,6 +278,13 @@ noremap ; :
 " These are pretty handy.
 noremap <BSLASH> ;
 noremap <BAR> ,
+
+" <BAR> is pretty handy too.
+noremap g<BAR> <BAR>
+
+" sometimes help needs to be vsplit
+cnoremap vh     vert help
+cnoremap vhelp  vert help
 " }}}
 
 " Functions {{{

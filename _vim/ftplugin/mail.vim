@@ -1,2 +1,2 @@
 let b:noStripWhitespace=1
-setlocal spell textwidth=78
+setlocal spell textwidth=76
