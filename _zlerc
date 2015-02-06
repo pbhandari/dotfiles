@@ -43,6 +43,8 @@ bindkey     "${key[Delete]}"    delete-char
 
 bindkey     "${key[Up]}"        up-line-or-beginning-search
 bindkey     "${key[Down]}"      down-line-or-beginning-search
+bindkey     "^n"        up-line-or-beginning-search
+bindkey     "^p"      down-line-or-beginning-search
 
 bindkey     "${key[Left]}"      backward-char
 bindkey     "${key[Right]}"     forward-char
