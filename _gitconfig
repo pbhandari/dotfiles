@@ -17,7 +17,7 @@
     autocrlf         = input
     filemode         = false
     whitespace       = trailing-space,space-before-tab
-    excludesfile     = /home/pbhandari/.cvsignore
+    excludesfile     = ~/.vcsignore
 
 [merge]
     log              = true
@@ -27,7 +27,7 @@
     default          = upstream
 
 [color]
-	ui               = true
+	ui               = auto
 [color "branch"]
     current          = green bold
     local            = blue
@@ -43,6 +43,8 @@
 [diff]
     renames          = true
     algorithm        = patience
+    mnemonicprefix   = true
+    tool             = vimdiff
 
 [pager]
     l                = false
@@ -63,8 +65,6 @@
     s                = status -sb
     st               = status
 
-    sha              = log -n1 --pretty=%h
-
     co               = checkout
     br               = branch
     ci               = commit
@@ -83,7 +83,7 @@
 
 
 [pretty]
-    sparselog        = %C(red)%h%C(reset) -%C(auto)%d %C(reset)%s %C(blue)<%an> %C(reset)%C(cyan)(%ad)%C(reset)
+    sparselog        = %C(auto,red)%h%C(auto,reset) -%C(auto)%d %C(auto,reset)%s %C(auto,blue)<%an> %C(auto,reset)%C(auto,cyan)(%ad)%C(auto,reset)
 
     fulllog          = format:\
                         %nCommit: %Creset%C(auto)%d%Creset %Cred%H\
