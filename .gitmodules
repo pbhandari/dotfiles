@@ -73,3 +73,6 @@
 [submodule "_vim/bundle/vim-dispatch"]
 	path = _vim/bundle/vim-dispatch
 	url = git@github.com:tpope/vim-dispatch
+[submodule "_vim/bundle/rust.vim"]
+	path = _vim/bundle/rust.vim
+	url = git@github.com:wting/rust.vim
