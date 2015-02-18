@@ -285,6 +285,10 @@ noremap g<BAR> <BAR>
 " sometimes help needs to be vsplit
 cnoremap vh     vert help
 cnoremap vhelp  vert help
+
+" quickly manage buffers
+nnoremap <Leader>b :ls<CR>:b
+nnoremap <Leader>B :ls!<CR>:b
 " }}}
 
 " Functions {{{
