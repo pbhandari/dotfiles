@@ -64,9 +64,16 @@ fi
 # export PATHs
 PATH="$HOME/.local/bin:$PATH"               # .local/bin
 
-if which ruby > /dev/null 2>&1; then        # ruby gems and rvm
+if which ruby > /dev/null 2>&1; then        # ruby gems
     PATH="$PATH:`ruby -e 'print Gem.user_dir'`/bin"
-    PATH="$PATH:$HOME/.rvm/bin"
+
+    if which rvm > /dev/null 2>&1; then     # rvm
+        PATH="$PATH:$HOME/.rvm/bin"
+
+        # Load RVM into a shell session *as a function*
+        [ -s "$HOME/.rvm/scripts/rvm" ] && \
+            source "$HOME/.rvm/scripts/rvm"
+    fi
 fi
 
 if which ghci > /dev/null 2>&1; then        # haskell
@@ -90,3 +97,5 @@ fi
 export PATH
 
 [ -f $HOME/.keychaineval ] && source $HOME/.keychaineval
+
+# vim:ft=sh:
