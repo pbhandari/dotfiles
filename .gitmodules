@@ -1,33 +1,18 @@
 [submodule "_vim/bundle/ctrlp.vim"]
 	path = _vim/bundle/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim.git
-[submodule "_vim/bundle/gist-vim"]
-	path = _vim/bundle/gist-vim
-	url = https://github.com/mattn/gist-vim.git
-[submodule "_vim/bundle/haskellmode-vim"]
-	path = _vim/bundle/haskellmode-vim
-	url = https://github.com/pbhandari/haskellmode-vim.git
 [submodule "_vim/bundle/molokai"]
 	path = _vim/bundle/molokai
 	url = https://github.com/tomasr/molokai.git
-[submodule "_vim/bundle/neocomplcache"]
-	path = _vim/bundle/neocomplcache
-	url = https://github.com/Shougo/neocomplcache.git
 [submodule "_vim/bundle/syntastic"]
 	path = _vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
 [submodule "_vim/bundle/tabular"]
 	path = _vim/bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
-[submodule "_vim/bundle/tagbar"]
-	path = _vim/bundle/tagbar
-	url = https://github.com/majutsushi/tagbar.git
 [submodule "_vim/bundle/undotree"]
 	path = _vim/bundle/undotree
 	url = https://github.com/mbbill/undotree.git
-[submodule "_vim/bundle/vim-abolish"]
-	path = _vim/bundle/vim-abolish
-	url = https://github.com/tpope/vim-abolish.git
 [submodule "_vim/bundle/vim-buffergator"]
 	path = _vim/bundle/vim-buffergator
 	url = https://github.com/jeetsukumaran/vim-buffergator.git
@@ -52,9 +37,6 @@
 [submodule "_vim/bundle/vim-unimpaired"]
 	path = _vim/bundle/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
-[submodule "_vim/bundle/vimux"]
-	path = _vim/bundle/vimux
-	url = https://github.com/benmills/vimux.git
 [submodule "_vim/bundle/ultisnips"]
 	path = _vim/bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
