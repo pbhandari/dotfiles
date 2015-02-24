@@ -13,4 +13,5 @@ export PATH
 
 export CDPATH="$CDPATH:~/Semester/"
 
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 # vim:ft=sh:
