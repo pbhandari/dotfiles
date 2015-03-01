@@ -27,7 +27,7 @@
     default          = upstream
 
 [color]
-	ui               = auto
+    ui               = auto
 [color "branch"]
     current          = green bold
     local            = blue
