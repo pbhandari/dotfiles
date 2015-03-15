@@ -1,12 +1,18 @@
 " .vimrc
 
-" General Behaviour {{{
-" Infect all the things
+" Basic sanitization of defaults {{{
+" vi-mode is bad and you should feel bad
+if &compatible
+    set nocompatible
+endif
+
+" Load them all here, so I can easily override their settings without jumping
+" through hoops
 execute pathogen#infect('bundle/{}')
 runtime macros/matchit.vim      " Better open/close matching
+" }}}
 
-set nocompatible                " Revert all settings back to vim default
-
+" General Behaviour {{{
 set visualbell                  " No sounds
 set noerrorbells                " Don't beep
 
@@ -30,7 +36,7 @@ set modeline                    " Enable modelines in vim
 
 set autochdir                   " Automatically cd into `dir %`
 
-let g:clipbrdDefaultReg = '*'   " Default Clipboard Registry = *
+let g:clipbrdDefaultReg = '*'   " Copy to primary by default
 let mapleader           = ' '   " Map Leader is space
 let maplocalleader      = ','   " Local Map Leader is comma
 
@@ -64,10 +70,8 @@ set sidescrolloff=3             " Start scroll 3 lines before horz buffer ends
 set virtualedit=onemore         " Allow for cursor beyond last character
 
 set listchars=tab:▸\ ,eol:¬
-set listchars+=extends:❯,precedes:❮
 
-set showbreak=↪\                " show when the line is wrapped
-set synmaxcol=800               " don't highlight massive lines
+set synmaxcol=200               " don't highlight massive lines
 
 set lazyredraw                  " lazily redraw the screen
 
@@ -96,7 +100,7 @@ endif
 set autoindent                  " Autoindent by default
 set copyindent                  " Use indent format of prev line, if autoindent
 
-set tabstop=4                   " Show tabs as 4 spaces
+set tabstop=8                   " Show tabs as 8 spaces, as is the default everywhere
 set shiftwidth=4                " Tab goes forward 4 spaces
 set softtabstop=4               " Virtual tab stop is also 4
 
@@ -130,13 +134,11 @@ set wildignore+=*.pyc                   " python compiled files
 set wildignore+=*vim/backups*           " anything from the backups folder
 set wildignore+=*~,#*#,*.swp            " all other backup files
 
-" tmp folder and log folders
-set wildignore+=log/**
-set wildignore+=tmp/**                  " anything that is temporary
+
+set wildignore+=log/**,tmp/**
 
 " image files
-set wildignore+=*.png,*.jpg,*.gif
-set wildignore+=*.bmp
+set wildignore+=*.png,*.jpg,*.gif,*.bmp
 " }}}
 
 " Search Settings  {{{
@@ -159,10 +161,7 @@ let g:syntastic_style_warning_symbol     = '>'
 let g:syntastic_always_populate_loc_list = 1
 
 "============== vim-airline
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+let g:airline_symbols = {}
 
 " unicode symbols
 let g:airline_left_sep         = '⮀'
@@ -179,18 +178,10 @@ let g:airline#extensions#whitespace#checks = [ 'indent' ]
 " Don't show current mode down the bottom
 set noshowmode
 
-" ================== snipmate
-let g:snips_author="Prajjwal Bhandari"
+" ================
+let g:ctrlp_map = '<c-x><c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 
-" ================== UndoTree
-nnoremap <silent> <leader><leader>u :UndotreeToggle<CR>
-
-" ================== Tagbar
-nnoremap <silent> <leader><leader>t :TagbarToggle<CR>
-
-" ================== HaskellMode
-let g:haddock_indexfiledir = "~/.vim/bundle/haskellmode-vim"
-let g:haddock_browser      = "/usr/bin/firefox"
 " }}}
 
 " Highlight {{{
@@ -240,7 +231,7 @@ inoremap <LEFT> <NOP>
 inoremap <RIGHT> <NOP>
 " }}}
 
-" Easy precision
+" ' is easier to reach
 nnoremap ' `
 nnoremap ` '
 
@@ -249,46 +240,39 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
 " Show whitespaces
-nnoremap <silent> <leader>s :set nolist!<CR>
+nnoremap <silent> <leader>s :set nolist!<cr>
 
 " Clear highlighted search
-nnoremap <silent> <leader>/ :nohlsearch<CR>
+nnoremap <silent> <leader>/ :nohlsearch<cr>
 
-" Quick write read only Files
-cnoremap w!! w !sudo tee % >/dev/null
+" Use the UndoTree
+nnoremap <silent> <leader><leader>u :UndotreeToggle<CR>
 
-" Y works the same as C, and D
+" So that Y works the same as C, and D
 nnoremap Y y$
 
-" quick and easy make
-nnoremap <leader>mk :make<CR>
-
 " quick esacpes
-noremap  qq <NOP>
-inoremap qq <ESC>
-vnoremap qq <ESC>
+noremap  qq <nop>
+inoremap qq <esc>
+vnoremap qq <esc>
 
 " Help key is not helpful
-noremap  <F1> <ESC>
-noremap! <F1> <ESC>
+noremap  <F1> <esc>
+noremap! <F1> <esc>
 
-" Easier entry to commmand-mode
-noremap ; :
-
-" These are pretty handy.
-noremap <BSLASH> ;
-noremap <BAR> ,
-
-" <BAR> is pretty handy too.
-noremap g<BAR> <BAR>
+" Remap ; -> : and fix issues
+noremap ;           :
+noremap <bslash>    ;
+noremap <bar>       ,
+noremap g<bslash>   <bar>
 
 " sometimes help needs to be vsplit
 cnoremap vh     vert help
 cnoremap vhelp  vert help
 
 " quickly manage buffers
-nnoremap <Leader>b :ls<CR>:b
-nnoremap <Leader>B :ls!<CR>:b
+nnoremap <leader>b :ls<cr>:b<space>
+nnoremap <leader>B :ls!<cr>:b<space>
 " }}}
 
 " Functions {{{
