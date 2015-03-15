@@ -126,6 +126,8 @@ function stats() {
     hook_com[unstaged]+='T'
 }
 
+alias k='fc -e -'
+
 # }}}
 
 # prompt {{{
