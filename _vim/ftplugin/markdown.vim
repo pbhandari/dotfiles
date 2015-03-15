@@ -2,7 +2,7 @@ setlocal spell
 setlocal textwidth=78
 
 " Don't strip whitespace since it actually matters
-let b:noStripWhitespace=1
+let b:keep_whitespace = 1
 
 " And don't whine about the 'newline' marker
 call matchdelete(TrailSpace)

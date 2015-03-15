@@ -293,14 +293,12 @@ nnoremap <Leader>B :ls!<CR>:b
 
 " Functions {{{
 " Removes superfluous white space from the end of a line
+let b:keep_whitespace = 0
 function! RemoveWhiteSpace()
-    if exists('b:noStripWhitespace')
+    if exists('b:keep_whitespace') && b:keep_whitespace
         return
     endif
-    call RemoveWhiteSpaceForce()
-endfunction
 
-function! RemoveWhiteSpaceForce()
     exe "normal mz"
     %s/\s\+$//ge
     exe "normal 'z"
