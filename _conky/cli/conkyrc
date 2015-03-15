@@ -37,10 +37,10 @@ $endif\
 ${battery_short BAT1}^fg() \
 $endif\
 \
-${if_match ${new_mails /home/pbhandari/.mail/brishu/INBOX} > 0}\
+${if_match ${new_mails /home/pbhandari/.mail/pbhandari/INBOX} > 0}\
 ^ca(1, "$HOME/.local/bin/xmutt")\
 ^fg(\#33abaa)^i(/home/pbhandari/.xmonad/dzen2/mail.xbm)^fg()\
-^fn(:Bold:size=6.5) [${new_mails /home/pbhandari/.mail/brishu/INBOX}]^fn()\
+^fn(:Bold:size=6.5) [${new_mails /home/pbhandari/.mail/pbhandari/INBOX}]^fn()\
  ^ca()$endif\
 \
 ^fg(red)${execpi 60 /home/pbhandari/.local/scripts/conky/pac-check dzen2}^fg()\

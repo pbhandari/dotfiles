@@ -164,10 +164,10 @@ ${font DejaVu Sans:style=Bold:size=8}USED ${font} $alignr $mem/$memmax
 ${font :style=Bold:size=8}UPTIME ${font}$alignr${uptime}
 ${font :style=Bold:size=8}KERNEL ${font}$alignr$kernel
 ${execpi 600 /home/pbhandari/.local/scripts/conky/pac-check conky}$alignr\
-${if_match ${new_mails /home/pbhandari/.mail/brishu/INBOX} > 0}\
+${if_match ${new_mails /home/pbhandari/.mail/pbhandari/INBOX} > 0}\
 ${font DejaVu Sans:size=8:style=Bold}UNREAD ${font}\
 ${font :size=8:style=Bold}${color yellow}\
-${new_mails /home/pbhandari/.mail/brishu/INBOX}${color}${font}
+${new_mails /home/pbhandari/.mail/pbhandari/INBOX}${color}${font}
 $endif
 
 
