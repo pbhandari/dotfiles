@@ -19,10 +19,6 @@
 #
 # Mod4 is the Windows meta key
 
-# app launcher
-"gmrun"
-Mod4 + Shift + p
-
 # web browser
 "firefox"
 Mod4 + Shift + f
