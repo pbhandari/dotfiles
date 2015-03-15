@@ -314,18 +314,30 @@ augroup RELNUMBER
 augroup END
 
 " No need to highlight history files
-autocmd BufRead *sh_history set filetype=none
+augroup DISABLE_FILETYPES
+    autocmd!
+    autocmd BufRead *sh_history setlocal syntax off
+augroup END
 
 " Read template files if they exist
-autocmd BufNewFile * silent! exe "0r ~/.vim/templates/" . &ft  . ".skel"
+augroup READ_TEMPLATES
+    autocmd!
+    autocmd BufNewFile * silent! exe "0r ~/.vim/templates/" . &ft  . ".skel"
+augroup END
 
-" Hop out of insertmode after 5 seconds of inactivity
-autocmd CursorHoldI * stopinsert
-autocmd InsertEnter * let updaterestore=&updatetime | set updatetime=5000
-autocmd InsertLeave * let &updatetime=updaterestore
+" Hop out of insertmode after seconds of inactivity
+augroup LEAVE_INSERT
+    autocmd!
+    autocmd CursorHoldI * stopinsert
+    autocmd InsertEnter * let updaterestore=&updatetime | set updatetime=5000
+    autocmd InsertLeave * let &updatetime=updaterestore
+augroup END
 
 " Remove whitespace before writing to any file
-autocmd BufWrite,FileWritePre * call RemoveWhiteSpace()
+augroup REMOVE_WHITESPACE
+    autocmd!
+    autocmd BufWrite,FileWritePre * call RemoveWhiteSpace()
+augroup END
 " }}}
 
 " Source local vimrc if it exists
