@@ -8,4 +8,4 @@ for file in _*; do
     fi
 done
 
-git submodule update
+git submodule update --init
