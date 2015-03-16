@@ -37,18 +37,12 @@
 [submodule "_vim/bundle/vim-unimpaired"]
 	path = _vim/bundle/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
-[submodule "_vim/bundle/ultisnips"]
-	path = _vim/bundle/ultisnips
-	url = https://github.com/SirVer/ultisnips.git
 [submodule "_vim/bundle/vim-airline"]
 	path = _vim/bundle/vim-airline
 	url = https://github.com/bling/vim-airline
 [submodule "_vim/bundle/vim-rsi"]
 	path = _vim/bundle/vim-rsi
 	url = git@github.com:tpope/vim-rsi.git
-[submodule "_vim/bundle/vim-snippets"]
-	path = _vim/bundle/vim-snippets
-	url = https://github.com/honza/vim-snippets.git
 [submodule "_vim/bundle/vim-go"]
 	path = _vim/bundle/vim-go
 	url = git@github.com:fatih/vim-go.git
