@@ -42,13 +42,13 @@
 	url = https://github.com/bling/vim-airline
 [submodule "_vim/bundle/vim-rsi"]
 	path = _vim/bundle/vim-rsi
-	url = git@github.com:tpope/vim-rsi.git
+	url = https://github.com/tpope/vim-rsi.git
 [submodule "_vim/bundle/vim-go"]
 	path = _vim/bundle/vim-go
-	url = git@github.com:fatih/vim-go.git
+	url = https://github.com/fatih/vim-go.git
 [submodule "_vim/bundle/vim-dispatch"]
 	path = _vim/bundle/vim-dispatch
-	url = git@github.com:tpope/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch
 [submodule "_vim/bundle/rust.vim"]
 	path = _vim/bundle/rust.vim
-	url = git@github.com:wting/rust.vim
+	url = https://github.com/wting/rust.vim
