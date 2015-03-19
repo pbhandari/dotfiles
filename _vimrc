@@ -154,9 +154,9 @@ set wrapscan                    " Wrap search upon reaching the end of document
 " Plugins {{{
 " ================= syntastic
 let g:syntastic_check_on_open            = 1
-let g:syntastic_error_symbol             = '✗'
-let g:syntastic_style_error_symbol       = '★'
-let g:syntastic_warning_symbol           = '⚠'
+let g:syntastic_error_symbol             = 'x'
+let g:syntastic_style_error_symbol       = '!'
+let g:syntastic_warning_symbol           = '?'
 let g:syntastic_style_warning_symbol     = '>'
 let g:syntastic_always_populate_loc_list = 1
 
@@ -164,13 +164,13 @@ let g:syntastic_always_populate_loc_list = 1
 let g:airline_symbols = {}
 
 " unicode symbols
-let g:airline_left_sep         = '⮀'
-let g:airline_left_alt_sep     = '⮁'
-let g:airline_right_sep        = '⮂'
-let g:airline_right_alt_sep    = '⮃'
+let g:airline_left_sep         = ''
+let g:airline_left_alt_sep     = ''
+let g:airline_right_sep        = ''
+let g:airline_right_alt_sep    = ''
 let g:airline_symbols.branch   = '⭠'
-let g:airline_symbols.readonly = '⭤'
-let g:airline_symbols.linenr   = '⮃ ⭡'
+let g:airline_symbols.readonly = '[RO]'
+let g:airline_symbols.linenr   = ' ⭡'
 let g:airline_symbols.paste    = 'paste'
 
 let g:airline#extensions#whitespace#checks = [ 'indent' ]
