@@ -41,3 +41,5 @@ alias ping='ping -c5'
 alias asdfg="setxkbmap $PRAJJ_XKB_OPTS"
 
 alias gg=git
+
+alias userctl="systemctl --user"
