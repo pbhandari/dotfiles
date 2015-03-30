@@ -27,11 +27,11 @@ URxvt*iconFile:            /usr/share/icons/Faenza/apps/64/gnome-terminal.png
 
 ! Fonts
 URxvt*allow_bold:           false
-URxvt*font:                 xft:Fantasque Sans Mono:regular:size=10,     xft:Monaco for Powerline:size=10
-URxvt*imFont:               xft:Fantasque Sans Mono:regular:size=10,     xft:Monaco for Powerline:size=10
-URxvt*boldFont:             xft:Fantasque Sans Mono:bold:size=10,        xft:Monaco for Powerline:size=10
-URxvt*italicFont:           xft:Fantasque Sans Mono:italic:size=10,      xft:Monaco for Powerline:size=10
-URxvt*boldItalicFont:       xft:Fantasque Sans Mono:bold:italic:size=10, xft:Monaco for Powerline:size=10
+URxvt*font:                 xft:Monaco:regular:size=9.5,     xft:Monaco for Powerline:size=9.5
+URxvt*imFont:               xft:Monaco:regular:size=9.5,     xft:Monaco for Powerline:size=9.5
+URxvt*boldFont:             xft:Monaco:bold:size=9.5,        xft:Monaco for Powerline:size=9.5
+URxvt*italicFont:           xft:Monaco:italic:size=9.5,      xft:Monaco for Powerline:size=9.5
+URxvt*boldItalicFont:       xft:Monaco:bold:italic:size=9.5, xft:Monaco for Powerline:size=9.5
 ! Fix font space
 ! URxvt*letterSpace: -1
 URxvt*iso14755:             false
