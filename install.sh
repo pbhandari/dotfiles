@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
+mkdir _vim/{backups,tmp}
 for file in _*; do
     if [[ -e $HOME/${file/_/.} ]]; then
         echo "$HOME/${file/_/.} already exists" >&2
