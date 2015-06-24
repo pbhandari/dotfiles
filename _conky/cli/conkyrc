@@ -43,6 +43,12 @@ ${if_match ${new_mails /home/pbhandari/.mail/pbhandari/INBOX} > 0}\
 ^fn(:Bold:size=6.5) [${new_mails /home/pbhandari/.mail/pbhandari/INBOX}]^fn()\
  ^ca()$endif\
 \
+${if_match ${new_mails /home/pbhandari/.mail/brishu/INBOX} > 0}\
+^ca(1, "$HOME/.local/bin/xmutt")\
+^fg(\#FFabaa)^i(/home/pbhandari/.xmonad/dzen2/mail.xbm)^fg()\
+^fn(:Bold:size=6.5) [${new_mails /home/pbhandari/.mail/brishu/INBOX}]^fn()\
+ ^ca()$endif\
+\
 ^fg(red)${execpi 60 /home/pbhandari/.local/scripts/conky/pac-check dzen2}^fg()\
 \
 ^ca(1, "${HOME}/.local/scripts/dzen2/cal.sh" )\
