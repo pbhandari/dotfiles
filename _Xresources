@@ -1,9 +1,4 @@
 !-------------------------------------------------------------------------------
-! Colours
-!-------------------------------------------------------------------------------
-#include "/home/pbhandari/.colors/molokai"
-
-!-------------------------------------------------------------------------------
 ! Xcursor settings
 !-------------------------------------------------------------------------------
 Xcursor.theme:              Oxygen_Zion
@@ -75,3 +70,28 @@ URxvt*keysym.Control-Up:    \033[1;5A
 URxvt*keysym.Control-Down:  \033[1;5B
 URxvt*keysym.Control-Left:  \033[1;5D
 URxvt*keysym.Control-Right: \033[1;5C
+
+!-------------------------------------------------------------------------------
+! Colours
+!-------------------------------------------------------------------------------
+*background:      #1C1C1C
+*foreground:      #a0a0a0
+*cursorColor:     #a0a0a0
+
+*color0:       #1B1D1E
+*color1:       #F92672
+*color2:       #82B414
+*color3:       #FD9714
+*color4:       #56C2D6
+*color5:       #CC54FE
+*color6:       #465447
+*color7:       #CCCCC6
+*color8:       #505354
+*color9:       #FF5995
+*color10:      #B6E354
+*color11:      #FEEDC6
+*color12:      #8CEDFF
+*color13:      #8C54FE
+*color14:      #899CA1
+*color15:      #F8F8F2
+
