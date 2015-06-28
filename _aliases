@@ -2,7 +2,7 @@
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    [ -r ~/.dircolors ] \
+    [ -r ~/.dir_colors ] \
                 && eval "$(dircolors -b ~/.dir_colors)"\
                 || eval "$(dircolors -b)"
     alias ls="ls -h --color=auto"
@@ -43,3 +43,7 @@ alias asdfg="setxkbmap $PRAJJ_XKB_OPTS"
 alias gg=git
 
 alias userctl="systemctl --user"
+
+if [ -r $HOME/.aliases.local ]; then
+    . $HOME/.aliases.local
+fi
