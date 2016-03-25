@@ -8,6 +8,64 @@ zstyle ':vcs_info:git*' formats '(%b) ' '%u%c' '%s' '%c'
 zstyle ':vcs_info:' enable git
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 
+ps1_vcs_status() {
+    unset ps1_vcs_space_needed ps1_git_color
+    unset ps1_vcs_short_info ps1_vcs_long_info
+
+    vcs_info
+
+    ps1_vcs_space_needed=1
+    if [[ "${vcs_info_msg_2_}" == "git" ]]; then
+        [[ -n "${vcs_info_msg_1_}" ]] \
+            && ps1_git_color="%{$fg[red]%}" \
+            || ps1_git_color="%{$fg[green]%}"
+
+        ps1_vcs_space_needed=$((ps1_vcs_space_needed + 1))
+        ps1_vcs_short_info="${ps1_git_color}⭠"
+        ps1_vcs_long_info=${ps1_git_color}${vcs_info_msg_0_}
+    fi
+
+    [[ $ps1_vcs_space_needed -eq 1 ]] && ps1_vcs_space_needed=0
+    [[ -n ${ps1_vcs_short_info} ]] && ps1_vcs_short_info+=" "
+}
+
+ps1_fill_line() {
+    unset ps1_fill_size
+
+    ps1_fill_size=$1
+    # if I don't have enough space to fit everything
+    if [[ ${ps1_fill_size} < 0 ]]; then
+        # remove the user/host name and try again
+        PS1=${line_color}"┌─"
+        ps1_fill_size=$(($COLUMNS - ${ps1_cwd_size} - ${ps1_venv_size} - 9))
+
+        # if I still don't have enough, truncate the cwd and hint for any extra
+        if [[ ${ps1_fill_size} < 0 ]]
+        then
+            ps1_new_cwd=...${ps1_cwd:$((12 + ${ps1_vcs_space_needed}\
+                                           ${ps1_venv:+"+ 2"} \
+                                           - $COLUMNS))}
+            if [[ ${#ps1_new_cwd} -ge ${#ps1_cwd} ]]; then
+                ps1_new_cwd=${ps1_cwd}
+            fi
+
+            ps1_fill_size=$(($COLUMNS - ${#ps1_new_cwd} ${ps1_venv:+"- 2"} \
+                                        - $ps1_vcs_space_needed - 9))
+
+            # if after all that it's /still/ not enough, then just set it to 0
+            if [[ ${ps1_fill_size} < 0 ]]; then ps1_fill_size=0; fi
+
+            ps1_cwd=${ps1_venv:+"%{$fg[blue]%}V "}
+            ps1_cwd+="${ps1_cwd_color}${ps1_new_cwd}"
+
+            ps1_venv=""
+
+            unset ps1_new_cwd
+        fi
+    fi
+    while ((ps1_fill_size-- > 0)); do PS1+='─'; done
+}
+
 precmd() {
 
 # PS1 {{{
@@ -24,82 +82,41 @@ precmd() {
     fi
     ps1_tail+="%B%#%b %{$reset_color%}"
 
-    vcs_info
-
-    [[ "${vcs_info_msg_2_}" == "git" ]] && ps1_git=${vcs_info_msg_0_}
-    [[ -n "${ps1_git}" && -n "${vcs_info_msg_1_}" ]] \
-        && ps1_git_color="%{$fg[red]%}" \
-        || ps1_git_color="%{$fg[green]%}"
-
-    # initialise all the required variables
-    ps1_cwd=${PWD/$HOME/\~}
-    ps1_cwd_size=$((${#ps1_cwd}${ps1_git:+" + 2"} + 0))
-    [[ -w $PWD ]] && ps1_cwd_color="%{$reset_color%}" \
-                  || ps1_cwd_color="%{$fg[red]%}"
+    ps1_vcs_status
 
     ps1_venv_size=0
+    ps1_venv=""
     if [[ -n ${VIRTUAL_ENV} ]]; then
         ps1_venv="`basename $VIRTUAL_ENV`"
         ps1_venv_size=$((${#ps1_venv} + 7))
         ps1_venv="─┤ %{$fg[blue]%}${ps1_venv}%{$line_color%} ├──"
     fi
 
-    # print the username and hostname
+    # print the LHS of the prompt
     PS1=${line_color}"┌─┤ %{$fg[green]%}"${USER}
     PS1+=${line_color}"@%{$fg[blue]%}"${HOST}
     PS1+="%{$reset_color%}"${SSH_CLIENT:+"(ssh)"}${line_color}" ├"
 
     # fill the line until the end
-    ps1_fill_size=$((${COLUMNS} - ${#USER} - ${#HOST} - ${ps1_cwd_size}\
+    ps1_cwd=${PWD/$HOME/\~}
+    [[ -w $PWD ]] && ps1_cwd_color="%{$reset_color%}" \
+                  || ps1_cwd_color="%{$fg[red]%}"
+
+    ps1_cwd_size=$((${#ps1_cwd} + $ps1_vcs_space_needed))
+    ps1_fill_line $((${COLUMNS} - ${#USER} - ${#HOST} - ${ps1_cwd_size} \
                     ${SSH_CLIENT:+" - 5"} - ${ps1_venv_size} - 14))
 
-    # if I don't have enough space to fit everything
-    if [[ ${ps1_fill_size} < 0 ]]; then
-        # remove the user/host name and try again
-        PS1=${line_color}"┌─"
-        ps1_fill_size=$(($COLUMNS - ${ps1_cwd_size} - ${ps1_venv_size} - 9))
-
-        # if I still don't have enough, truncate the cwd and hint for any extra
-        if [[ ${ps1_fill_size} < 0 ]]
-        then
-            ps1_new_cwd=...${ps1_cwd:$((12 ${ps1_git:+" + 2"} \
-                                           ${ps1_venv:+"+ 2"} \
-                                           - $COLUMNS))}
-            if [[ ${#ps1_new_cwd} -ge ${#ps1_cwd} ]]; then
-                ps1_new_cwd=${ps1_cwd}
-            fi
-
-            ps1_fill_size=$(($COLUMNS - ${#ps1_new_cwd} \
-                                        ${ps1_venv:+"- 2"} \
-                                        ${ps1_git:+"- 2"} \
-                                        - 9))
-
-            # if after all that it's /still/ not enough, then just set it to 0
-            if [[ ${ps1_fill_size} < 0 ]]; then ps1_fill_size=0; fi
-
-            ps1_cwd=${ps1_venv:+"%{$fg[blue]%}V "}
-            ps1_cwd+="${ps1_cwd_color}${ps1_new_cwd}"
-
-            ps1_venv=""
-
-            unset ps1_new_cwd
-        fi
-    fi
-    while ((ps1_fill_size-- > 0)); do PS1+='─'; done
-
-    PS1+=$ps1_venv
-
-    # print the working directory
-    PS1+=${line_color}"┤ "${ps1_git:+"${ps1_git_color}⭠ "}
+    # print the RHS of the prompt
+    PS1+=${ps1_venv}
+    PS1+=${line_color}"┤ "${ps1_vcs_short_info}
     PS1+="${ps1_cwd_color}${ps1_cwd}%{$reset_color%} ${line_color}├─┐"
 
 
     PS1+=$'\n'"%{${line_color}%}└─ "
-    PS1+="${ps1_git_color}${ps1_git}${ps1_tail}%{$reset_color%}"
+    PS1+="${ps1_vcs_long_info}${ps1_tail}%{$reset_color%}"
 
     RPS1="%{${line_color}%}%{%B%}${ps1_errno}%{%b%}"
     RPS1+="%{${line_color}%} ─┘%{$reset_color%}"
-    if [[ ${TERM:-"xterm"} =~ ".*rxvt.*" ]]; then RPS1+=" "; fi
 
     unset ps1_errno ps1_fill_size line_color ps1_tail ps1_cwd_color
     unset ps1_cwd ps1_cwd_size ps1_git ps1_git_color ps1_venv
