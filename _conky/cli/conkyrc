@@ -8,49 +8,53 @@ if_up_strictness link
 TEXT
 \
 ${if_match "$mpd_status" == "Playing"}\
-^i(/home/pbhandari/.xmonad/dzen2/note.xbm) ${scroll 18 6 $mpd_title - $mpd_artist} \
+^i(/home/pbhandari/.dzen2/note.xbm) ${scroll 18 6 $mpd_title - $mpd_artist} \
 $endif\
 \
 ${exec xset -q | awk '/Caps Lock/ { print ($4 == "on")? "C" : "" }'} \
 ${if_match $memperc > 75}^fg(red)$else${if_match $memperc > 50}^fg(\#ff7733)\
-$endif$endif^i(/home/pbhandari/.xmonad/dzen2/mem.xbm) \
+$endif$endif^i(/home/pbhandari/.dzen2/mem.xbm) \
 ${if_match "$memperc" < "10"} $endif$memperc%^fg() \
 \
 ${if_match $cpu > 75}^fg(red)$else${if_match $cpu > 50}^fg(\#ff7733)$endif$endif\
-^i(/home/pbhandari/.xmonad/dzen2/cpu.xbm)${if_match $cpu < 10} $endif\
+^i(/home/pbhandari/.dzen2/cpu.xbm)${if_match $cpu < 10} $endif\
 $cpu%^fg() \
 \
-${if_up wlp3s0}^i(/home/pbhandari/.xmonad/dzen2/wifi_02.xbm) \
+${if_up wlp3s0}^i(/home/pbhandari/.dzen2/wifi_02.xbm) \
 ${wireless_link_qual_perc wlp3s0} $endif\
+\
+^i(/home/pbhandari/.dzen2/spkr_01.xbm) \
+${execp amixer sget Master | grep -o '[0-9]\+%' | uniq | xargs}\
 \
 ${if_match ${battery_percent BAT0} < 99}\
 ${if_match ${battery_percent BAT0} < 15}^fg(red)\
 $else${if_match ${battery_percent BAT0} < 30}^fg(yellow)$endif\
 $endif\
-${battery_short BAT0}^fg() \
+ ${battery_short BAT0}^fg()\
 $endif\
 \
 ${if_match ${battery_percent BAT1} < 99}\
 ${if_match ${battery_percent BAT1} < 15}^fg(red)\
 $else${if_match ${battery_percent BAT1} < 30}^fg(yellow)$endif\
 $endif\
-${battery_short BAT1}^fg() \
+ ${battery_short BAT1}^fg()\
 $endif\
 \
 ${if_match ${new_mails /home/pbhandari/.mail/pbhandari/INBOX} > 0}\
-^ca(1, "$HOME/.local/bin/xmutt")\
-^fg(\#33abaa)^i(/home/pbhandari/.xmonad/dzen2/mail.xbm)^fg()\
+^ca(1, "$HOME/.local/bin/xmutt") \
+^fg(\#33abaa)^i(/home/pbhandari/.dzen2/mail.xbm)^fg()\
 ^fn(:Bold:size=6.5) [${new_mails /home/pbhandari/.mail/pbhandari/INBOX}]^fn()\
- ^ca()$endif\
+^ca()$endif\
 \
 ${if_match ${new_mails /home/pbhandari/.mail/brishu/INBOX} > 0}\
-^ca(1, "$HOME/.local/bin/xmutt")\
-^fg(\#FFabaa)^i(/home/pbhandari/.xmonad/dzen2/mail.xbm)^fg()\
+^ca(1, "$HOME/.local/bin/xmutt") \
+^fg(\#FFabaa)^i(/home/pbhandari/.dzen2/mail.xbm)^fg()\
 ^fn(:Bold:size=6.5) [${new_mails /home/pbhandari/.mail/brishu/INBOX}]^fn()\
- ^ca()$endif\
+^ca()$endif\
 \
-^fg(red)${execpi 60 /home/pbhandari/.local/scripts/conky/pac-check dzen2}^fg()\
+ ^fg(red)${execpi 60 /home/pbhandari/.local/scripts/conky/pac-check dzen2}^fg()\
 \
+^fg()^i(/home/pbhandari/.dzen2/clock.xbm)^fg() \
 ^ca(1, "${HOME}/.local/scripts/dzen2/cal.sh" )\
 ${time %a, %b %d}, ^fn(:Bold:size=8.5)${time %H:%M}^fn() ^ca()\
 
