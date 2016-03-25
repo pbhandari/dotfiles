@@ -61,14 +61,12 @@ if [ "$TERM" = "linux" ]; then
     clear #for background artifacting
 fi
 
-# export PATHs
-PATH="$HOME/.local/bin:$PATH"               # .local/bin
 
 if which ruby > /dev/null 2>&1; then        # ruby gems
-    PATH="$PATH:`ruby -e 'print Gem.user_dir'`/bin"
+    PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 
     if which rvm > /dev/null 2>&1; then     # rvm
-        PATH="$PATH:$HOME/.rvm/bin"
+        PATH="$HOME/.rvm/bin:$PATH:"
 
         # Load RVM into a shell session *as a function*
         [ -s "$HOME/.rvm/scripts/rvm" ] && \
@@ -77,16 +75,16 @@ if which ruby > /dev/null 2>&1; then        # ruby gems
 fi
 
 if which ghci > /dev/null 2>&1; then        # haskell
-    PATH="$PATH:$HOME/.cabal/bin"
+    PATH="$HOME/.cabal/bin:$PATH"
 fi
 
 if which go > /dev/null 2>&1; then          # go
-    PATH="$PATH:$GOPATH/bin"
+    PATH="$GOPATH/bin:$PATH"
     export GOPATH="$HOME/.golang"
 fi
 
 if which perl5 > /dev/null 2>&1; then       # perl
-    PATH="$PATH:$HOME/.perl5/bin"
+    eval $(perl -I ~/.perl5/lib/perl5/ -Mlocal::lib=$HOME/.perl5)
 fi
 
 if which python > /dev/null 2>&1; then
@@ -94,6 +92,8 @@ if which python > /dev/null 2>&1; then
     #export PYTHONPATH="/usr/lib/python3.3/site-packages"
 fi
 
+# export PATHs
+PATH="$HOME/.local/bin:$PATH"               # .local/bin
 export PATH
 
 [ -f $HOME/.keychaineval ] && source $HOME/.keychaineval
