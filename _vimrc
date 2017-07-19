@@ -287,6 +287,11 @@ function! RemoveWhiteSpace()
     %s/\s\+$//ge
     exe "normal 'z"
 endfunction
+
+function! ToggleNumber()
+    set number!
+    let &relativenumber = &number
+endfunction
 " }}}
 
 " Misc Autocmds {{{
@@ -328,4 +333,5 @@ augroup END
 if filereadable($HOME . "/.vimrc.local")
     source $HOME/.vimrc.local
 endif
+
 " vim:foldenable
