@@ -67,3 +67,7 @@ termite_change_color() {
 gen_password() {
     cat /dev/urandom | base64 | head -c ${1:-8}
 }
+
+if [ -r $HOME/.functions.local ]; then
+    . $HOME/.functions.local
+fi
