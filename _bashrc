@@ -100,6 +100,13 @@ __prompt_command() {
     fi
     local PS1_TAIL+='\$ \[\033[00m\]'
 
+    PS1_VENV_SIZE=0
+    PS1_VENV=""
+    if [[ -n ${VIRTUAL_ENV} ]]; then
+        PS1_VENV="`basename $VIRTUAL_ENV`"
+        ((PS1_VENV_SIZE=${#PS1_VENV} + 7 ))
+        PS1_VENV='─┤ \[\033[01;34m\]'${PS1_VENV}'\[\033[00m\] ├──'
+    fi
     # initialise all the required variables
     local PS1_HOST=$(echo -n $HOSTNAME | cut -d'.' -f1)
     [ "$SSH_CLIENT" ] && local PS1_HAS_SSH='(ssh)'
@@ -114,7 +121,7 @@ __prompt_command() {
 
     # fill the line until the end
     local PS1_TOP_LEN=$((${#USER}+${#PS1_HOST} + ${#PS1_CWD} + \
-                        ${#PS1_HAS_SSH} + ${#PS1_ERRNO} + ${#PS1_GIT} + 15))
+                        ${#PS1_HAS_SSH} + ${PS1_VENV_SIZE} + ${#PS1_ERRNO} + ${#PS1_GIT} + 15))
     local PS1_FILL_SIZE=$((${COLUMNS} - ${PS1_TOP_LEN}))
     [ ${PS1_FILL_SIZE} -gt 0 ] || PS1_FILL_SIZE=1
     local PS1_TOP+=${LINE_COLOR}
@@ -124,6 +131,7 @@ __prompt_command() {
     done
 
     # print the working directory
+    local PS1_TOP+="${PS1_VENV}"
     local PS1_TOP+='┤ '${PS1_GIT_COLOR}${PS1_GIT}
     local PS1_TOP+='\[\033[00m\]'${PS1_CWD}' '${LINE_COLOR}'├──┤'${PS1_ERRNO}
     local PS1_TOP+='\[\033[00m\]'
