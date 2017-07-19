@@ -63,3 +63,7 @@ termite_change_color() {
     [ -f "${termite_dir}/${termite_col}" ] && \
         cat "${termite_dir}/${termite_col}" >> "${termite_dir}/config"
 }
+
+gen_password() {
+    cat /dev/urandom | base64 | head -c ${1:-8}
+}
