@@ -55,3 +55,6 @@
 [submodule "_vim/bundle/vim-scala"]
 	path = _vim/bundle/vim-scala
 	url = https://github.com/derekwyatt/vim-scala.git
+[submodule "_vim/bundle/indentline"]
+	path = _vim/bundle/indentline
+	url = https://github.com/yggdroot/indentline
