@@ -61,6 +61,7 @@
 
 [alias]
     l                = log -n20 --pretty=sparselog --date=relative --graph
+    ll               = "!git l origin/master..${1:-HEAD}"
 
     s                = status -sb
     st               = status
