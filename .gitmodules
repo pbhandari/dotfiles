@@ -4,9 +4,6 @@
 [submodule "_vim/bundle/molokai"]
 	path = _vim/bundle/molokai
 	url = https://github.com/tomasr/molokai.git
-[submodule "_vim/bundle/syntastic"]
-	path = _vim/bundle/syntastic
-	url = https://github.com/scrooloose/syntastic.git
 [submodule "_vim/bundle/tabular"]
 	path = _vim/bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
@@ -58,3 +55,6 @@
 [submodule "_vim/bundle/indentline"]
 	path = _vim/bundle/indentline
 	url = https://github.com/yggdroot/indentline
+[submodule "_vim/bundle/ale"]
+	path = _vim/bundle/ale
+	url = git@github.com:w0rp/ale.git
