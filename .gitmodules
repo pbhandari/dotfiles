@@ -61,3 +61,6 @@
 [submodule "_vim/bundle/vim-localvimrc"]
 	path = _vim/bundle/vim-localvimrc
 	url = git@github.com:embear/vim-localvimrc.git
+[submodule "_vim/bundle/ack.vim"]
+	path = _vim/bundle/ack.vim
+	url = git@github.com:mileszs/ack.vim.git
