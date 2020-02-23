@@ -27,7 +27,10 @@ ${if_up wlp3s0}^i(/home/pbhandari/.dzen2/wifi_02.xbm) \
 ${wireless_link_qual_perc wlp3s0} $endif\
 \
 ^i(/home/pbhandari/.dzen2/spkr_01.xbm) \
-${execp amixer sget Master | grep -o '[0-9]\+%' | uniq | xargs}\
+${execp amixer sget Master | grep -o '[0-9]\+%' | uniq | xargs} \
+\
+^i(/home/pbhandari/.dzen2/diskette.xbm) \
+${execp xbacklight | awk -F'.' ' { print $1 }'}\
 \
 ${if_match ${battery_percent BAT0} < 99}\
 ${if_match ${battery_percent BAT0} < 15}^fg(red)\
