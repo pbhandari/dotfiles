@@ -26,12 +26,13 @@ export SAVEHIST=200000
 
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
-PRAJJ_XKB_OPTS=" -model pc104"
+PRAJJ_XKB_OPTS=""
 PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -layout us,us -variant colemak, "
 PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option grp:sclk_toggle -option grp_led:scroll"
 PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option compose:paus"
 PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option shift:both_shiftlock"
 PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option altwin:swap_alt_win"
+PRAJJ_XKB_OPTS="$PRAJJ_XKB_OPTS -option ctrl:nocaps"
 export PRAJJ_XKB_OPTS
 export SESSION_FILE=${XDG_CONFIG_HOME:-${HOME}/.config}/.xsession
 
