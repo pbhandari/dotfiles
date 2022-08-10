@@ -46,9 +46,6 @@
 [submodule "_vim/bundle/vim-dispatch"]
 	path = _vim/bundle/vim-dispatch
 	url = https://github.com/tpope/vim-dispatch
-[submodule "_vim/bundle/rust.vim"]
-	path = _vim/bundle/rust.vim
-	url = https://github.com/wting/rust.vim
 [submodule "_vim/bundle/vim-scala"]
 	path = _vim/bundle/vim-scala
 	url = https://github.com/derekwyatt/vim-scala.git
