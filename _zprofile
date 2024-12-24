@@ -6,3 +6,4 @@
 export HISTFILE=$HOME/.zsh_history
 fpath=(${HOME}/.local/share/zsh/{functions,completions} $fpath)
 export FPATH
+eval "$(/opt/homebrew/bin/brew shellenv)"

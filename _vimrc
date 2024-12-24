@@ -220,17 +220,6 @@ nnoremap <silent> <leader>C "_C
 vnoremap <silent> <leader>C "_C
 "}}}
 
-" Disable Arrow keys. {{{
-noremap <UP> <NOP>
-noremap <DOWN> <NOP>
-noremap <LEFT> <NOP>
-noremap <RIGHT> <NOP>
-inoremap <UP> <NOP>
-inoremap <DOWN> <NOP>
-inoremap <LEFT> <NOP>
-inoremap <RIGHT> <NOP>
-" }}}
-
 " ' is easier to reach
 nnoremap ' `
 nnoremap ` '

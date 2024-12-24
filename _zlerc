@@ -3,16 +3,16 @@
 typeset -A key
 
 key[Home]="${terminfo[khome]}"
-key[End]=${terminfo[kend]}
-key[Insert]=${terminfo[kich1]}
-key[Delete]=${terminfo[kdch1]}
-key[Up]=${terminfo[kcuu1]}
-key[Down]=${terminfo[kcud1]}
-key[Left]=${terminfo[kcub1]}
-key[Right]=${terminfo[kcuf1]}
-key[PageUp]=${terminfo[kpp]}
-key[PageDown]=${terminfo[knp]}
-key[Enter]=${terminfo[kent]}
+key[End]="${terminfo[kend]}"
+key[Insert]="${terminfo[kich1]}"
+key[Delete]="${terminfo[kdch1]}"
+key[Up]="^[[A"
+key[Down]="^[[B"
+key[Left]="^[[D"
+key[Right]="^[[C"
+key[PageUp]="${terminfo[kpp]}"
+key[PageDown]="${terminfo[knp]}"
+key[Enter]="${terminfo[kent]}"
 
 autoload up-line-or-beginning-search
 autoload down-line-or-beginning-search
@@ -29,8 +29,8 @@ zle -N down-line-or-beginning-search
 zle -N expand-or-complete-with-dots
 zle -N edit-command-line
 
+bindkey     -e
 
-bindkey -v
 bindkey     "^[w"               kill-region
 bindkey     "^r"                history-incremental-search-backward
 
@@ -48,6 +48,8 @@ bindkey     "^p"                down-line-or-beginning-search
 
 bindkey     "${key[Left]}"      backward-char
 bindkey     "${key[Right]}"     forward-char
+bindkey     "^[${key[Left]}"    backward-word
+bindkey     "^[${key[Right]}"   forward-word
 
 bindkey     "^[[Z"              reverse-menu-complete
 bindkey     "^[m"               copy-prev-shell-word
@@ -57,8 +59,3 @@ bindkey -s  "\el"               "ls\n"  # ls    on <M-l>
 bindkey -s "\e "                "vim "  # vim   on <M-Space>
 
 bindkey -M  menuselect  '^o'    accept-and-infer-next-history
-bindkey -M  vicmd        v      edit-command-line
-bindkey -M  vicmd        h      vi-backward-char              # left
-bindkey -M  vicmd        k      up-line-or-beginning-search   # up
-bindkey -M  vicmd        l      vi-forward-char               # right
-bindkey -M  vicmd        j      down-line-or-beginning-search # bottom
