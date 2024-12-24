@@ -71,3 +71,5 @@ gen_password() {
 if [ -r $HOME/.functions.local ]; then
     . $HOME/.functions.local
 fi
+
+BUILD_FE_OPTS="--secret id=artifactory_user,env=ARTIFACTORY_USER --secret id=artifactory_password,env=ARTIFACTORY_PASSWORD"

@@ -138,10 +138,8 @@ fi
 # prompt {{{
 which prompt >/dev/null 2>&1 && prompt off
 
-[[ -e $HOME/.zpromptrc ]] && . $HOME/.zpromptrc
+[[ -e $HOME/.zpromptrc && -o interactive ]] && . $HOME/.zpromptrc
 
 # }}}
 
 export MAILCHECK=0
-
-# vim:foldenable:ft=zsh
