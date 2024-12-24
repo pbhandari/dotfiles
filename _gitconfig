@@ -25,6 +25,7 @@
 
 [push]
     default          = upstream
+    autoSetupRemote  = true
 
 [color]
     ui               = auto
@@ -53,14 +54,8 @@
     lineNumber       = true
     patternType      = perl
 
-[url "git@github.com"]
-    insteadOf       = gh
-
-[url "git@bitbucket.org"]
-    insteadOf       = bb
-
 [alias]
-    l                = log -n20 --pretty=sparselog --date=relative --graph
+    l                = log -n5 --pretty=sparselog --date=relative --graph
     ll               = "!git l origin/master..${1:-HEAD}"
 
     s                = status -sb
@@ -69,6 +64,7 @@
     co               = checkout
     br               = branch
     ci               = commit
+    cinv             = commit --no-verify
     sta              = stash
 
     di               = diff
@@ -80,8 +76,8 @@
     unassume         = update-index --no-assume-unchanged
     assumed          = "!git ls-files -v | awk '/^h/ {print $2;}'"
 
-    up               = pull origin
-
+    down             = pull origin
+    cp               = cherry-pick
 
 [pretty]
     sparselog        = %C(auto,red)%h%C(auto,reset) -%C(auto)%d %C(auto,reset)%s %C(auto,blue)<%an> %C(auto,reset)%C(auto,cyan)(%ad)%C(auto,reset)
@@ -93,8 +89,10 @@
                         %n%w(0,4,4)%+s\
                         %n\
                         %n%-b
+[branch]
+	sort = -committerdate
 [filter "lfs"]
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
-    process = git-lfs filter-process
-    required = true
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
