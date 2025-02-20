@@ -57,5 +57,3 @@ bindkey     "^I"                expand-or-complete-with-dots
 
 bindkey -s  "\el"               "ls\n"  # ls    on <M-l>
 bindkey -s "\e "                "vim "  # vim   on <M-Space>
-
-bindkey -M  menuselect  '^o'    accept-and-infer-next-history
