@@ -66,13 +66,13 @@ ps1_fill_line() {
     while ((ps1_fill_size-- > 0)); do PS1+='─'; done
 }
 
-precmd() {
+generate_ps1() {
 
 # PS1 {{{
     # set the error code
-    ps1_errno=$?
+    ps1_errno=${?:-0}
 
-    if [ ${ps1_errno} -eq 0 ]; then
+    if [[ ${ps1_errno} -eq 0 ]]; then
         ps1_errno=""
         line_color="%{$reset_color%}"
         ps1_tail+="%{$fg[magenta]%}"
@@ -97,12 +97,12 @@ precmd() {
     PS1+=${line_color}"@%{$fg[blue]%}"${HOST}
     PS1+="%{$reset_color%}"${SSH_CLIENT:+"(ssh)"}${line_color}" ├"
 
-    # fill the line until the end
     ps1_cwd=${PWD/$HOME/\~}
     [[ -w $PWD ]] && ps1_cwd_color="%{$reset_color%}" \
                   || ps1_cwd_color="%{$fg[red]%}"
-
     ps1_cwd_size=$((${#ps1_cwd} + $ps1_vcs_space_needed))
+
+    # fill the line until the end
     ps1_fill_line $((${COLUMNS} - ${#USER} - ${#HOST} - ${ps1_cwd_size} \
                     ${SSH_CLIENT:+" - 5"} - ${ps1_venv_size} - 14))
 
@@ -124,6 +124,8 @@ precmd() {
 
 }
 
+precmd_functions=(generate_ps1 $precmd_functions)
+
 # secondary prompt, printed when the shell needs more information to complete a
 # command.
 PS2='%_> '
@@ -131,4 +133,3 @@ PS2='%_> '
 PS3='?# '
 # the execution trace prompt (setopt xtrace). default: '+%N:%i>'
 PS4='+%N:%i:%_> '
-
