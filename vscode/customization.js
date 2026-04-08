@@ -5,19 +5,16 @@ document.addEventListener('DOMContentLoaded', function() {
             console.debug("Command dialog not found.  Retrying ... ");
             return;
         }
+        console.log(commandDialog)
 
-        shouldShowBlur = commandDialog.style.display !== "none";
-
-        // Observer only gets attached after 1st run; make that not look ugly
-        if (shouldShowBlur) { addBlurContainer() }
+        // Observer isn't attached the 1st time this element spawns
+        toggleBlur()
 
         // Create an DOM observer to 'listen' for changes in element's attribute.
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                    const shouldShowBlur = commandDialog.style.display !== "none";
-                    if (shouldShowBlur) { addBlurContainer() }
-                    else                { detachBlurContainer() }
+                    toggleBlur()
                 }
             });
         });
@@ -28,18 +25,32 @@ document.addEventListener('DOMContentLoaded', function() {
         clearInterval(checkElement);
     }, 500); // Check every 500ms
 
+    function toggleBlur() {
+        const displayStyle = document.querySelector(".quick-input-widget")?.style.display  ?? "none"
+        const shouldShowBlur = displayStyle !== "none";
+        if (shouldShowBlur) { addBlurContainer() }
+        else                { detachBlurContainer() }
+    }
+
     function addBlurContainer() {
         const targetDiv = document.querySelector(".monaco-workbench");
 
         // Remove existing element if it already exists
-        const existingElement = document.getElementById("command-blur");
-        if (existingElement) {
-            existingElement.remove();
-        }
+        document.getElementById("command-blur")?.remove()
 
-        // Create and configure the new element
+        // Create blur div, and append styles
         const newElement = document.createElement("div");
         newElement.setAttribute('id', 'command-blur');
+        Object.assign(newElement.style, {
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            background: 'rgba(0, 0, 0, .15)',
+            backdropFilter: 'blur(2px)',
+            top: '0',
+            left: '0',
+            zIndex: '99'
+        });
 
         newElement.addEventListener('click', function() {
             newElement.remove();

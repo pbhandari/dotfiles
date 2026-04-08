@@ -2,9 +2,10 @@
 .quick-input-widget {
     background: rgba(var(--vscode-quickInput-background), 0.5) !important;
     backdrop-filter: blur(6px) !important;
+    box-shadow: 0 0 10px #bc9abc90 !important;
 }
 
-/* Command palette text input */
+/* Command palette text input box */
 .quick-input-filter .monaco-inputbox {
     border-radius: 0.6em !important;
     padding: 0.5em !important;
@@ -16,17 +17,6 @@
     background: transparent !important;
 }
 
-#command-blur {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, .15);
-    backdrop-filter: blur(2px) !important;
-    top: 0;
-    left: 0;
-    z-index: 99 !important;
-}
-
 .mac {
     --monaco-monospace-font: Monaco, Menlo, Courier, monospace;
     font-family: Monaco, BlinkMacSystemFont, sans-serif;
@@ -34,16 +24,14 @@
 
 /** thin scrollbars */
 .scrollbar.vertical>.slider {
-    position: absolute !important;
+    left: auto !important;
     right: 1px !important;
     width: 1px !important;
     background: #bc9abc !important;
-    left: auto !important;
 }
 .scrollbar.horizontal>.slider {
-    position: absolute !important;
+    top: auto !important;
     bottom: 1px !important;
     height: 1px !important;
     background: #bc9abc !important;
-    top: auto !important;
 }
