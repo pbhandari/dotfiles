@@ -321,7 +321,7 @@ endfunction
 
 function! ToggleNumber()
     set number!
-    let &relativenumber = &number
+    " let &relativenumber = &number
 endfunction
 command! Number :call ToggleNumber()
 " }}}

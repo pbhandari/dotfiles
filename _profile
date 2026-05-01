@@ -63,9 +63,21 @@ fi
 
 [ -f $HOME/.profile.local ] && . $HOME/.profile.local
 
+
+# cargo
+# Load RVM into a shell session *as a function*
+[ -s "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+[ -s "$HOME/.rvm/scripts/rvm" ] && source "$HOME/.rvm/scripts/rvm"
+export GOPATH="$HOME/.golang"
+
 # export PATHs
-PATH="$HOME/.local/bin:$PATH"               # .local/bin
+PATH="$GOPATH/bin:$PATH"        # golang
+PATH="$HOME/.cabal/bin:$PATH"   # Haskell
+PATH="$HOME/.rvm/bin:$PATH"     # Ruby
+PATH="/opt/homebrew/bin:$PATH"  # homebrew
+PATH="$HOME/.local/bin:$PATH"   # .local/bin
 export PATH
 
 
+[ -f "$HOME/.keychaineval" ] && source "$HOME/.keychaineval"
 # vim:ft=sh:
