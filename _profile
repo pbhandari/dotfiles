@@ -61,11 +61,11 @@ if [ "$TERM" = "linux" ]; then
     clear #for background artifacting
 fi
 
+[ -f $HOME/.profile.local ] && . $HOME/.profile.local
 
 # export PATHs
 PATH="$HOME/.local/bin:$PATH"               # .local/bin
 export PATH
 
-[ -f $HOME/.keychaineval ] && source $HOME/.keychaineval
 
 # vim:ft=sh:
