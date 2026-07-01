@@ -178,10 +178,6 @@ let g:airline#extensions#whitespace#checks = [ 'indent' ]
 " Don't show current mode down the bottom
 set noshowmode
 
-" ================
-let g:ctrlp_map = '<c-x><c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
 " }}}
 
 " Highlight {{{
