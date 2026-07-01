@@ -18,7 +18,10 @@ set noerrorbells                " Don't beep
 
 set backspace=indent,eol,start  " Allow backspace in insert mode
 
+if ! has('nvim')
 set pastetoggle=<F2>            " Enter paste-mode when F2
+end
+
 set autoread                    " Reload files changed outside vim
 set autowrite                   " Write to file when changing buffers
 set hidden                      " Buffers exist in the background
@@ -34,7 +37,7 @@ set nrformats-=octal            " Look up :h nrformat
 
 set modeline                    " Enable modelines in vim
 
-set autochdir                   " Automatically cd into `dir %`
+set noautochdir                 " Don't automatically cd into `dir %`
 
 let g:clipbrdDefaultReg = '*'   " Copy to primary by default
 let mapleader           = ' '   " Map Leader is space
@@ -71,7 +74,9 @@ set virtualedit=onemore         " Allow for cursor beyond last character
 
 set listchars=tab:▸\ ,eol:¬
 
+if ! has('nvim')
 set synmaxcol=200               " don't highlight massive lines
+end
 
 set lazyredraw                  " lazily redraw the screen
 
@@ -152,14 +157,6 @@ set wrapscan                    " Wrap search upon reaching the end of document
 " }}}
 
 " Plugins {{{
-" ================= syntastic
-let g:syntastic_check_on_open            = 1
-let g:syntastic_error_symbol             = 'x'
-let g:syntastic_style_error_symbol       = '!'
-let g:syntastic_warning_symbol           = '?'
-let g:syntastic_style_warning_symbol     = '>'
-let g:syntastic_always_populate_loc_list = 1
-
 "============== vim-airline
 let g:airline_symbols = {}
 

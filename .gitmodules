@@ -61,6 +61,3 @@
 [submodule "_vim/bundle/jedi-vim"]
 	path = _vim/bundle/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim.git
-[submodule "_vim/bundle/ale"]
-	path = _vim/bundle/ale
-	url = git@github.com:w0rp/ale.git
