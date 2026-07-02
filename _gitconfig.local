@@ -1,0 +1,20 @@
+# Machine-local git config, always included from ~/.gitconfig.
+#
+# This file ships DELIBERATELY INVALID: the bare `email =` line below has no
+# [section], so git aborts every command it reads config for with
+# "error: key does not contain a section: email". That is intentional -- it
+# fails loudly so a fresh machine can't silently commit with the wrong identity.
+#
+# POST INSTALL
+#   Adjust the includeIf directory, and gitconfig path
+#   Put email address in ~/.gitconfig.work
+#   git assume this file in _dotfiles so it doesn't report as dirty
+#
+# Check which email is active and where it comes from:
+#   git config user.email                        # effective value here
+#   git config --show-origin user.email          # which file set it
+#   cd ~/work/some-repo && git config user.email # confirm the ~/work override
+
+email =
+[includeIf "gitdir:~/work/"]
+   path = ~/.gitconfig.work
