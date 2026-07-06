@@ -1,4 +1,5 @@
 _config/*
+!_config/wezterm
 
 _vim/backups
 _vim/backups.nvim
