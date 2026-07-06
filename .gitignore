@@ -1,3 +1,5 @@
+_config/*
+
 _vim/backups
 _vim/backups.nvim
 _vim/backups.vim
