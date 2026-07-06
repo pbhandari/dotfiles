@@ -165,12 +165,13 @@ let g:airline_left_sep         = ''
 let g:airline_left_alt_sep     = ''
 let g:airline_right_sep        = ''
 let g:airline_right_alt_sep    = ''
-let g:airline_symbols.branch   = '⭠'
+let g:airline_symbols.branch   = '' " Currently unused
 let g:airline_symbols.readonly = '[RO]'
-let g:airline_symbols.linenr   = ' ⭡'
+let g:airline_symbols.linenr   = ' L'
 let g:airline_symbols.paste    = 'paste'
 
 let g:airline#extensions#whitespace#checks = [ 'indent' ]
+let g:airline#extensions#branch#enabled = 0
 
 " Don't show current mode down the bottom
 set noshowmode

@@ -21,7 +21,7 @@ ps1_vcs_status() {
             || ps1_git_color="%{$fg[green]%}"
 
         ps1_vcs_space_needed=$((ps1_vcs_space_needed + 1))
-        ps1_vcs_short_info="${ps1_git_color}⭠"
+        ps1_vcs_short_info="${ps1_git_color}"
         ps1_vcs_long_info=${ps1_git_color}${vcs_info_msg_0_}
     fi
 
