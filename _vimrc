@@ -175,16 +175,19 @@ let g:airline#extensions#whitespace#checks = [ 'indent' ]
 " Don't show current mode down the bottom
 set noshowmode
 
+" ================ ALE (LSP navigation, e.g. pylsp / rust-analyzer)
+let g:ale_completion_enabled = 0            " no autocompletion
+let g:ale_python_auto_virtualenv = 1
+" Explicitly tell ALE's pyright linter to use the venv's python path
+let g:ale_python_pyright_config = {
+\   'python': {
+\     'pythonPath': $VIRTUAL_ENV != '' ? $VIRTUAL_ENV . '/bin/python' : 'python'
+\   }
+\}
 
-" ================ jedi-vim
-let g:jedi#completions_enabled      = 0     " no autocompletion
-let g:jedi#show_call_signatures     = 0     " no signature popups
-let g:jedi#goto_command             = 'gd'  " replace gd with something more powerful
-let g:jedi#usages_command           = 'gu'  " find usages
-let g:jedi#goto_assignments_command = ''
-let g:jedi#goto_stubs_command       = ''
-let g:jedi#documentation_command    = ''
-let g:jedi#rename_command           = '<leader>r'
+nnoremap <silent> gd        :ALEGoToDefinition<CR>
+nnoremap <silent> gu        :ALEFindReferences<CR>
+nnoremap <silent> <leader>r :ALERename<CR>
 
 " }}}
 
