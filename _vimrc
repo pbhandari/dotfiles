@@ -94,10 +94,12 @@ filetype indent on
 set backupdir=~/.vim/tmp,/var/tmp,/tmp
 set directory=~/.vim/tmp,/var/tmp,/tmp
 
-if has("persistent_undo")
-    " Keep undo history across sessions, by storing in file.
-    set undodir=~/.vim/backups
-    set undofile
+" nvim and vim have incompatible undo formats
+set undofile                    " Enable undo history across sessions
+if has("nvim")
+    set undodir=~/.vim/backups.nvim
+else
+    set undodir=~/.vim/backups.vim
 endif
 " }}}
 

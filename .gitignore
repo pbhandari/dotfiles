@@ -1,14 +1,11 @@
 _vim/backups
+_vim/backups.nvim
+_vim/backups.vim
 _vim/spell
 _vim/tmp
 _vim/.netrwhist
-vim/backups
-vim/spell
-vim/tmp
-vim/.netrwhist
 .viminfo
 *.o
 *.hi
 xmonad.errors
 xmonad-*-linux
-
