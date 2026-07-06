@@ -7,8 +7,12 @@ if &compatible
 endif
 
 " Load them all here, so I can easily override their settings without jumping
-" through hoops
-execute pathogen#infect('bundle/{}')
+" through hoops.
+" nvim manages its own plugins via lazy.nvim (see ~/.config/nvim/init.lua);
+" only classic vim uses pathogen + bundle/.
+if ! has('nvim')
+    execute pathogen#infect('bundle/{}')
+endif
 runtime macros/matchit.vim      " Better open/close matching
 " }}}
 
