@@ -95,11 +95,9 @@ set backup                      " Enable backups
 set backupdir=~/.vim/tmp,/var/tmp,/tmp
 set directory=~/.vim/tmp,/var/tmp,/tmp
 
-" nvim and vim have incompatible undo formats
 set undofile                    " Enable undo history across sessions
-if has("nvim")
-    set undodir=~/.vim/backups.nvim
-else
+" nvim and vim have incompatible undo formats; nvim sets its undodir in init.lua
+if ! has('nvim')
     set undodir=~/.vim/backups.vim
 endif
 " }}}
@@ -192,14 +190,6 @@ let g:ale_python_pyright_config = {
 nnoremap <silent> gd        :ALEGoToDefinition<CR>
 nnoremap <silent> gu        :ALEFindReferences<CR>
 nnoremap <silent> <leader>r :ALERename<CR>
-
-" ================ fzf-lua (Neovim only) -- Ctrl-Space to launch
-if has('nvim')
-    nnoremap <silent> <C-Space> <Cmd>FzfLua<CR>
-    " Many terminals send <C-@>/<Nul> for Ctrl-Space
-    nnoremap <silent> <C-@>     <Cmd>FzfLua<CR>
-endif
-
 " }}}
 
 " Highlight {{{
