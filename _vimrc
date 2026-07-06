@@ -200,11 +200,33 @@ call matchadd('ColorColumn', '\%81v.', 100)
 autocmd ColorScheme * highlight ColorColumn cterm=bold ctermbg=161 ctermfg=white
 autocmd ColorScheme * highlight ColorColumn gui=bold guifg=#ff0000 guibg=white
 
-" Highlights trailing spaces with a red underline
+" Highlights trailing spaces with a red underline.
+" matchadd() is window-local, so a one-shot call at startup only covers the
+" first window and its ID can't be deleted from other windows (E803). Apply it
+" per-window via autocmds instead; buffers may override the pattern with
+" b:trailspace_pattern (e.g. markdown, which keeps a trailing double-space).
 highlight TrailSpace cterm=underline ctermfg=red gui=underline guifg=red
-let TrailSpace = matchadd('TrailSpace' , '\s\+$')
 autocmd ColorScheme * highlight TrailSpace cterm=underline ctermfg=red
 autocmd ColorScheme * highlight TrailSpace gui=underline guifg=red
+
+function! ApplyTrailSpace()
+    " New windows inherit the parent window's matches at creation. For special
+    " buffers (help, quickfix, terminals, popups/floats) clear those inherited
+    " matches and bail so hover/popup windows stay clean.
+    if &buftype !=# ''
+        call clearmatches()
+        return
+    endif
+    if exists('w:trailspace_match')
+        silent! call matchdelete(w:trailspace_match)
+    endif
+    let w:trailspace_match = matchadd('TrailSpace', get(b:, 'trailspace_pattern', '\s\+$'))
+endfunction
+
+augroup TRAILSPACE
+    autocmd!
+    autocmd VimEnter,WinEnter,BufWinEnter * call ApplyTrailSpace()
+augroup END
 
 
 " Add more items to the Todo group
