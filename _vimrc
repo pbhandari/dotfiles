@@ -90,7 +90,8 @@ filetype indent on
 " }}}
 
 " Backups and Undos {{{
-" set backup                      " Enable backups
+
+set backup                      " Enable backups
 set backupdir=~/.vim/tmp,/var/tmp,/tmp
 set directory=~/.vim/tmp,/var/tmp,/tmp
 
@@ -141,8 +142,8 @@ set wildignore+=*.pyc                   " python compiled files
 set wildignore+=*vim/backups*           " anything from the backups folder
 set wildignore+=*~,#*#,*.swp            " all other backup files
 
-
 set wildignore+=log/**,tmp/**
+set wildignore+=.venv/**
 
 " image files
 set wildignore+=*.png,*.jpg,*.gif,*.bmp
@@ -192,6 +193,13 @@ nnoremap <silent> gd        :ALEGoToDefinition<CR>
 nnoremap <silent> gu        :ALEFindReferences<CR>
 nnoremap <silent> <leader>r :ALERename<CR>
 
+" ================ fzf-lua (Neovim only) -- Ctrl-Space to launch
+if has('nvim')
+    nnoremap <silent> <C-Space> <Cmd>FzfLua<CR>
+    " Many terminals send <C-@>/<Nul> for Ctrl-Space
+    nnoremap <silent> <C-@>     <Cmd>FzfLua<CR>
+endif
+
 " }}}
 
 " Highlight {{{
@@ -218,16 +226,16 @@ autocmd Syntax * syntax keyword myTodo containedin=.*Comment
 " Remaps {{{
 " Use the Black Hole Buffer {{{
 " ,dX deletes a line without adding it to yank stack: normal and visual mode.
-nnoremap <silent> <leader>d "_d
-vnoremap <silent> <leader>d "_d
-nnoremap <silent> <leader>D "_D
-vnoremap <silent> <leader>D "_D
+nnoremap <silent> <localleader>d "_d
+vnoremap <silent> <localleader>d "_d
+nnoremap <silent> <localleader>D "_D
+vnoremap <silent> <localleader>D "_D
 
 " ,cX changes a line without adding it to yank stack: normal and visual mode.
-nnoremap <silent> <leader>c "_c
-vnoremap <silent> <leader>c "_c
-nnoremap <silent> <leader>C "_C
-vnoremap <silent> <leader>C "_C
+nnoremap <silent> <localleader>c "_c
+vnoremap <silent> <localleader>c "_c
+nnoremap <silent> <localleader>C "_C
+vnoremap <silent> <localleader>C "_C
 "}}}
 
 " ' is easier to reach
