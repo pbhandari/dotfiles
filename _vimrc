@@ -230,6 +230,14 @@ endfunction
 augroup TRAILSPACE
     autocmd!
     autocmd VimEnter,WinEnter,BufWinEnter * call ApplyTrailSpace()
+    " A terminal window's buftype isn't 'terminal' yet at WinEnter/BufWinEnter,
+    " so the match gets stamped on before we can skip it. Re-run once the job
+    " attaches (TermOpen on nvim, TerminalOpen on vim) to hit the clear branch.
+    if has('nvim')
+        autocmd TermOpen * call ApplyTrailSpace()
+    else
+        autocmd TerminalOpen * call ApplyTrailSpace()
+    endif
 augroup END
 
 

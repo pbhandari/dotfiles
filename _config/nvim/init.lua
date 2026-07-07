@@ -57,3 +57,8 @@ map('n', '<leader>f', function() vim.lsp.buf.format({ async = true }) end, { des
 map('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, { desc = 'Prev diagnostic' })
 map('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, { desc = 'Next diagnostic' })
 map('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Line diagnostics' })
+
+-- Terminal mode: Esc leaves terminal mode (replaces the awkward <C-\><C-n>).
+-- Claude Code's own Esc binding is unbound in ~/.claude/keybindings.json, so
+-- Esc is free here; use Ctrl-C to cancel/interrupt inside Claude Code instead.
+map('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Terminal: to normal mode' })
