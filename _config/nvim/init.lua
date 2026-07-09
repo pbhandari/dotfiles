@@ -35,10 +35,12 @@ vim.cmd('source ~/.vimrc')
 vim.opt.undodir = vim.fn.expand('~/.vim/backups.nvim')
 
 local map = vim.keymap.set
--- fzf-lua -- Ctrl-Space to launch.
+-- Ctrl-Space launches fzf lua
 map('n', '<C-Space>', '<Cmd>FzfLua<CR>', { silent = true, desc = 'FzfLua' })
--- Many terminals send <C-@>/NUL
 map('n', '<C-@>', '<Cmd>FzfLua<CR>', { silent = true, desc = 'FzfLua' })
+
+-- use fzflua picker for buffers as well
+map('n', '<leader>b', '<Cmd>FzfLua buffers<CR>', { silent = true, desc = 'FzfLua: buffers' })
 
 -- undotree .
 map('n', '<leader><leader>u', '<Cmd>UndotreeToggle<CR>', { silent = true, desc = 'Undotree' })
