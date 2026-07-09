@@ -21,8 +21,14 @@ ps1_vcs_status() {
             || ps1_git_color="%{$fg[green]%}"
 
         ps1_vcs_space_needed=$((ps1_vcs_space_needed + 1))
+
+        ps1_vcs_long_info=${vcs_info_msg_0_}
+        if (( ${#vcs_info_msg_0_} > COLUMNS - 20 )); then
+            ps1_vcs_long_info=...${ps1_vcs_long_info:"-7"}
+        fi
+
         ps1_vcs_short_info="${ps1_git_color}"
-        ps1_vcs_long_info=${ps1_git_color}${vcs_info_msg_0_}
+        ps1_vcs_long_info="${ps1_git_color}${ps1_vcs_long_info}"
     fi
 
     [[ $ps1_vcs_space_needed -eq 1 ]] && ps1_vcs_space_needed=0
@@ -113,7 +119,8 @@ generate_ps1() {
 
 
     PS1+=$'\n'"%{${line_color}%}└─ "
-    PS1+="${ps1_vcs_long_info}${ps1_tail}%{$reset_color%}"
+    PS1+=${ps1_vcs_long_info}
+    PS1+="${ps1_tail}%{$reset_color%}"
 
     RPS1="%{${line_color}%}%{%B%}${ps1_errno}%{%b%}"
     RPS1+="%{${line_color}%} ─┘%{$reset_color%}"
