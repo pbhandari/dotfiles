@@ -54,6 +54,15 @@ map('n', 'K', vim.lsp.buf.hover, { desc = 'LSP: hover' })
 map('n', '<leader>r', vim.lsp.buf.rename, { desc = 'LSP: rename' })
 map({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { desc = 'LSP: code action' })
 map('n', '<leader>f', function() vim.lsp.buf.format({ async = true }) end, { desc = 'LSP: format' })
+vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format({ async = true }) end, { desc = 'LSP: format buffer' })
+
+-- Format on save (synchronous so it completes before the write).
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = vim.api.nvim_create_augroup('lsp_format_on_save', { clear = true }),
+  callback = function(args)
+    vim.lsp.buf.format({ bufnr = args.buf, async = false })
+  end,
+})
 
 -- Diagnostics navigation.
 map('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, { desc = 'Prev diagnostic' })
