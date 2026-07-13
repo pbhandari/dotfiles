@@ -131,7 +131,7 @@ generate_ps1() {
 
 }
 
-precmd_functions=(generate_ps1 $precmd_functions)
+(( ${precmd_functions[(Ie)generate_ps1]} )) || precmd_functions+=generate_ps1
 
 # secondary prompt, printed when the shell needs more information to complete a
 # command.
