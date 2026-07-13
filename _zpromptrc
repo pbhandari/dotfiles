@@ -35,6 +35,21 @@ ps1_vcs_status() {
     [[ -n ${ps1_vcs_short_info} ]] && ps1_vcs_short_info+=" "
 }
 
+ps1_venv_status() {
+    unset ps1_venv
+
+    local env_name=""
+    if [[ -n ${VIRTUAL_ENV} ]]; then
+        env_name+=$''
+    fi
+
+    ps1_venv_size=${#env_name}
+    if [[ -n $env_name ]] then
+        ps1_venv_size=$(( $ps1_venv_size + 7 ))
+        ps1_venv="─┤ %{$fg[blue]%}${env_name}%{$line_color%} ├──"
+    fi
+}
+
 ps1_fill_line() {
     unset ps1_fill_size
 
@@ -89,14 +104,7 @@ generate_ps1() {
     ps1_tail+="%B%#%b %{$reset_color%}"
 
     ps1_vcs_status
-
-    ps1_venv_size=0
-    ps1_venv=""
-    if [[ -n ${VIRTUAL_ENV} ]]; then
-        ps1_venv="`basename $VIRTUAL_ENV`"
-        ps1_venv_size=$((${#ps1_venv} + 7))
-        ps1_venv="─┤ %{$fg[blue]%}${ps1_venv}%{$line_color%} ├──"
-    fi
+    ps1_venv_status
 
     # print the LHS of the prompt
     PS1=${line_color}"┌─┤ %{$fg[green]%}"${USER}
