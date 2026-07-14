@@ -35,12 +35,14 @@ vim.cmd('source ~/.vimrc')
 vim.opt.undodir = vim.fn.expand('~/.vim/backups.nvim')
 
 local map = vim.keymap.set
--- Ctrl-Space launches fzf lua
-map('n', '<C-Space>', '<Cmd>FzfLua<CR>', { silent = true, desc = 'FzfLua' })
-map('n', '<C-@>', '<Cmd>FzfLua<CR>', { silent = true, desc = 'FzfLua' })
 
--- use fzflua picker for buffers as well
-map('n', '<leader>b', '<Cmd>FzfLua buffers<CR>', { silent = true, desc = 'FzfLua: buffers' })
+-- <leader>f is the fzf-lua picker prefix; <leader>f<leader> opens the full picker.
+map('n', '<leader>f<leader>', '<Cmd>FzfLua<CR>', { silent = true, desc = 'FzfLua' })
+map('n', '<leader>ff', '<Cmd>FzfLua files<CR>', { silent = true, desc = 'FzfLua: files' })
+map('n', '<leader>fb', '<Cmd>FzfLua buffers<CR>', { silent = true, desc = 'FzfLua: buffers' })
+map('n', '<leader>fo', '<Cmd>FzfLua oldfiles<CR>', { silent = true, desc = 'FzfLua: oldfiles' })
+map('n', '<leader>f/', '<Cmd>FzfLua live_grep resume=true<CR>', { silent = true, desc = 'FzfLua: live grep' })
+map('n', '<leader>fd', '<Cmd>FzfLua lsp_live_workspace_symbols<CR>', { silent = true, desc = 'FzfLua: workspace symbols (functions/classes)' })
 
 -- undotree .
 map('n', '<leader><leader>u', '<Cmd>UndotreeToggle<CR>', { silent = true, desc = 'Undotree' })
@@ -53,7 +55,7 @@ map('n', 'gD', vim.lsp.buf.declaration, { desc = 'LSP: declaration' })
 map('n', 'K', vim.lsp.buf.hover, { desc = 'LSP: hover' })
 map('n', '<leader>r', vim.lsp.buf.rename, { desc = 'LSP: rename' })
 map({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { desc = 'LSP: code action' })
-map('n', '<leader>f', function() vim.lsp.buf.format({ async = true }) end, { desc = 'LSP: format' })
+map('n', '<localleader>f', function() vim.lsp.buf.format({ async = true }) end, { desc = 'LSP: format' })
 vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format({ async = true }) end, { desc = 'LSP: format buffer' })
 
 -- Format on save (synchronous so it completes before the write).
