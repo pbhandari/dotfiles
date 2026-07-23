@@ -1,0 +1,103 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  // unbinds
+  {
+    "context": "Editor",
+    "unbind": {
+      "ctrl-d": "editor::Delete",
+      "ctrl-shift-d": "git::Diff",
+    },
+  },
+  {
+    "context": "AgentPanel > vim_mode == insert",
+    "unbind": {
+      "ctrl-u": "editor::DeleteToBeginningOfLine",
+      "ctrl-d": "vim::Outdent",
+    },
+  },
+  // bindings
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-w": null,
+      "ctrl-space :": "command_palette::Toggle",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-space f": "file_finder::Toggle",
+    },
+  },
+  {
+    "context": "Editor && !VimControl",
+    "unbind": {
+      "ctrl-w": "editor::DeleteToPreviousWordStart",
+    },
+  },
+  {
+    "context": "Dock || Terminal || Editor",
+    "bindings": {
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w l": "workspace::ActivatePaneRight",
+      "ctrl-w k": "workspace::ActivatePaneUp",
+      "ctrl-w j": "workspace::ActivatePaneDown",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-w f f": "debugger::FocusFrames",
+      "ctrl-w f b": "debugger::FocusBreakpointList",
+      "ctrl-w f c": "debugger::FocusConsole",
+      "ctrl-w f v": "debugger::FocusVariables",
+      "ctrl-w f t": "debugger::FocusTerminal",
+
+      "ctrl-space d s": "debugger::Start",
+      "ctrl-space d S": "debugger::Restart",
+      "ctrl-space d b": "editor::ToggleBreakpoint",
+
+      "ctrl-space d c": "debugger::Continue",
+      "ctrl-space d shift-c": "debugger::RunToCursor",
+
+      "ctrl-space d p": "debugger::Pause",
+      "ctrl-space d i": "debugger::StepInto",
+      "ctrl-space d r": "debugger::StepOut",
+      "ctrl-space d n": "debugger::StepOver",
+      "ctrl-space d t": "debugger::Stop",
+      "ctrl-space d l": "editor::EditLogBreakpoint",
+    },
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "h": "project_panel::CollapseSelectedEntry",
+      "l": "project_panel::ExpandSelectedEntry",
+      "shift-h": "project_panel::CollapseAllEntries",
+      "shift-l": "project_panel::ExpandAllEntries",
+
+      "z a": "project_panel::CollapseSelectedEntry",
+      "z c": "project_panel::ExpandSelectedEntry",
+      "z shift-a": "project_panel::CollapseAllEntries",
+      "z shift-c": "project_panel::ExpandAllEntries",
+
+      "shift-y": "workspace::CopyPath",
+      "y": "workspace::CopyRelativePath",
+    },
+  },
+  {
+    "context": "AgentPanel",
+    "bindings": {
+      "ctrl-u": "agent::ScrollOutputPageUp",
+      "ctrl-d": "agent::ScrollOutputPageDown",
+      "ctrl-shift-u": "agent::ScrollOutputToPreviousMessage",
+      "ctrl-shift-d": "agent::ScrollOutputToNextMessage",
+    },
+  },
+]

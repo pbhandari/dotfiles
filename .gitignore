@@ -2,6 +2,11 @@ _config/*
 !_config/wezterm
 !_config/nvim
 
+# Hacky way to ignore only *.json files in my ~/.config/zed
+!_config/zed
+_config/zed/*
+!_config/zed/*.json
+
 _vim/backups
 _vim/backups.nvim
 _vim/backups.vim
