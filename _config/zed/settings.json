@@ -7,15 +7,27 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "auto_update": false,
+  "edit_predictions": {
+    "open_ai_compatible_api": {
+      "model": "",
+    },
+  },
+  "agent_servers": {
+    "pi-acp": {
+      "type": "registry",
+    },
+  },
   "agent": {
+    "terminal_init_command": "",
     "sidebar_side": "right",
     "dock": "right",
     "flexible": false,
     "favorite_models": [],
-    "model_parameters": []
+    "model_parameters": [],
   },
   "tab_bar": {
-    "show": false
+    "show": true,
   },
   "icon_theme": "Catppuccin Frappé",
   "terminal": {
@@ -24,6 +36,7 @@
     "option_as_meta": true,
     "copy_on_select": true,
     "max_scroll_history_lines": 100000,
+    "line_height": "standard",
   },
   "project_panel": {
     "hide_gitignore": true,
@@ -79,5 +92,8 @@
     "Python": {
       "language_servers": ["basedpyright"],
     },
+  },
+  "inlay_hints": {
+    "show_value_hints": false,
   },
 }
