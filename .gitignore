@@ -7,6 +7,13 @@ _config/*
 _config/zed/*
 !_config/zed/*.json
 
+_pi/*
+!_pi/agent/
+_pi/agent/*
+!_pi/agent/settings.json
+!_pi/agent/keybindings.json
+!_pi/agent/models.json
+
 _vim/backups
 _vim/backups.nvim
 _vim/backups.vim

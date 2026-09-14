@@ -1,0 +1,22 @@
+{
+  "lastChangelogVersion": "0.84.1",
+  "theme": "light/dark",
+  "defaultProvider": "openrouter",
+  "defaultModel": "anthropic/claude-opus-4",
+  "packages": [
+    "npm:pi-mcp-adapter",
+    "npm:pi-web-access",
+    "npm:pi-terminal-theme",
+    "git:github.com/obra/superpowers",
+    "git:github.com/DietrichGebert/ponytail"
+  ],
+  "enabledModels": [
+    "openrouter/x-ai/grok-4.6",
+    "openrouter/anthropic/claude-opus-4.8",
+    "openrouter/anthropic/claude-opus-4.7",
+    "openrouter/anthropic/claude-opus-5",
+    "openrouter/thinkingmachines/inkling",
+    "openrouter/thinkingmachines/inkling-small"
+  ],
+  "defaultThinkingLevel": "medium"
+}
